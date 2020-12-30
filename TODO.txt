@@ -1,3 +1,8 @@
+* OK we can detect Boost:
+  * Now set up a unit test suite
+    * Do we call that subdirectory "test" or "unittests"? Well, who gives.
+    * Do we use the library version or the header only version of boost test?
+      * Leaning towards header only, because we then don't need a ton of boost libraries for all sorts of targets we're testing for
 * Set up argument parsing:
   * For starters we need one input file
   * An optional output file (-o)
