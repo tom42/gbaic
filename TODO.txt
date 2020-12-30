@@ -6,5 +6,4 @@
   * Set up testing
     * Here we must make sure that argp tests are not enabled
 * Set up gbaic CMakeLists.txt and main.cpp
-  * Set up source groups
   * Use either native or own argp

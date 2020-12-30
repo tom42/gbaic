@@ -25,4 +25,6 @@ set(
   SOURCES
   main.cpp)
 
+source_group(TREE "${PROJECT_SOURCE_DIR}" FILES ${SOURCES})
+
 add_executable(gbaic ${SOURCES})
