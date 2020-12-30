@@ -25,6 +25,9 @@
 #include <iostream>
 #include <stdexcept>
 
+// TODO: this is only here for testing
+#include <argp.h>
+
 int main(int argc, char* argv[])
 {
     try
