@@ -1,0 +1,10 @@
+* Set up top level CMakeLists.txt
+  * Probe for argp-standalone
+  * Build gbaic main.cpp, use native or own argp-standalone
+  * Go through example CMakeLists.txt and add stuff as needed
+    * What about global compiler options? If we set them in the top level file, does argp-standalone inherit them???
+  * Set up testing
+    * Here we must make sure that argp tests are not enabled
+* Set up gbaic CMakeLists.txt and main.cpp
+  * Set up source groups
+  * Use either native or own argp
