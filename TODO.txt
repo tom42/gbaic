@@ -1,9 +1,11 @@
+* Set up argument parsing:
+  * For starters we need one input file
+  * An optional output file (-o)
+    * If the output file is not given, default to input file with the extension replaced by .gba
+  * This might be a good point to start setting up tests
 * Set up top level CMakeLists.txt
-  * Probe for argp-standalone
-  * Build gbaic main.cpp, use native or own argp-standalone
   * Go through example CMakeLists.txt and add stuff as needed
     * What about global compiler options? If we set them in the top level file, does argp-standalone inherit them???
+      * Just have to do this after going into the subdirectory. Or one level deeper
   * Set up testing
     * Here we must make sure that argp tests are not enabled
-* Set up gbaic CMakeLists.txt and main.cpp
-  * Use either native or own argp
