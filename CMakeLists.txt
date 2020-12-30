@@ -24,4 +24,15 @@
 cmake_minimum_required(VERSION 3.17.3)
 project(gbaic VERSION 0.1.0 LANGUAGES CXX)
 
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+  set(IS_MAIN_PROJECT TRUE)
+else()
+  set(IS_MAIN_PROJECT FALSE)
+endif()
+
+if(IS_MAIN_PROJECT)
+  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+  include(CTest)
+endif()
+
 add_subdirectory(gbaic)
