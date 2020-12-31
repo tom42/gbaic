@@ -41,13 +41,25 @@ static const char doc[] = "This program compresses stuff";
 // TODO: arguments documentation. This string is just printed, it has no meaning for argp (e.g. # of arguments)
 static const char args_doc[] = "<FILE>";
 
-// TODO: pass this. This has only an effect with a parse function, apparently.
+// TODO: pass this. This has only an effect with a parse function, apparently. And fix the broken english, please.
 static const struct argp_option options[] =
 {
-    { "output", 'o', "FILE", 0 }
+    { "output", 'o', "FILE", 0, "Output file, default is input file with the extension replaced by .gba" },
+    { 0 }
 };
 
-static struct argp argp = { nullptr, nullptr, args_doc, doc };
+static error_t parse_opt(int key, char* arg, struct argp_state* state)
+{
+    switch (key)
+    {
+        case 'o':
+            return 0;
+        default:
+            return ARGP_ERR_UNKNOWN;
+    }
+}
+
+static struct argp argp = { options, parse_opt, args_doc, doc };
 
 static void parse_command_line(int argc, char *argv[])
 {
