@@ -28,11 +28,44 @@
 // TODO: this is only here for testing
 #include <argp.h>
 
-int main(int argc, char* argv[])
+// TODO: defining this gives us the --version switch. We'll want to have that
+const char *argp_program_version = "gbaic 0.0.1";
+
+// TODO: this gives us the "report bugs to" blurb. Thing is, I'd rather have this as issues on github,
+//       but that requires some hacking since argp insists in printing "Report bugs to <argp_program_bug_address>"
+const char *argp_program_bug_address = "/dev/null";
+
+// TODO: this gives us the program documentation. We might get away without, no?
+static const char doc[] = "This program compresses stuff";
+
+// TODO: arguments documentation. This string is just printed, it has no meaning for argp (e.g. # of arguments)
+static const char args_doc[] = "<FILE>";
+
+// TODO: pass this. This has only an effect with a parse function, apparently.
+static const struct argp_option options[] =
+{
+    { "output", 'o', "FILE", 0 }
+};
+
+static struct argp argp = { nullptr, nullptr, args_doc, doc };
+
+static void parse_command_line(int argc, char *argv[])
+{
+    // TODO: test code
+    auto result = argp_parse(&argp, argc, argv, ARGP_NO_EXIT, nullptr, nullptr);
+    std::cout << "argp parse returned " << result;
+    if (result)
+    {
+        std::cout << " (" << strerror(result) << ")";
+    }
+    std::cout << std::endl;
+}
+
+int main(int argc, char *argv[])
 {
     try
     {
-        throw std::runtime_error("YIKES");
+        parse_command_line(argc, argv);
         return EXIT_SUCCESS;
     }
     catch (const std::exception& e)
