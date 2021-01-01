@@ -20,3 +20,13 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+set(
+  SOURCES
+  main.cpp)
+
+source_group(TREE "${PROJECT_SOURCE_DIR}" FILES ${SOURCES})
+
+add_executable(gbaic-unittest ${SOURCES})
+
+target_include_directories(gbaic-unittest PRIVATE ${Boost_INCLUDE_DIRS})

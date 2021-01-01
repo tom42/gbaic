@@ -61,7 +61,7 @@ endif()
 add_subdirectory(gbaic)
 
 if(Boost_FOUND)
-  add_subdirectory(test)
+  add_subdirectory(unittest)
 else()
   message(STATUS "Boost Unit Test Framework not found. Unit tests will not be built.")
 endif()
