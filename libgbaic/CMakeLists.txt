@@ -33,5 +33,5 @@ add_library(libgbaic ${SOURCES})
 target_include_directories(libgbaic PUBLIC include)
 
 if(NOT HAVE_ARGP)
-  target_link_libraries(libgbaic PUBLIC argp-standalone)
+  target_link_libraries(libgbaic PRIVATE argp-standalone)
 endif()
