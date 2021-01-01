@@ -1,3 +1,8 @@
+* Time to raise the warning level:
+  * MSVC: /W3+treat warnings as errors. If possible, use /W4
+  * gcc/clang: -Wall -Werror + what? -Wextra? -Wpedantic?
+  * DO NOT modify settings for argp
+  * We then need to fix our unit test, because broken it is.
 * Set up argument parsing:
   * For starters we need one input file
   * An optional output file (-o)
