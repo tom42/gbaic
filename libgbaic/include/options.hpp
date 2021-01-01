@@ -29,6 +29,8 @@ namespace libgbaic
 
 class options
 {
+public:
+    options(int argc, char* argv[]);
 };
 
 }

@@ -25,6 +25,8 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "options.hpp"
+
 #if 0
 // TODO: this is only here for testing
 #include <argp.h>
@@ -79,6 +81,8 @@ int main(int argc, char *argv[])
 {
     try
     {
+        libgbaic::options options(argc, argv);
+        // TODO: exit failure of options is no good.
         return EXIT_SUCCESS;
     }
     catch (const std::exception& e)
