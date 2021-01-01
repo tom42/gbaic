@@ -29,11 +29,6 @@
 
 #if 0
 
-
-// TODO: this gives us the "report bugs to" blurb. Thing is, I'd rather have this as issues on github,
-//       but that requires some hacking since argp insists in printing "Report bugs to <argp_program_bug_address>"
-const char *argp_program_bug_address = "/dev/null";
-
 // TODO: this gives us the program documentation. We might get away without, no?
 static const char doc[] = "This program compresses stuff";
 

@@ -25,7 +25,11 @@
 #include "options.hpp"
 #include "version.hpp"
 
-extern "C" const char* argp_program_version = PROJECT_NAME " " PROJECT_VERSION;
+extern "C"
+{
+    const char* argp_program_version = PROJECT_NAME " " PROJECT_VERSION;
+    const char* argp_program_bug_address = "https://github.com/tom42/gbaic/issues";
+}
 
 namespace libgbaic
 {
