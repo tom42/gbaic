@@ -27,4 +27,8 @@
 namespace libgbaic
 {
 
+options::options(int argc, char* argv[])
+{
+}
+
 }
