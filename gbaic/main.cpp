@@ -25,6 +25,8 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "options.hpp"
+
 // TODO: this is only here for testing
 #include <argp.h>
 

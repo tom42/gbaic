@@ -23,7 +23,8 @@
 
 set(
   SOURCES
-  main.cpp)
+  main.cpp
+  options.hpp)
 
 source_group(TREE "${PROJECT_SOURCE_DIR}" FILES ${SOURCES})
 
