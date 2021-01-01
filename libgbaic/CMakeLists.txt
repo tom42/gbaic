@@ -23,12 +23,15 @@
 
 set(
   SOURCES
-  main.cpp)
+  include/options.hpp
+  src/options.cpp)
 
-source_group(TREE "${PROJECT_SOURCE_DIR}" FILES ${SOURCES})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
-add_executable(gbaic ${SOURCES})
+add_library(libgbaic ${SOURCES})
+
+target_include_directories(libgbaic PUBLIC include)
 
 if(NOT HAVE_ARGP)
-  target_link_libraries(gbaic PUBLIC argp-standalone)
+  target_link_libraries(libgbaic PUBLIC argp-standalone)
 endif()

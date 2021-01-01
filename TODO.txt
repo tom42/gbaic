@@ -1,3 +1,9 @@
+* Rename gbaic-unittest to libgbaic-unittest
+  * set up the first unit test
+* Who needs to link to argp?
+  * libgbaic?
+  * gbaic?
+  * libgbaic-unittest?
 * Set up argument parsing:
   * For starters we need one input file
   * An optional output file (-o)

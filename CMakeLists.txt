@@ -58,6 +58,7 @@ if(NOT HAVE_ARGP)
   add_subdirectory(argp-standalone)
 endif()
 
+add_subdirectory(libgbaic)
 add_subdirectory(gbaic)
 
 if(Boost_FOUND)
