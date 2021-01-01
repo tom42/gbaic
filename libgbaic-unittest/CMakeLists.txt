@@ -32,3 +32,5 @@ add_executable(libgbaic-unittest ${SOURCES})
 
 target_include_directories(libgbaic-unittest PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(libgbaic-unittest PRIVATE libgbaic)
+
+add_test(NAME libgbaic-unittest COMMAND libgbaic-unittest)
