@@ -58,6 +58,14 @@ if(NOT HAVE_ARGP)
   add_subdirectory(argp-standalone)
 endif()
 
+# Raise warning level, but only for gbaic's own code,
+# not 3rd party modules (e.g. argp-standalone).
+if(MSVC)
+  add_compile_options(/W4 /WX)
+else()
+  add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
+
 add_subdirectory(libgbaic)
 add_subdirectory(gbaic)
 
