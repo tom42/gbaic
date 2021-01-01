@@ -31,6 +31,8 @@ class options
 {
 public:
     options(int argc, char* argv[]);
+
+    bool valid() const { return false; }
 };
 
 }

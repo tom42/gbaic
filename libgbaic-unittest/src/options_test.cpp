@@ -24,4 +24,19 @@
 #include <boost/test/unit_test.hpp>
 #include "options.hpp"
 
-BOOST_AUTO_TEST_CASE(test_the_test) {}
+namespace libgbaic_unittest
+{
+
+BOOST_AUTO_TEST_SUITE(options_test)
+
+BOOST_AUTO_TEST_CASE(empty_command_line)
+{
+    char* command_line[] { "program_name" };
+    libgbaic::options options(1, command_line);
+
+    BOOST_TEST(!options.valid());
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+}

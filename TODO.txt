@@ -1,8 +1,3 @@
-* Set up first proper unit test
-* Remove bogus unit test
-* Who needs to link to argp?
-  * gbaic?
-  * libgbaic-unittest?
 * Set up argument parsing:
   * For starters we need one input file
   * An optional output file (-o)
