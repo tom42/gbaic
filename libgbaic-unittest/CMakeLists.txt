@@ -23,10 +23,11 @@
 
 set(
   SOURCES
-  main.cpp)
+  src/main.cpp
+  src/options_test.cpp)
 
-source_group(TREE "${PROJECT_SOURCE_DIR}" FILES ${SOURCES})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
-add_executable(gbaic-unittest ${SOURCES})
+add_executable(libgbaic-unittest ${SOURCES})
 
-target_include_directories(gbaic-unittest PRIVATE ${Boost_INCLUDE_DIRS})
+target_include_directories(libgbaic-unittest PRIVATE ${Boost_INCLUDE_DIRS})

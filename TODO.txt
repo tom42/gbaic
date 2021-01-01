@@ -1,5 +1,6 @@
-* Rename gbaic-unittest to libgbaic-unittest
-  * set up the first unit test
+* Standardize directory structure of gbaic project
+* Set up first proper unit test
+* Remove bogus unit test
 * Who needs to link to argp?
   * libgbaic?
   * gbaic?
