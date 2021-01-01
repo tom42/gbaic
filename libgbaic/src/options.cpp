@@ -29,6 +29,7 @@ namespace libgbaic
 
 options::options(int argc, char* argv[])
 {
+    argp_parse(nullptr, argc, argv, 0, nullptr, nullptr);
 }
 
 }
