@@ -1,8 +1,6 @@
-* Standardize directory structure of gbaic project
 * Set up first proper unit test
 * Remove bogus unit test
 * Who needs to link to argp?
-  * libgbaic?
   * gbaic?
   * libgbaic-unittest?
 * Set up argument parsing:

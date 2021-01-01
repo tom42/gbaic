@@ -23,9 +23,9 @@
 
 set(
   SOURCES
-  main.cpp)
+  src/main.cpp)
 
-source_group(TREE "${PROJECT_SOURCE_DIR}" FILES ${SOURCES})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
 add_executable(gbaic ${SOURCES})
 
