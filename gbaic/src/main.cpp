@@ -28,11 +28,7 @@
 #include "options.hpp"
 
 #if 0
-// TODO: this is only here for testing
-#include <argp.h>
 
-// TODO: defining this gives us the --version switch. We'll want to have that
-const char *argp_program_version = "gbaic 0.0.1";
 
 // TODO: this gives us the "report bugs to" blurb. Thing is, I'd rather have this as issues on github,
 //       but that requires some hacking since argp insists in printing "Report bugs to <argp_program_bug_address>"

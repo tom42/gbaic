@@ -21,6 +21,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+configure_file(version.hpp.in version.hpp)
+
 set(
   SOURCES
   include/options.hpp
@@ -30,7 +32,12 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
 add_library(libgbaic ${SOURCES})
 
-target_include_directories(libgbaic PUBLIC include)
+target_include_directories(
+  libgbaic
+  PRIVATE
+  "${CMAKE_CURRENT_BINARY_DIR}"
+  PUBLIC
+  include)
 
 if(NOT HAVE_ARGP)
   target_link_libraries(libgbaic PRIVATE argp-standalone)

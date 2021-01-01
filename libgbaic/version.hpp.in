@@ -21,18 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "argp.h"
-#include "options.hpp"
-#include "version.hpp"
+#ifndef LIBGBAIC_VERSION_HPP_INCLUDED
+#define LIBGBAIC_VERSION_HPP_INCLUDED
 
-extern "C" const char* argp_program_version = PROJECT_NAME " " PROJECT_VERSION;
+#define PROJECT_NAME "@PROJECT_NAME@"
 
-namespace libgbaic
-{
+#define PROJECT_VERSION "@PROJECT_VERSION@"
 
-options::options(int argc, char* argv[])
-{
-    argp_parse(nullptr, argc, argv, 0, nullptr, nullptr);
-}
-
-}
+#endif
