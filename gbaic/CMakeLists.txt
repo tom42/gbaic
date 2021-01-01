@@ -29,6 +29,4 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
 add_executable(gbaic ${SOURCES})
 
-if(NOT HAVE_ARGP)
-  target_link_libraries(gbaic PUBLIC argp-standalone)
-endif()
+target_link_libraries(gbaic PRIVATE libgbaic)

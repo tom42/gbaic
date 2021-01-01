@@ -25,6 +25,7 @@
 #include <iostream>
 #include <stdexcept>
 
+#if 0
 // TODO: this is only here for testing
 #include <argp.h>
 
@@ -72,12 +73,12 @@ static void parse_command_line(int argc, char *argv[])
     }
     std::cout << std::endl;
 }
+#endif
 
 int main(int argc, char *argv[])
 {
     try
     {
-        parse_command_line(argc, argv);
         return EXIT_SUCCESS;
     }
     catch (const std::exception& e)
