@@ -31,3 +31,4 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 add_executable(libgbaic-unittest ${SOURCES})
 
 target_include_directories(libgbaic-unittest PRIVATE ${Boost_INCLUDE_DIRS})
+target_link_libraries(libgbaic-unittest PRIVATE libgbaic)
