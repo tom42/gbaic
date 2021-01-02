@@ -29,13 +29,6 @@
 
 #if 0
 
-// TODO: pass this. This has only an effect with a parse function, apparently. And fix the broken english, please.
-static const struct argp_option options[] =
-{
-    { "output", 'o', "FILE", 0, "Output file, default is input file with the extension replaced by .gba" },
-    { 0 }
-};
-
 static error_t parse_opt(int key, char* arg, struct argp_state* state)
 {
     switch (key)

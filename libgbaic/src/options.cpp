@@ -36,9 +36,14 @@ namespace libgbaic
 
 options::options(int argc, char* argv[])
 {
+    static const struct argp_option options[] =
+    {
+        { "output", 'o', "OUTPUT FILE", 0, "Specify output filename. The default output filename is the name of the input file with the extension replaced by .gba", 0 },
+        { 0, 0, 0, 0, 0, 0 }
+    };
     static const char doc[] = PROJECT_NAME " - Gameboy Advance Intro Cruncher";
     static const char args_doc[] = "<INPUT FILE>";
-    static const struct argp argp = { nullptr, nullptr, args_doc, doc, nullptr, nullptr, nullptr };
+    static const struct argp argp = { options, nullptr, args_doc, doc, nullptr, nullptr, nullptr };
 
     argp_parse(&argp, argc, argv, 0, nullptr, this);
 }
