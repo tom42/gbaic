@@ -24,6 +24,8 @@
 #ifndef LIBGBAIC_OPTIONS_HPP_INCLUDED
 #define LIBGBAIC_OPTIONS_HPP_INCLUDED
 
+#include <string>
+
 namespace libgbaic
 {
 
@@ -32,7 +34,12 @@ class options
 public:
     options(int argc, char* argv[]);
 
-    bool valid() const { return false; }
+    const std::string& get_input_file() const { return input_file; }
+
+    bool is_valid() const { return false; }
+
+private:
+    std::string input_file;
 };
 
 }

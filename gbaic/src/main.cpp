@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
     try
     {
         libgbaic::options options(argc, argv);
-        if (!options.valid())
+        if (!options.is_valid())
         {
             return EXIT_FAILURE;
         }
