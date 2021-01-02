@@ -40,5 +40,5 @@ target_include_directories(
   include)
 
 if(NOT HAVE_ARGP)
-  target_link_libraries(libgbaic PRIVATE argp-standalone)
+  target_link_libraries(libgbaic PUBLIC argp-standalone)
 endif()
