@@ -29,9 +29,6 @@
 
 #if 0
 
-// TODO: arguments documentation. This string is just printed, it has no meaning for argp (e.g. # of arguments)
-static const char args_doc[] = "<FILE>";
-
 // TODO: pass this. This has only an effect with a parse function, apparently. And fix the broken english, please.
 static const struct argp_option options[] =
 {
