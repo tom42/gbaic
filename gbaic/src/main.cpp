@@ -69,6 +69,7 @@ int main(int argc, char* argv[])
         libgbaic::options options(argc, argv);
         if (!options.is_valid())
         {
+            // TODO: should we return argp_err_exit_status here?
             return EXIT_FAILURE;
         }
 
