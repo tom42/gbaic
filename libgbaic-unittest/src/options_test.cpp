@@ -21,20 +21,54 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <boost/algorithm/string.hpp>
+#include <boost/numeric/conversion/cast.hpp>
 #include <boost/test/unit_test.hpp>
+#include <string>
+#include <vector>
 #include "options.hpp"
 
 namespace libgbaic_unittest
 {
 
+using libgbaic::options;
+using std::vector;
+using std::string;
+
+static vector<char> to_vector(const string& s)
+{
+    return vector<char>(s.c_str(), s.c_str() + s.size() + 1);
+}
+
+static options parse_options(const char* command_line)
+{
+    // Split string at whitespace
+    vector<string> strings;
+    boost::split(strings, command_line, boost::is_any_of(" "));
+
+    // Convert strings to vector<char>
+    vector<vector<char>> vectors;
+    for (const auto& s : strings)
+    {
+        vectors.push_back(to_vector(s));
+    }
+
+    // Put together an argv array.
+    vector<char*> argv;
+    for (auto& v : vectors)
+    {
+        argv.push_back(v.data());
+    }
+
+    return options(boost::numeric_cast<int>(argv.size()), argv.data());
+}
+
 BOOST_AUTO_TEST_SUITE(options_test)
 
 BOOST_AUTO_TEST_CASE(empty_command_line)
 {
-    char* command_line[] { "program_name" };
-    libgbaic::options options(1, command_line);
-
-    BOOST_TEST(!options.valid());
+    auto options = parse_options("program_name");
+    BOOST_CHECK(!options.valid());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
