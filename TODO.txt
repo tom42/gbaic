@@ -1,3 +1,6 @@
+* Forget about wanting to unit test option parsing:
+  * argp is not really testable, what with it wanting to unit test all the time
+  * Just write that option parsing without unit tests and be done with it. it's not that hard.
 * Set up argument parsing:
   * For starters we need one input file
   * An optional output file (-o)
