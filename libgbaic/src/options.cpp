@@ -36,7 +36,10 @@ namespace libgbaic
 
 options::options(int argc, char* argv[])
 {
-    argp_parse(nullptr, argc, argv, 0, nullptr, nullptr);
+    static const char doc[] = PROJECT_NAME " - Gameboy Advance Intro Cruncher";
+    static const struct argp argp = { nullptr, nullptr, nullptr, doc, nullptr, nullptr, nullptr };
+
+    argp_parse(&argp, argc, argv, 0, nullptr, this);
 }
 
 }

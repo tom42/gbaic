@@ -9,3 +9,4 @@
       * Just have to do this after going into the subdirectory. Or one level deeper
   * Set up testing
     * Here we must make sure that argp tests are not enabled
+* gbaic --help: Add copyright messages? (myself, shrinkler author(s))

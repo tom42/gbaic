@@ -29,9 +29,6 @@
 
 #if 0
 
-// TODO: this gives us the program documentation. We might get away without, no?
-static const char doc[] = "This program compresses stuff";
-
 // TODO: arguments documentation. This string is just printed, it has no meaning for argp (e.g. # of arguments)
 static const char args_doc[] = "<FILE>";
 
