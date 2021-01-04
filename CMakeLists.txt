@@ -53,6 +53,8 @@ endif()
 # Subdirectories
 ################################################################################
 
+add_subdirectory(3rdparty)
+
 # Raise warning level, but only for gbaic's own code, not 3rd party modules.
 if(MSVC)
   add_compile_options(/W4 /WX)

@@ -24,8 +24,6 @@
 #ifndef LIBGBAIC_OPTIONS_HPP_INCLUDED
 #define LIBGBAIC_OPTIONS_HPP_INCLUDED
 
-#include <string>
-
 namespace libgbaic
 {
 

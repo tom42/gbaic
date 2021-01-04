@@ -21,22 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-configure_file(version.hpp.in version.hpp)
-
-set(
-  SOURCES
-  include/options.hpp
-  src/options.cpp)
-
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
-
-add_library(libgbaic ${SOURCES})
-
-target_include_directories(
-  libgbaic
-  PRIVATE
-  "${CMAKE_CURRENT_BINARY_DIR}"
-  PUBLIC
-  include)
-
-target_link_libraries(libgbaic PRIVATE cxxopts)
+set(CXXOPTS_BUILD_EXAMPLES OFF CACHE BOOL "Set to ON to build examples" FORCE)
+set(CXXOPTS_BUILD_TESTS OFF CACHE BOOL "Set to ON to build tests" FORCE)
+set(CXXOPTS_ENABLE_INSTALL OFF CACHE BOOL "Generate the install target" FORCE)
+add_subdirectory(cxxopts)

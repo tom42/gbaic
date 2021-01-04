@@ -21,6 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "cxxopts.hpp"
+
 // TODO: redo stuff below using cxxopts
 #if 0
 #include "argp.h"
