@@ -30,11 +30,17 @@ int main(int argc, char* argv[])
 {
     try
     {
-        // TODO: there are a number of possible outcomes:
-        //       * Error parsing options (syntactic or semantic). This should throw and we should print the error and exit(EXIT_FAILURE)
-        //       * --version, --help or --usage (do we have this?) option seen: exit(EXIT_SUCCESS)
-        //       * All is good: process the input file
         auto options = libgbaic::parse_options(argc, argv);
+        if (options.should_exit())
+        {
+            return EXIT_SUCCESS;
+        }
+
+        // TODO: process stuff
+        //       * Load input file (bin or elf)
+        //       * Compress it (shrinkler or LZSS+Huffman)
+        //       * Write output file (should automatically determine which one is the smallest)
+
         return EXIT_SUCCESS;
     }
     catch (const std::exception& e)

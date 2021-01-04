@@ -36,6 +36,8 @@ public:
 
     bool should_exit() const { return m_should_exit; }
 
+    void should_exit(bool should_exit) { m_should_exit = should_exit; }
+
     const std::string& input_file() const { return m_input_file; }
 
     void input_file(const std::string& input_file) { m_input_file = input_file; }

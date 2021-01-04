@@ -58,25 +58,29 @@ options parse_options(int argc, char* argv[])
     options.add_options()
         ("h,help", "Print this help")
         ("V,version", "Print program version");
-
     options.add_options("hidden")
         ("input-file", "Input file", cxxopts::value<vector<string>>());
-
     options.parse_positional({ "input-file" });
-
     options.positional_help("<input file>");
 
     auto result = options.parse(argc, argv);
 
-    // TODO: verify options
+    libgbaic::options opts;
 
-    // TODO: print help, version, etc (only one, I'd say? or all of them?)
     if (result.count("help"))
     {
         std::cout << options.help({ "" }) << std::endl;
+        opts.should_exit(true);
+        return opts;
     }
 
-    libgbaic::options opts;
+    if (result.count("version"))
+    {
+        std::cout << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
+        opts.should_exit(true);
+        return opts;
+    }
+
     opts.input_file(get_input_file(result));
     return opts;
 }

@@ -88,7 +88,20 @@ BOOST_AUTO_TEST_CASE(more_than_one_input_file)
 BOOST_AUTO_TEST_CASE(one_input_file)
 {
     auto options = parse_options("file1");
+    BOOST_CHECK_EQUAL(false, options.should_exit());
     BOOST_CHECK_EQUAL("file1", options.input_file());
+}
+
+BOOST_AUTO_TEST_CASE(help_option)
+{
+    auto options = parse_options("--help");
+    BOOST_CHECK_EQUAL(true, options.should_exit());
+}
+
+BOOST_AUTO_TEST_CASE(version_option)
+{
+    auto options = parse_options("--version");
+    BOOST_CHECK_EQUAL(true, options.should_exit());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
