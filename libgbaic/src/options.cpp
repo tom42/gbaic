@@ -24,6 +24,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <type_traits>
 #include <vector>
 #include "cxxopts.hpp"
 #include "options.hpp"
@@ -32,7 +33,22 @@
 namespace libgbaic
 {
 
-const options parse_options(int argc, char* argv[])
+static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
+
+const std::string& get_input_file(const cxxopts::ParseResult& parse_result)
+{
+    switch (parse_result.count("input-file"))
+    {
+        case 0:
+            throw std::runtime_error("No input file given");
+        case 1:
+            return parse_result["input-file"].as<std::vector<std::string>>().front();
+        default:
+            throw std::runtime_error("More than one input file given");
+    }
+}
+
+options parse_options(int argc, char* argv[])
 {
     cxxopts::Options options(PROJECT_NAME, "Gameboy Advance Intro Cruncher");
 
@@ -55,28 +71,9 @@ const options parse_options(int argc, char* argv[])
         std::cout << options.help({ "" }) << std::endl;
     }
 
-    switch (result.count("input-file"))
-    {
-        case 0:
-            throw std::runtime_error("No input file given");
-        case 1:
-            break;
-        default:
-            throw std::runtime_error("More than one input file given");
-    }
-
-    // TODO: test code: dump positional args
-    if (result.count("input-file"))
-    {
-        std::cout << "Positional = {";
-        auto& v = result["input-file"].as<std::vector<std::string>>();
-        for (const auto& s : v) {
-            std::cout << s << ", ";
-        }
-        std::cout << "}" << std::endl;
-    }
-
-    throw std::runtime_error("yikes");
+    libgbaic::options opts;
+    opts.input_file = get_input_file(result);
+    return opts;
 }
 
 }

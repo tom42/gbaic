@@ -42,7 +42,7 @@ static vector<char> to_vector(const string& s)
     return vector<char>(s.c_str(), s.c_str() + s.size() + 1);
 }
 
-static void parse_options(const char* command_line)
+static options parse_options(const char* command_line)
 {
     // Split string into individual arguments and convert them to vector<char>
     vector<vector<char>> vectors;
@@ -64,7 +64,7 @@ static void parse_options(const char* command_line)
         argv.push_back(v.data());
     }
 
-    libgbaic::parse_options(boost::numeric_cast<int>(argv.size()), argv.data());
+    return libgbaic::parse_options(boost::numeric_cast<int>(argv.size()), argv.data());
 }
 
 BOOST_AUTO_TEST_SUITE(parse_options_test)
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE(empty_command_line)
     BOOST_CHECK_EXCEPTION(
         parse_options(""),
         runtime_error,
-        [](const auto& e) { BOOST_REQUIRE_EQUAL(e.what(), "No input file given"); return true; });
+        [](const auto& e) { BOOST_CHECK_EQUAL("No input file given", e.what()); return true; });
 }
 
 BOOST_AUTO_TEST_CASE(more_than_one_input_file)
@@ -82,7 +82,13 @@ BOOST_AUTO_TEST_CASE(more_than_one_input_file)
     BOOST_CHECK_EXCEPTION(
         parse_options("file1 file2"),
         runtime_error,
-        [](const auto& e) { BOOST_REQUIRE_EQUAL(e.what(), "More than one input file given"); return true; });
+        [](const auto& e) { BOOST_CHECK_EQUAL("More than one input file given", e.what()); return true; });
+}
+
+BOOST_AUTO_TEST_CASE(one_input_file)
+{
+    auto options = parse_options("file1");
+    BOOST_CHECK_EQUAL("file1", options.input_file);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
