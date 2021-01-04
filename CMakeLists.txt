@@ -47,19 +47,13 @@ if(Boost_FOUND)
   message(STATUS "Boost include directories: ${Boost_INCLUDE_DIRS}")
   message(STATUS "Boost library directories: ${Boost_LIBRARY_DIRS}")
 endif()
-check_symbol_exists(argp_parse argp.h HAVE_ARGP)
 
 
 ################################################################################
 # Subdirectories
 ################################################################################
 
-if(NOT HAVE_ARGP)
-  add_subdirectory(argp-standalone)
-endif()
-
-# Raise warning level, but only for gbaic's own code,
-# not 3rd party modules (e.g. argp-standalone).
+# Raise warning level, but only for gbaic's own code, not 3rd party modules.
 if(MSVC)
   add_compile_options(/W4 /WX)
 else()

@@ -55,17 +55,11 @@ static void parse_command_line(int argc, char *argv[])
 }
 #endif
 
-int main(int argc, char* argv[])
+int main(int, char* argv[])
 {
     try
     {
-        libgbaic::options options(argc, argv);
-        if (!options.is_valid())
-        {
-            // TODO: should we return argp_err_exit_status here?
-            return EXIT_FAILURE;
-        }
-
+        // TODO: parse options and EXIT_FAILURE if failed for some reason (nah...throw)
         return EXIT_SUCCESS;
     }
     catch (const std::exception& e)

@@ -31,15 +31,6 @@ namespace libgbaic
 
 class options
 {
-public:
-    options(int argc, char* argv[]);
-
-    const std::string& get_input_file() const { return input_file; }
-
-    bool is_valid() const { return false; }
-
-private:
-    std::string input_file;
 };
 
 }

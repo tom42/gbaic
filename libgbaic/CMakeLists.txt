@@ -38,7 +38,3 @@ target_include_directories(
   "${CMAKE_CURRENT_BINARY_DIR}"
   PUBLIC
   include)
-
-if(NOT HAVE_ARGP)
-  target_link_libraries(libgbaic PUBLIC argp-standalone)
-endif()

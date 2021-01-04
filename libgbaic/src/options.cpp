@@ -21,6 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// TODO: redo stuff below using cxxopts
+#if 0
 #include "argp.h"
 #include "options.hpp"
 #include "version.hpp"
@@ -49,3 +51,4 @@ options::options(int argc, char* argv[])
 }
 
 }
+#endif
