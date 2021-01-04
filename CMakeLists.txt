@@ -1,6 +1,6 @@
 # MIT License
 #
-# gbaic - Gameboy Advance Intro Cruncher
+# gbaic: Gameboy Advance Intro Cruncher
 # Copyright (c) 2020 Thomas Mathys
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
