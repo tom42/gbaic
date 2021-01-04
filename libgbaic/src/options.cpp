@@ -38,11 +38,7 @@ const options parse_options(int argc, char* argv[])
 
     options.add_options()
         ("h,help", "Print this help")
-        ("V,version", "Print program version")
-        // TODO: test thingies, remove
-        ("i,int", "Specify an int", cxxopts::value<int>())
-        ("b,bool", "Specify a bool", cxxopts::value<bool>())
-        ("c,cool", "Specify a cool");
+        ("V,version", "Print program version");
 
     options.add_options("hidden")
         ("input-file", "Input file", cxxopts::value<std::vector<std::string>>());
