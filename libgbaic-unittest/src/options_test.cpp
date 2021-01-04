@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_SUITE(options_test)
 BOOST_AUTO_TEST_CASE(empty_command_line)
 {
     BOOST_REQUIRE_EXCEPTION(
-        parse_options("a b c"),
+        parse_options(""),
         runtime_error,
         [](const auto& e) { BOOST_REQUIRE_EQUAL(e.what(), "No input file given"); return true; });
 }
