@@ -38,7 +38,7 @@ using std::vector;
 
 static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
 
-const string& get_input_file(const cxxopts::ParseResult& parse_result)
+static const string& get_input_file(const cxxopts::ParseResult& parse_result)
 {
     switch (parse_result.count("input-file"))
     {
