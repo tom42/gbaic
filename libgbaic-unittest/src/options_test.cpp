@@ -33,8 +33,9 @@ namespace libgbaic_unittest
 {
 
 using libgbaic::options;
-using std::vector;
+using std::runtime_error;
 using std::string;
+using std::vector;
 
 static vector<char> to_vector(const string& s)
 {
@@ -71,7 +72,7 @@ BOOST_AUTO_TEST_CASE(empty_command_line)
 {
     BOOST_REQUIRE_EXCEPTION(
         parse_options("a b c"),
-        std::runtime_error,
+        runtime_error,
         [](const auto& e) { BOOST_REQUIRE_EQUAL(e.what(), "No input file given"); return true; });
 }
 
