@@ -21,8 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// TODO: redo stuff below
-# if 0
 #include <boost/algorithm/string.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 #include <boost/test/unit_test.hpp>
@@ -42,7 +40,7 @@ static vector<char> to_vector(const string& s)
     return vector<char>(s.c_str(), s.c_str() + s.size() + 1);
 }
 
-static options parse_options(const char* command_line)
+static void parse_options(const char* command_line)
 {
     // Split string at whitespace
     vector<string> strings;
@@ -50,6 +48,7 @@ static options parse_options(const char* command_line)
 
     // Convert strings to vector<char>
     vector<vector<char>> vectors;
+    vectors.push_back(to_vector("program_name"));
     for (const auto& s : strings)
     {
         vectors.push_back(to_vector(s));
@@ -62,10 +61,31 @@ static options parse_options(const char* command_line)
         argv.push_back(v.data());
     }
 
-    return options(boost::numeric_cast<int>(argv.size()), argv.data());
+    libgbaic::parse_options(boost::numeric_cast<int>(argv.size()), argv.data());
 }
 
 BOOST_AUTO_TEST_SUITE(options_test)
+
+BOOST_AUTO_TEST_CASE(empty_command_line)
+{
+    // TODO: expect exception saying "No input file given"
+    parse_options("a b c");
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+}
+
+
+// TODO: redo stuff below
+# if 0
+#include "options.hpp"
+
+static options parse_options(const char* command_line)
+{
+
+    return 
+}
 
 BOOST_AUTO_TEST_CASE(empty_command_line)
 {
@@ -79,8 +99,6 @@ BOOST_AUTO_TEST_CASE(one_argument)
     BOOST_CHECK(options.is_valid());
     BOOST_CHECK(options.get_input_file() == "input_file");
 }
-
-BOOST_AUTO_TEST_SUITE_END()
 
 }
 #endif
