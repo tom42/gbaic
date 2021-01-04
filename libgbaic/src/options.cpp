@@ -21,7 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <iostream>
 #include <stdexcept>
+#include <string>
+#include <vector>
 #include "cxxopts.hpp"
 #include "options.hpp"
 #include "version.hpp"
@@ -33,11 +36,39 @@ const options parse_options(int argc, char* argv[])
 {
     cxxopts::Options options(PROJECT_NAME, "Gameboy Advance Intro Cruncher");
 
+    options.add_options()
+        ("h,help", "Print this help")
+        ("V,version", "Print program version")
+        // TODO: test thingies, remove
+        ("i,int", "Specify an int", cxxopts::value<int>())
+        ("b,bool", "Specify a bool", cxxopts::value<bool>())
+        ("c,cool", "Specify a cool");
+
+    options.add_options("hidden")
+        ("input-file", "Input file", cxxopts::value<std::vector<std::string>>());
+
+    options.parse_positional({ "input-file" });
+
     auto result = options.parse(argc, argv);
 
     // TODO: verify options
 
-    // TODO: print help, version, etc.
+    // TODO: print help, version, etc (only one, I'd say? or all of them?)
+    if (result.count("help"))
+    {
+        std::cout << options.help({ "" }) << std::endl;
+    }
+
+    // TODO: test code: dump positional args
+    if (result.count("input-file"))
+    {
+        std::cout << "Positional = {";
+        auto& v = result["input-file"].as<std::vector<std::string>>();
+        for (const auto& s : v) {
+            std::cout << s << ", ";
+        }
+        std::cout << "}" << std::endl;
+    }
 
     throw std::runtime_error("yikes");
 }
