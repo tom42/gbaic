@@ -94,30 +94,3 @@ BOOST_AUTO_TEST_CASE(one_input_file)
 BOOST_AUTO_TEST_SUITE_END()
 
 }
-
-
-// TODO: redo stuff below
-# if 0
-#include "options.hpp"
-
-static options parse_options(const char* command_line)
-{
-
-    return 
-}
-
-BOOST_AUTO_TEST_CASE(empty_command_line)
-{
-    const auto options = parse_options("program_name");
-    BOOST_CHECK(!options.is_valid());
-}
-
-BOOST_AUTO_TEST_CASE(one_argument)
-{
-    const auto options = parse_options("program_name input_file");
-    BOOST_CHECK(options.is_valid());
-    BOOST_CHECK(options.get_input_file() == "input_file");
-}
-
-}
-#endif
