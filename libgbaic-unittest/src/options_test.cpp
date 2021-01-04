@@ -24,6 +24,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 #include <boost/test/unit_test.hpp>
+#include <stdexcept>
 #include <string>
 #include <vector>
 #include "options.hpp"
@@ -68,8 +69,10 @@ BOOST_AUTO_TEST_SUITE(options_test)
 
 BOOST_AUTO_TEST_CASE(empty_command_line)
 {
-    // TODO: expect exception saying "No input file given"
-    parse_options("a b c");
+    BOOST_REQUIRE_EXCEPTION(
+        parse_options("a b c"),
+        std::runtime_error,
+        [](const auto& e) { BOOST_REQUIRE_EQUAL(e.what(), "no input file given"); return true; });
 }
 
 BOOST_AUTO_TEST_SUITE_END()
