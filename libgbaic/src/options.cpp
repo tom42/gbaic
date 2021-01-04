@@ -57,6 +57,7 @@ options parse_options(int argc, char* argv[])
 
     options.add_options()
         ("h,help", "Print this help")
+        ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba")
         ("V,version", "Print program version");
     options.add_options("hidden")
         ("input-file", "Input file", cxxopts::value<vector<string>>());
@@ -82,27 +83,8 @@ options parse_options(int argc, char* argv[])
     }
 
     opts.input_file(get_input_file(result));
+    // TODO: get ouput filename if specified
     return opts;
 }
 
 }
-
-// TODO: redo stuff below using cxxopts
-#if 0
-
-options::options(int argc, char* argv[])
-{
-    static const struct argp_option options[] =
-    {
-        { "output", 'o', "OUTPUT FILE", 0, "Specify output filename. The default output filename is the name of the input file with the extension replaced by .gba", 0 },
-        { 0, 0, 0, 0, 0, 0 }
-    };
-    static const char doc[] = PROJECT_NAME " - Gameboy Advance Intro Cruncher";
-    static const char args_doc[] = "<INPUT FILE>";
-    static const struct argp argp = { options, nullptr, args_doc, doc, nullptr, nullptr, nullptr };
-
-    argp_parse(&argp, argc, argv, 0, nullptr, this);
-}
-
-}
-#endif
