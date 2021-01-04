@@ -55,6 +55,12 @@ const options parse_options(int argc, char* argv[])
         std::cout << options.help({ "" }) << std::endl;
     }
 
+    switch (result.count("input-file"))
+    {
+        case 0:
+            throw std::runtime_error("No input file given");
+    }
+
     // TODO: test code: dump positional args
     if (result.count("input-file"))
     {
