@@ -24,12 +24,21 @@
 #include <stdexcept>
 #include "cxxopts.hpp"
 #include "options.hpp"
+#include "version.hpp"
 
 namespace libgbaic
 {
 
-const options parse_options(int, char* [])
+const options parse_options(int argc, char* argv[])
 {
+    cxxopts::Options options(PROJECT_NAME, "Gameboy Advance Intro Cruncher");
+
+    auto result = options.parse(argc, argv);
+
+    // TODO: verify options
+
+    // TODO: print help, version, etc.
+
     throw std::runtime_error("yikes");
 }
 
@@ -37,9 +46,6 @@ const options parse_options(int, char* [])
 
 // TODO: redo stuff below using cxxopts
 #if 0
-#include "argp.h"
-#include "options.hpp"
-#include "version.hpp"
 
 options::options(int argc, char* argv[])
 {
