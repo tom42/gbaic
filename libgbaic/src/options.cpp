@@ -59,6 +59,10 @@ const options parse_options(int argc, char* argv[])
     {
         case 0:
             throw std::runtime_error("No input file given");
+        case 1:
+            break;
+        default:
+            throw std::runtime_error("More than one input file given");
     }
 
     // TODO: test code: dump positional args

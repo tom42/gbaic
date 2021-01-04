@@ -67,14 +67,22 @@ static void parse_options(const char* command_line)
     libgbaic::parse_options(boost::numeric_cast<int>(argv.size()), argv.data());
 }
 
-BOOST_AUTO_TEST_SUITE(options_test)
+BOOST_AUTO_TEST_SUITE(parse_options_test)
 
 BOOST_AUTO_TEST_CASE(empty_command_line)
 {
-    BOOST_REQUIRE_EXCEPTION(
+    BOOST_CHECK_EXCEPTION(
         parse_options(""),
         runtime_error,
         [](const auto& e) { BOOST_REQUIRE_EQUAL(e.what(), "No input file given"); return true; });
+}
+
+BOOST_AUTO_TEST_CASE(more_than_one_input_file)
+{
+    BOOST_CHECK_EXCEPTION(
+        parse_options("file1 file2"),
+        runtime_error,
+        [](const auto& e) { BOOST_REQUIRE_EQUAL(e.what(), "More than one input file given"); return true; });
 }
 
 BOOST_AUTO_TEST_SUITE_END()
