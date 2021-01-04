@@ -44,16 +44,17 @@ static vector<char> to_vector(const string& s)
 
 static void parse_options(const char* command_line)
 {
-    // Split string at whitespace
-    vector<string> strings;
-    boost::split(strings, command_line, boost::is_any_of(" "));
-
-    // Convert strings to vector<char>
+    // Split string into individual arguments and convert them to vector<char>
     vector<vector<char>> vectors;
     vectors.push_back(to_vector("program_name"));
-    for (const auto& s : strings)
+    if (strlen(command_line))
     {
-        vectors.push_back(to_vector(s));
+        vector<string> strings;
+        boost::split(strings, command_line, boost::is_any_of(" "));
+        for (const auto& s : strings)
+        {
+            vectors.push_back(to_vector(s));
+        }
     }
 
     // Put together an argv array.
