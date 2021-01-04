@@ -21,22 +21,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <stdexcept>
 #include "cxxopts.hpp"
+#include "options.hpp"
+
+namespace libgbaic
+{
+
+const options parse_options(int, char* [])
+{
+    throw std::runtime_error("yikes");
+}
+
+}
 
 // TODO: redo stuff below using cxxopts
 #if 0
 #include "argp.h"
 #include "options.hpp"
 #include "version.hpp"
-
-extern "C"
-{
-    const char* argp_program_version = PROJECT_NAME " " PROJECT_VERSION;
-    const char* argp_program_bug_address = "https://github.com/tom42/gbaic/issues";
-}
-
-namespace libgbaic
-{
 
 options::options(int argc, char* argv[])
 {

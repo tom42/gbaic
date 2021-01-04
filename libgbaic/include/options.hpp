@@ -31,6 +31,8 @@ class options
 {
 };
 
+const options parse_options(int argc, char* argv[]);
+
 }
 
 #endif

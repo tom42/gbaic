@@ -55,11 +55,16 @@ static void parse_command_line(int argc, char *argv[])
 }
 #endif
 
-int main(int, char* argv[])
+int main(int argc, char* argv[])
 {
     try
     {
-        // TODO: parse options and EXIT_FAILURE if failed for some reason (nah...throw)
+        // TODO: there are a number of possible outcomes:
+        //       * Error parsing options (syntactic or semantic). This should throw and we should print the error and exit(EXIT_FAILURE)
+        //       * --version, --help or --usage (do we have this?) option seen: exit(EXIT_SUCCESS)
+        //       * All is good: process the input file
+        auto options = libgbaic::parse_options(argc, argv);
+        // TODO: can we modify options now? (if so, remove const from prototype)
         return EXIT_SUCCESS;
     }
     catch (const std::exception& e)
