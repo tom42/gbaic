@@ -35,7 +35,6 @@ int main(int argc, char* argv[])
         //       * --version, --help or --usage (do we have this?) option seen: exit(EXIT_SUCCESS)
         //       * All is good: process the input file
         auto options = libgbaic::parse_options(argc, argv);
-        // TODO: can we modify options now? (if so, remove const from prototype)
         return EXIT_SUCCESS;
     }
     catch (const std::exception& e)
