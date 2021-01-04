@@ -24,36 +24,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
-
 #include "options.hpp"
-
-#if 0
-
-static error_t parse_opt(int key, char* arg, struct argp_state* state)
-{
-    switch (key)
-    {
-        case 'o':
-            return 0;
-        default:
-            return ARGP_ERR_UNKNOWN;
-    }
-}
-
-static struct argp argp = { options, parse_opt, args_doc, doc };
-
-static void parse_command_line(int argc, char *argv[])
-{
-    // TODO: test code
-    auto result = argp_parse(&argp, argc, argv, ARGP_NO_EXIT, nullptr, nullptr);
-    std::cout << "argp parse returned " << result;
-    if (result)
-    {
-        std::cout << " (" << strerror(result) << ")";
-    }
-    std::cout << std::endl;
-}
-#endif
 
 int main(int argc, char* argv[])
 {
