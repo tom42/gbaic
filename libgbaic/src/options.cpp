@@ -33,16 +33,19 @@
 namespace libgbaic
 {
 
+using std::string;
+using std::vector;
+
 static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
 
-const std::string& get_input_file(const cxxopts::ParseResult& parse_result)
+const string& get_input_file(const cxxopts::ParseResult& parse_result)
 {
     switch (parse_result.count("input-file"))
     {
         case 0:
             throw std::runtime_error("No input file given");
         case 1:
-            return parse_result["input-file"].as<std::vector<std::string>>().front();
+            return parse_result["input-file"].as<vector<string>>().front();
         default:
             throw std::runtime_error("More than one input file given");
     }
@@ -57,7 +60,7 @@ options parse_options(int argc, char* argv[])
         ("V,version", "Print program version");
 
     options.add_options("hidden")
-        ("input-file", "Input file", cxxopts::value<std::vector<std::string>>());
+        ("input-file", "Input file", cxxopts::value<vector<string>>());
 
     options.parse_positional({ "input-file" });
 
