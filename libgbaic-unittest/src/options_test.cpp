@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(empty_command_line)
     BOOST_REQUIRE_EXCEPTION(
         parse_options("a b c"),
         std::runtime_error,
-        [](const auto& e) { BOOST_REQUIRE_EQUAL(e.what(), "no input file given"); return true; });
+        [](const auto& e) { BOOST_REQUIRE_EQUAL(e.what(), "No input file given"); return true; });
 }
 
 BOOST_AUTO_TEST_SUITE_END()
