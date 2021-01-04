@@ -64,6 +64,8 @@ options parse_options(int argc, char* argv[])
 
     options.parse_positional({ "input-file" });
 
+    options.positional_help("<input file>");
+
     auto result = options.parse(argc, argv);
 
     // TODO: verify options
