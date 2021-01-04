@@ -77,7 +77,7 @@ options parse_options(int argc, char* argv[])
     }
 
     libgbaic::options opts;
-    opts.input_file = get_input_file(result);
+    opts.input_file(get_input_file(result));
     return opts;
 }
 

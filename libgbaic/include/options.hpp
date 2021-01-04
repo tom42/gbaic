@@ -32,7 +32,12 @@ namespace libgbaic
 class options
 {
 public:
-    std::string input_file;
+    const std::string& input_file() const { return m_input_file; }
+
+    void input_file(const std::string& input_file) { m_input_file = input_file; }
+
+private:
+    std::string m_input_file;
 };
 
 options parse_options(int argc, char* argv[]);
