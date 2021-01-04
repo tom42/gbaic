@@ -21,32 +21,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBGBAIC_OPTIONS_HPP_INCLUDED
-#define LIBGBAIC_OPTIONS_HPP_INCLUDED
+#include <boost/test/unit_test.hpp>
+#include "options.hpp"
 
-#include <string>
-
-namespace libgbaic
+namespace libgbaic_unittest
 {
 
-class options
+using libgbaic::options;
+
+BOOST_AUTO_TEST_SUITE(options_test)
+
+BOOST_AUTO_TEST_CASE(constructor)
 {
-public:
-    options() : m_should_exit(false) {}
-
-    bool should_exit() const { return m_should_exit; }
-
-    const std::string& input_file() const { return m_input_file; }
-
-    void input_file(const std::string& input_file) { m_input_file = input_file; }
-
-private:
-    bool m_should_exit;
-    std::string m_input_file;
-};
-
-options parse_options(int argc, char* argv[]);
-
+    options options;
+    BOOST_CHECK_EQUAL(false, options.should_exit());
+    BOOST_CHECK_EQUAL("", options.input_file());
 }
 
-#endif
+BOOST_AUTO_TEST_SUITE_END()
+
+}
