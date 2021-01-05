@@ -1,7 +1,4 @@
-* options class: when the input file is set but the output file is not yet set,
-  calculate the output file name by replacing the input filename's extension (if any) with .gba
-  * Test: file without extension, e.g. "input"
-  * Test: file with extension, e.g. "test.elf"
+* Somehow silence standard output in test suite?
 * Set up argument parsing:
   * For starters we need one input file
   * An optional output file (-o)
