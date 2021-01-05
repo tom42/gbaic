@@ -1,7 +1,5 @@
 * Set up argument parsing:
-  * Add copyright notice to help screen?
   * Add website/github page to help screen?
-* gbaic --help: Add copyright messages? (myself, shrinkler author(s))
 * Consider adding some 'run gbaic --help' blurb to messages printed when command line parsing fails.
   * For our own error messages we can add it directly to the exception we throw
   * ccxopts parsing exceptions we can rethrow

@@ -53,7 +53,10 @@ static const string& get_input_file(const cxxopts::ParseResult& parse_result)
 
 options parse_options(std::ostream& os, int argc, char* argv[])
 {
-    cxxopts::Options options(PROJECT_NAME, "Gameboy Advance Intro Cruncher");
+    cxxopts::Options options(
+        PROJECT_NAME,
+        PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
+        "Shrinkler compressor by Blueberry");
 
     options.add_options()
         ("h,help", "Print this help")
