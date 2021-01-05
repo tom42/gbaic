@@ -48,12 +48,20 @@ endif()
 
 
 ################################################################################
-# Subdirectories
+# Subdirectories with 3rd party code.
 ################################################################################
 
 add_subdirectory(3rdparty)
 
-# Raise warning level, but only for gbaic's own code, not 3rd party modules.
+
+################################################################################
+# Subdirectories with own code.
+################################################################################
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 if(MSVC)
   add_compile_options(/W4 /WX)
 else()
