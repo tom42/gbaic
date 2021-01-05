@@ -1,13 +1,15 @@
-* Somehow hide standard output of the parser in the unit test suite. Is there something like a null stream?
-* options class: when the input file is set but the output file is not yet set,
-  calculate the output file name by replacing the input filename's extension (if any) with .gba
-  * Test: file without extension, e.g. "input"
-  * Test: file with extension, e.g. "test.elf"
-* Set up argument parsing:
+* Set up argument parsing:	* Set up argument parsing:
   * For starters we need one input file
   * An optional output file (-o)
     * If the output file is not given, default to input file with the extension replaced by .gba
   * This might be a good point to start setting up tests
-  * Add copyright notice to help screen?
-  * Add website/github page to help screen?
-* gbaic --help: Add copyright messages? (myself, shrinkler author(s))
+  * Add copyright notice to help screen?	  * Add copyright notice to help screen?
+  * Add website/github page to help screen?	  * Add website/github page to help screen?
+* gbaic --help: Add copyright messages? (myself, shrinkler author(s))	* gbaic --help: Add copyright messages? (myself, shrinkler author(s))
+* Consider adding some 'run gbaic --help' blurb to messages printed when command line parsing fails.
+  * For our own error messages we can add it directly to the exception we throw
+  * ccxopts parsing exceptions we can rethrow
+  * Other exceptions we leave alone
+* Design input file loading
+  * Binary files, with an assumed load address of IWRAM (do we allow overriding this?)
+  * Elf files, which we convert to raw binary and whose load address we determine from the entry point

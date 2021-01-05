@@ -34,8 +34,30 @@ BOOST_AUTO_TEST_SUITE(options_test)
 BOOST_AUTO_TEST_CASE(constructor)
 {
     options options;
+
     BOOST_CHECK_EQUAL(false, options.should_exit());
     BOOST_CHECK_EQUAL("", options.input_file());
+    BOOST_CHECK_EQUAL("", options.output_file());
+}
+
+BOOST_AUTO_TEST_CASE(input_file_sets_output_file_if_not_yet_set)
+{
+    options options;
+
+    options.input_file("input.elf");
+
+    BOOST_CHECK_EQUAL("input.gba", options.output_file());
+}
+
+BOOST_AUTO_TEST_CASE(input_file_does_not_set_output_file_if_already_set)
+{
+    options options;
+
+    options.output_file("output.gba");
+    options.input_file("input.bin");
+
+    BOOST_CHECK_EQUAL("input.bin", options.input_file());
+    BOOST_CHECK_EQUAL("output.gba", options.output_file());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

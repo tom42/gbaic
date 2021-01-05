@@ -24,7 +24,8 @@
 #ifndef LIBGBAIC_OPTIONS_HPP_INCLUDED
 #define LIBGBAIC_OPTIONS_HPP_INCLUDED
 
-#include <string>
+#include <filesystem>
+#include <iosfwd>
 
 namespace libgbaic
 {
@@ -32,27 +33,41 @@ namespace libgbaic
 class options
 {
 public:
-    options() : m_should_exit(false) {}
+    options() : m_should_exit(false), m_output_file_set(false) {}
 
     bool should_exit() const { return m_should_exit; }
 
     void should_exit(bool should_exit) { m_should_exit = should_exit; }
 
-    const std::string& input_file() const { return m_input_file; }
+    const std::filesystem::path& input_file() const { return m_input_file; }
 
-    void input_file(const std::string& input_file) { m_input_file = input_file; }
+    void input_file(const std::filesystem::path& input_file)
+    {
+        m_input_file = input_file;
 
-    const std::string& output_file() const { return m_output_file; }
+        if (!m_output_file_set)
+        {
+            m_output_file = input_file;
+            m_output_file.replace_extension("gba");
+        }
+    }
 
-    void output_file(const std::string& output_file) { m_output_file = output_file; }
+    const std::filesystem::path& output_file() const { return m_output_file; }
+
+    void output_file(const std::filesystem::path& output_file)
+    {
+        m_output_file = output_file;
+        m_output_file_set = true;
+    }
 
 private:
     bool m_should_exit;
-    std::string m_input_file;
-    std::string m_output_file;
+    bool m_output_file_set;
+    std::filesystem::path m_input_file;
+    std::filesystem::path m_output_file;
 };
 
-options parse_options(int argc, char* argv[]);
+options parse_options(std::ostream& os, int argc, char* argv[]);
 
 }
 

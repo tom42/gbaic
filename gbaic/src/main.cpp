@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 {
     try
     {
-        auto options = libgbaic::parse_options(argc, argv);
+        auto options = libgbaic::parse_options(std::cout, argc, argv);
         if (options.should_exit())
         {
             return EXIT_SUCCESS;
