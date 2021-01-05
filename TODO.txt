@@ -1,11 +1,7 @@
-* Set up argument parsing:	* Set up argument parsing:
-  * For starters we need one input file
-  * An optional output file (-o)
-    * If the output file is not given, default to input file with the extension replaced by .gba
-  * This might be a good point to start setting up tests
-  * Add copyright notice to help screen?	  * Add copyright notice to help screen?
-  * Add website/github page to help screen?	  * Add website/github page to help screen?
-* gbaic --help: Add copyright messages? (myself, shrinkler author(s))	* gbaic --help: Add copyright messages? (myself, shrinkler author(s))
+* Set up argument parsing:
+  * Add copyright notice to help screen?
+  * Add website/github page to help screen?
+* gbaic --help: Add copyright messages? (myself, shrinkler author(s))
 * Consider adding some 'run gbaic --help' blurb to messages printed when command line parsing fails.
   * For our own error messages we can add it directly to the exception we throw
   * ccxopts parsing exceptions we can rethrow
