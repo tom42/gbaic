@@ -51,7 +51,7 @@ static const string& get_input_file(const cxxopts::ParseResult& parse_result)
     }
 }
 
-options parse_options(int argc, char* argv[])
+options parse_options(std::ostream& os, int argc, char* argv[])
 {
     cxxopts::Options options(PROJECT_NAME, "Gameboy Advance Intro Cruncher");
 
@@ -70,14 +70,14 @@ options parse_options(int argc, char* argv[])
 
     if (result.count("help"))
     {
-        std::cout << options.help({ "" }) << std::endl;
+        os << options.help({ "" }) << std::endl;
         opts.should_exit(true);
         return opts;
     }
 
     if (result.count("version"))
     {
-        std::cout << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
+        os << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
         opts.should_exit(true);
         return opts;
     }

@@ -25,6 +25,7 @@
 #define LIBGBAIC_OPTIONS_HPP_INCLUDED
 
 #include <filesystem>
+#include <iosfwd>
 
 namespace libgbaic
 {
@@ -66,7 +67,7 @@ private:
     std::filesystem::path m_output_file;
 };
 
-options parse_options(int argc, char* argv[]);
+options parse_options(std::ostream& os, int argc, char* argv[]);
 
 }
 

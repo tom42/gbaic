@@ -1,4 +1,3 @@
-* Somehow silence standard output in test suite?
 * Set up argument parsing:
   * For starters we need one input file
   * An optional output file (-o)
