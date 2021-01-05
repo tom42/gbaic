@@ -1,3 +1,7 @@
+* options class: when the input file is set but the output file is not yet set,
+  calculate the output file name by replacing the input filename's extension (if any) with .gba
+  * Test: file without extension, e.g. "input"
+  * Test: file with extension, e.g. "test.elf"
 * Set up argument parsing:
   * For starters we need one input file
   * An optional output file (-o)
@@ -5,10 +9,4 @@
   * This might be a good point to start setting up tests
   * Add copyright notice to help screen?
   * Add website/github page to help screen?
-* Set up top level CMakeLists.txt
-  * Go through example CMakeLists.txt and add stuff as needed
-    * What about global compiler options? If we set them in the top level file, does argp-standalone inherit them???
-      * Just have to do this after going into the subdirectory. Or one level deeper
-  * Set up testing
-    * Here we must make sure that argp tests are not enabled
 * gbaic --help: Add copyright messages? (myself, shrinkler author(s))

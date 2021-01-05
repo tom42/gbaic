@@ -90,6 +90,7 @@ BOOST_AUTO_TEST_CASE(one_input_file)
     auto options = parse_options("file1");
     BOOST_CHECK_EQUAL(false, options.should_exit());
     BOOST_CHECK_EQUAL("file1", options.input_file());
+    BOOST_CHECK_EQUAL("file1.gba", options.output_file());
 }
 
 BOOST_AUTO_TEST_CASE(help_option)
