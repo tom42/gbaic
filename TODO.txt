@@ -1,3 +1,4 @@
+* Somehow hide standard output of the parser in the unit test suite. Is there something like a null stream?
 * options class: when the input file is set but the output file is not yet set,
   calculate the output file name by replacing the input filename's extension (if any) with .gba
   * Test: file without extension, e.g. "input"
