@@ -43,56 +43,63 @@ static const string& get_input_file(const cxxopts::ParseResult& parse_result)
     switch (parse_result.count("input-file"))
     {
         case 0:
-            throw std::runtime_error("No input file given");
+            throw cxxopts::OptionParseException("No input file given");
         case 1:
             return parse_result["input-file"].as<vector<string>>().front();
         default:
-            throw std::runtime_error("More than one input file given");
+            throw cxxopts::OptionParseException("More than one input file given");
     }
 }
 
 options parse_options(std::ostream& os, int argc, char* argv[])
 {
-    cxxopts::Options options(
-        PROJECT_NAME,
-        PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
-        "Shrinkler compressor by Blueberry");
-
-    options.add_options()
-        ("h,help", "Print this help")
-        ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", cxxopts::value<string>())
-        ("V,version", "Print program version");
-    options.add_options("hidden")
-        ("input-file", "Input file", cxxopts::value<vector<string>>());
-    options.parse_positional({ "input-file" });
-    options.positional_help("<input file>");
-
-    auto result = options.parse(argc, argv);
-
-    libgbaic::options opts;
-
-    if (result.count("help"))
+    try
     {
-        os << options.help({ "" }) << std::endl;
-        opts.should_exit(true);
+        cxxopts::Options options(
+            PROJECT_NAME,
+            PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
+            "Shrinkler compressor by Blueberry");
+
+        options.add_options()
+            ("h,help", "Print this help")
+            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", cxxopts::value<string>())
+            ("V,version", "Print program version");
+        options.add_options("hidden")
+            ("input-file", "Input file", cxxopts::value<vector<string>>());
+        options.parse_positional({ "input-file" });
+        options.positional_help("<input file>");
+
+        auto result = options.parse(argc, argv);
+
+        libgbaic::options opts;
+
+        if (result.count("help"))
+        {
+            os << options.help({ "" }) << std::endl;
+            opts.should_exit(true);
+            return opts;
+        }
+
+        if (result.count("version"))
+        {
+            os << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
+            opts.should_exit(true);
+            return opts;
+        }
+
+        opts.input_file(get_input_file(result));
+
+        if (result.count("output-file"))
+        {
+            opts.output_file(result["output-file"].as<string>());
+        }
+
         return opts;
     }
-
-    if (result.count("version"))
+    catch (const cxxopts::OptionParseException& e)
     {
-        os << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
-        opts.should_exit(true);
-        return opts;
+        throw std::runtime_error(string(e.what()) + "\nTry '" PROJECT_NAME " --help' for more information");
     }
-
-    opts.input_file(get_input_file(result));
-
-    if (result.count("output-file"))
-    {
-        opts.output_file(result["output-file"].as<string>());
-    }
-
-    return opts;
 }
 
 }

@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(empty_command_line)
     BOOST_CHECK_EXCEPTION(
         parse_options(""),
         runtime_error,
-        [](const auto& e) { BOOST_CHECK_EQUAL("No input file given", e.what()); return true; });
+        [](const auto& e) { BOOST_CHECK_EQUAL("No input file given\nTry 'gbaic --help' for more information", e.what()); return true; });
 }
 
 BOOST_AUTO_TEST_CASE(more_than_one_input_file)
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(more_than_one_input_file)
     BOOST_CHECK_EXCEPTION(
         parse_options("file1 file2"),
         runtime_error,
-        [](const auto& e) { BOOST_CHECK_EQUAL("More than one input file given", e.what()); return true; });
+        [](const auto& e) { BOOST_CHECK_EQUAL("More than one input file given\nTry 'gbaic --help' for more information", e.what()); return true; });
 }
 
 BOOST_AUTO_TEST_CASE(one_input_file)
@@ -99,6 +99,14 @@ BOOST_AUTO_TEST_CASE(help_option)
 {
     auto options = parse_options("--help");
     BOOST_CHECK_EQUAL(true, options.should_exit());
+}
+
+BOOST_AUTO_TEST_CASE(exceptions_thrown_by_cxxopts_get_message_updated)
+{
+    BOOST_CHECK_EXCEPTION(
+        parse_options("-o"),
+        runtime_error,
+        [](const auto& e) { BOOST_CHECK_EQUAL("Option 'o' is missing an argument\nTry 'gbaic --help' for more information", e.what()); return true; });
 }
 
 BOOST_AUTO_TEST_CASE(version_option)
