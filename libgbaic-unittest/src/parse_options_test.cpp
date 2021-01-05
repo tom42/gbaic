@@ -104,6 +104,21 @@ BOOST_AUTO_TEST_CASE(version_option)
     BOOST_CHECK_EQUAL(true, options.should_exit());
 }
 
+BOOST_AUTO_TEST_CASE(output_file_option_before_input_file)
+{
+    auto options = parse_options("-o output input");
+    BOOST_CHECK_EQUAL(false, options.should_exit());
+    BOOST_CHECK_EQUAL("input", options.input_file());
+    BOOST_CHECK_EQUAL("output", options.output_file());
+}
+
+BOOST_AUTO_TEST_CASE(output_file_option_after_input_file)
+{
+    auto options = parse_options("input -o output");
+    BOOST_CHECK_EQUAL("input", options.input_file());
+    BOOST_CHECK_EQUAL("output", options.output_file());
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 }

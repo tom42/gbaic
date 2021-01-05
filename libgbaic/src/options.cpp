@@ -57,7 +57,7 @@ options parse_options(int argc, char* argv[])
 
     options.add_options()
         ("h,help", "Print this help")
-        ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba")
+        ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", cxxopts::value<string>())
         ("V,version", "Print program version");
     options.add_options("hidden")
         ("input-file", "Input file", cxxopts::value<vector<string>>());
@@ -83,7 +83,12 @@ options parse_options(int argc, char* argv[])
     }
 
     opts.input_file(get_input_file(result));
-    // TODO: get ouput filename if specified
+
+    if (result.count("output-file"))
+    {
+        opts.output_file(result["output-file"].as<string>());
+    }
+
     return opts;
 }
 

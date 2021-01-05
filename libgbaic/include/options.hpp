@@ -42,9 +42,14 @@ public:
 
     void input_file(const std::string& input_file) { m_input_file = input_file; }
 
+    const std::string& output_file() const { return m_output_file; }
+
+    void output_file(const std::string& output_file) { m_output_file = output_file; }
+
 private:
     bool m_should_exit;
     std::string m_input_file;
+    std::string m_output_file;
 };
 
 options parse_options(int argc, char* argv[]);
