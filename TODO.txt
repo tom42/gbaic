@@ -1,5 +1,12 @@
-* Set up argument parsing:
-  * Add website/github page to help screen?
+* Prepare shrinkler:
+  * Put it into 3rdparty/shrinkler (orly? Perhaps we give it a top level directory since we are going to heavily hack it)
+    * Try to create a header only library for it
+    * Is it going to get any tests?
+    * How MUCH are we going to hack it? I'd really not want it to call printf and exit all over the place
+  * Only include the packer sources
+  * Include shrinkler's LICENSE.txt!
+  * Include a README.md stating CLEARLY that this is NOT the original shrinkler
+* Stop using submodules?
 * Design input file loading
   * Binary files, with an assumed load address of IWRAM (do we allow overriding this?)
   * Elf files, which we convert to raw binary and whose load address we determine from the entry point
