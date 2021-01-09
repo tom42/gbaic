@@ -24,4 +24,18 @@
 #ifndef LIBSHRINKLER_LIBSHRINKLER_HPP_INCLUDED
 #define LIBSHRINKLER_LIBSHRINKLER_HPP_INCLUDED
 
+#include <cstddef>
+#include <vector>
+
+namespace libshrinkler
+{
+
+// TODO: design interface
+//       * We need compression parameters
+//       * We need the input data
+//       * We need the output stream for output
+std::vector<std::byte> compress();
+
+}
+
 #endif
