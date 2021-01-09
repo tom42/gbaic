@@ -31,7 +31,19 @@
 namespace libshrinkler
 {
 
-class shrinkler_parameters {};
+class shrinkler_parameters
+{
+public:
+    // TODO: initialize parameters with what -2 would do. I guess.
+    shrinkler_parameters() {}
+
+    int iterations;
+    int length_margin;
+    int same_length;
+    int effort;
+    int skip_length;
+    int references;
+};
 
 class shrinkler
 {
@@ -45,7 +57,9 @@ public:
     void os(std::ostream& ostream);
 
     std::vector<std::byte> compress(const std::vector<std::byte>& input);
+
 private:
+    shrinkler_parameters m_parameters;
 };
 
 }
