@@ -26,8 +26,7 @@ configure_file(version.hpp.in version.hpp)
 set(
   SOURCES
   include/options.hpp
-  src/options.cpp
-  src/shrinkler_compilation_test.cpp)
+  src/options.cpp)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
