@@ -25,19 +25,26 @@
 #define LIBSHRINKLER_LIBSHRINKLER_HPP_INCLUDED
 
 #include <cstddef>
+#include <iosfwd>
 #include <vector>
 
 namespace libshrinkler
 {
 
+class shrinkler_parameters {};
+
 class shrinkler
 {
 public:
-    // TODO: design interface
-    //       * We need compression parameters => separate method(s)
-    //       * We need the input data => argument
-    //       * We need the output stream for output => separate method
-    std::vector<std::byte> compress();
+    const shrinkler_parameters& parameters();
+
+    void parameters(const shrinkler_parameters& pack_parameters);
+
+    std::ostream& ostream();
+
+    void os(std::ostream& ostream);
+
+    std::vector<std::byte> compress(const std::vector<std::byte>& input);
 private:
 };
 
