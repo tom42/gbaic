@@ -26,4 +26,4 @@ set(CXXOPTS_BUILD_TESTS OFF CACHE BOOL "Set to ON to build tests" FORCE)
 set(CXXOPTS_ENABLE_INSTALL OFF CACHE BOOL "Generate the install target" FORCE)
 add_subdirectory(cxxopts)
 
-add_subdirectory(shrinkler)
+add_subdirectory(libshrinkler)
