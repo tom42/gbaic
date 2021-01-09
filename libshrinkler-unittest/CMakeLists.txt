@@ -23,7 +23,8 @@
 
 set(
   SOURCES
-  src/main.cpp)
+  src/main.cpp
+  src/shrinkler_parameters_test.cpp)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
