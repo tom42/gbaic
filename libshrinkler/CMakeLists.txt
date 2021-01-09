@@ -21,7 +21,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set(SOURCES src/libshrinkler.cpp)
+set(
+  SOURCES
+  include/libshrinkler.hpp
+  src/libshrinkler.cpp)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
