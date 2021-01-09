@@ -1,5 +1,6 @@
 * Prepare shrinkler:
   * OK: wrap shrinkler source into a library: we simply need it to do in memory compression of data files, I guess
+    * How to we manage compiler flags? Shrinkler won't compile warning-free withour settings I am afraid
   * Put it into 3rdparty/shrinkler (orly? Perhaps we give it a top level directory since we are going to heavily hack it)
     * Try to create a header only library for it
     * Is it going to get any tests?

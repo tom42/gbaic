@@ -30,11 +30,16 @@
 namespace libshrinkler
 {
 
-// TODO: design interface
-//       * We need compression parameters
-//       * We need the input data
-//       * We need the output stream for output
-std::vector<std::byte> compress();
+class shrinkler
+{
+public:
+    // TODO: design interface
+    //       * We need compression parameters => separate method(s)
+    //       * We need the input data => argument
+    //       * We need the output stream for output => separate method
+    std::vector<std::byte> compress();
+private:
+};
 
 }
 
