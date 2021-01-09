@@ -39,4 +39,4 @@ target_include_directories(
   PUBLIC
   include)
 
-target_link_libraries(libgbaic PRIVATE cxxopts shrinkler)
+target_link_libraries(libgbaic PRIVATE cxxopts)
