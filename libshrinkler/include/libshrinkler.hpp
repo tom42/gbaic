@@ -34,8 +34,13 @@ namespace libshrinkler
 class shrinkler_parameters
 {
 public:
-    // TODO: initialize parameters with what -2 would do. I guess.
-    shrinkler_parameters() {}
+    shrinkler_parameters()
+        : iterations(2),
+        length_margin(2),
+        same_length(20),
+        effort(200),
+        skip_length(2000),
+        references(100000) {}
 
     int iterations;
     int length_margin;

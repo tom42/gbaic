@@ -24,14 +24,21 @@
 #include <boost/test/unit_test.hpp>
 #include "libshrinkler.hpp"
 
-namespace libshrinkler_unitttest
+namespace libshrinkler_unittest
 {
 
 BOOST_AUTO_TEST_SUITE(shrinkler_parameters_test)
 
 BOOST_AUTO_TEST_CASE(constructor)
 {
-    BOOST_FAIL("TODO: Implement");
+    libshrinkler::shrinkler_parameters parameters;
+
+    BOOST_CHECK_EQUAL(2, parameters.iterations);
+    BOOST_CHECK_EQUAL(2, parameters.length_margin);
+    BOOST_CHECK_EQUAL(20, parameters.same_length);
+    BOOST_CHECK_EQUAL(200, parameters.effort);
+    BOOST_CHECK_EQUAL(2000, parameters.skip_length);
+    BOOST_CHECK_EQUAL(100000, parameters.references);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
