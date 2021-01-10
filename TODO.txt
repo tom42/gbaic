@@ -1,5 +1,8 @@
 * Add all the shrinkler compression options to the command line parser
-  * Should we somehow group them? And does grouping print a header?
+  * For the 6 options:
+    * Specify that they go into an int
+    * Implement min/max values (can cxxopts do that?)
+    * Put them options somehow into a shrinkler_parameters thing
 * Prepare shrinkler:
   * OK: wrap shrinkler source into a library: we simply need it to do in memory compression of data files, I guess
     * How to we manage compiler flags? Shrinkler won't compile warning-free withour settings I am afraid

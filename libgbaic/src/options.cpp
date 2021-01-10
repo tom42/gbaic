@@ -61,7 +61,17 @@ options parse_options(std::ostream& os, int argc, char* argv[])
             "Shrinkler compressor by Blueberry");
 
         options.add_options()
-            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", cxxopts::value<string>())
+            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", cxxopts::value<string>());
+
+        options.add_options("Shrinkler compression")
+            ("i,iterations", "Number of iterations for the compression (2)")
+            ("l,length-margin", "Number of shorter matches considered for each match (2)")
+            ("a,same-length", "Number of matches of the same length to consider (20)")
+            ("e,effort", "Perseverance in finding multiple matches (200)")
+            ("s,skip-length", "Minimum match length to accept greedily (2000)")
+            ("r,references", "Number of reference edges to keep in memory (100000)");
+
+        options.add_options("Help")
             ("h,help", "Print this help")
             ("V,version", "Print program version");
         options.add_options("hidden")
@@ -75,7 +85,7 @@ options parse_options(std::ostream& os, int argc, char* argv[])
 
         if (result.count("help"))
         {
-            os << options.help({ "" }) << std::endl;
+            os << options.help({ "", "Shrinkler compression", "Help" }) << std::endl;
             opts.should_exit(true);
             return opts;
         }
