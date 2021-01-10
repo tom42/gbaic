@@ -1,3 +1,5 @@
+* Add all the shrinkler compression options to the command line parser
+  * Should we somehow group them? And does grouping print a header?
 * Prepare shrinkler:
   * OK: wrap shrinkler source into a library: we simply need it to do in memory compression of data files, I guess
     * How to we manage compiler flags? Shrinkler won't compile warning-free withour settings I am afraid
@@ -9,6 +11,9 @@
   * Include shrinkler's LICENSE.txt!
   * Include a README.md stating CLEARLY that this is NOT the original shrinkler
 * Stop using submodules?
+  * Yes and then hack CXXOPTS to support the following
+    * -?
+    * Abbreviation of long options (orly?)
 * Design input file loading
   * Binary files, with an assumed load address of IWRAM (do we allow overriding this?)
   * Elf files, which we convert to raw binary and whose load address we determine from the entry point
