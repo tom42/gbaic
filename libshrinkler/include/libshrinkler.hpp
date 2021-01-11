@@ -35,19 +35,32 @@ class shrinkler_parameters
 {
 public:
     shrinkler_parameters(int preset = 2)
-        : iterations(1 * preset),
-        length_margin(1 * preset),
-        same_length(10 * preset),
-        effort(100 * preset),
-        skip_length(1000 * preset),
-        references(100000) {}
+        : m_iterations(1 * preset),
+        m_length_margin(1 * preset),
+        m_same_length(10 * preset),
+        m_effort(100 * preset),
+        m_skip_length(1000 * preset),
+        m_references(100000) {}
 
-    int iterations;
-    int length_margin;
-    int same_length;
-    int effort;
-    int skip_length;
-    int references;
+    int iterations() const { return m_iterations; }
+
+    int length_margin() const{ return m_length_margin; }
+
+    int same_length() const { return m_same_length; }
+
+    int effort() const { return m_effort; }
+
+    int skip_length() const { return m_skip_length; }
+
+    int references() const { return m_references; }
+
+private:
+    int m_iterations;
+    int m_length_margin;
+    int m_same_length;
+    int m_effort;
+    int m_skip_length;
+    int m_references;
 };
 
 class shrinkler
