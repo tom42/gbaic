@@ -42,7 +42,12 @@ static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::o
 // TODO: remove os argument
 options parse_options(std::ostream& /*os*/, int argc, char* argv[])
 {
-    argp_parse(nullptr, argc, argv, ARGP_NO_EXIT, nullptr, nullptr);
+    static const char doc[] =
+        PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
+        "Shrinkler compressor by Blueberry";
+    static const struct argp argp = { nullptr, nullptr, nullptr, doc, nullptr, nullptr, nullptr };
+
+    argp_parse(&argp, argc, argv, ARGP_NO_EXIT, nullptr, nullptr);
     throw std::runtime_error("YIKES");
 }
 
@@ -85,11 +90,6 @@ options parse_options(std::ostream& os, int argc, char* argv[])
 {
     try
     {
-        cxxopts::Options options(
-            PROJECT_NAME,
-            PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
-            "Shrinkler compressor by Blueberry");
-
         options.add_options()
             ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", value<string>(), "FILE");
 
