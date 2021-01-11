@@ -62,15 +62,16 @@ options parse_options(std::ostream& os, int argc, char* argv[])
             "Shrinkler compressor by Blueberry");
 
         options.add_options()
-            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", value<string>(), "<file>");
+            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", value<string>(), "FILE");
 
         options.add_options("Shrinkler compression")
-            ("i,iterations", "Number of iterations for the compression (2)", value<int>())
-            ("l,length-margin", "Number of shorter matches considered for each match (2)", value<int>())
-            ("a,same-length", "Number of matches of the same length to consider (20)", value<int>())
-            ("e,effort", "Perseverance in finding multiple matches (200)", value<int>())
-            ("s,skip-length", "Minimum match length to accept greedily (2000)", value<int>())
-            ("r,references", "Number of reference edges to keep in memory (100000)", value<int>());
+
+            ("i,iterations", "Number of iterations for the compression (2)", value<int>(), "#")
+            ("l,length-margin", "Number of shorter matches considered for each match (2)", value<int>(), "#")
+            ("a,same-length", "Number of matches of the same length to consider (20)", value<int>(), "#")
+            ("e,effort", "Perseverance in finding multiple matches (200)", value<int>(), "#")
+            ("s,skip-length", "Minimum match length to accept greedily (2000)", value<int>(), "#")
+            ("r,references", "Number of reference edges to keep in memory (100000)", value<int>(), "#");
 
         options.add_options("Help")
             ("h,help", "Print this help")
@@ -80,7 +81,7 @@ options parse_options(std::ostream& os, int argc, char* argv[])
             ("input-file", "Input file", value<vector<string>>());
 
         options.parse_positional({ "input-file" });
-        options.positional_help("<input file>");
+        options.positional_help("<INPUT FILE>");
 
         auto result = options.parse(argc, argv);
 
