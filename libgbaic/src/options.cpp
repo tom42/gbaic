@@ -21,6 +21,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <stdexcept>
+#include <type_traits>
+#include "argp.h"
+#include "options.hpp"
+
+namespace libgbaic
+{
+
+static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
+
+// TODO: somehow, stop this from exiting. On any path.
+// TODO: remove os argument
+options parse_options(std::ostream& /*os*/, int argc, char* argv[])
+{
+    argp_parse(nullptr, argc, argv, ARGP_NO_EXIT, nullptr, nullptr);
+    throw std::runtime_error("YIKES");
+}
+
+
+}
+
+// TODO: redo stuff below
+#if 0
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -37,7 +60,6 @@ using cxxopts::value;
 using std::string;
 using std::vector;
 
-static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
 
 static const string& get_input_file(const cxxopts::ParseResult& parse_result)
 {
@@ -117,3 +139,4 @@ options parse_options(std::ostream& os, int argc, char* argv[])
 }
 
 }
+#endif
