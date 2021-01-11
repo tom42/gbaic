@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <stdexcept>
 #include <type_traits>
 #include "argp.h"
 #include "options.hpp"
@@ -48,8 +47,9 @@ options parse_options(std::ostream& /*os*/, int argc, char* argv[])
     static const char args_doc[] = "FILE";
     static const struct argp argp = { nullptr, nullptr, args_doc, doc, nullptr, nullptr, nullptr };
 
+    libgbaic::options options;
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT, nullptr, nullptr);
-    throw std::runtime_error("YIKES");
+    return options;
 }
 
 
