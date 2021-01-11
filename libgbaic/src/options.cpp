@@ -61,7 +61,7 @@ options parse_options(std::ostream& os, int argc, char* argv[])
             "Shrinkler compressor by Blueberry");
 
         options.add_options()
-            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", cxxopts::value<string>());
+            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", cxxopts::value<string>(), "<file>"):
 
         options.add_options("Shrinkler compression")
             ("i,iterations", "Number of iterations for the compression (2)")
