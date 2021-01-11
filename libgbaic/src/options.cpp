@@ -33,6 +33,7 @@
 namespace libgbaic
 {
 
+using cxxopts::value;
 using std::string;
 using std::vector;
 
@@ -61,21 +62,23 @@ options parse_options(std::ostream& os, int argc, char* argv[])
             "Shrinkler compressor by Blueberry");
 
         options.add_options()
-            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", cxxopts::value<string>(), "<file>");
+            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", value<string>(), "<file>");
 
         options.add_options("Shrinkler compression")
-            ("i,iterations", "Number of iterations for the compression (2)")
-            ("l,length-margin", "Number of shorter matches considered for each match (2)")
-            ("a,same-length", "Number of matches of the same length to consider (20)")
-            ("e,effort", "Perseverance in finding multiple matches (200)")
-            ("s,skip-length", "Minimum match length to accept greedily (2000)")
-            ("r,references", "Number of reference edges to keep in memory (100000)");
+            ("i,iterations", "Number of iterations for the compression (2)", value<int>())
+            ("l,length-margin", "Number of shorter matches considered for each match (2)", value<int>())
+            ("a,same-length", "Number of matches of the same length to consider (20)", value<int>())
+            ("e,effort", "Perseverance in finding multiple matches (200)", value<int>())
+            ("s,skip-length", "Minimum match length to accept greedily (2000)", value<int>())
+            ("r,references", "Number of reference edges to keep in memory (100000)", value<int>());
 
         options.add_options("Help")
             ("h,help", "Print this help")
             ("V,version", "Print program version");
+
         options.add_options("hidden")
-            ("input-file", "Input file", cxxopts::value<vector<string>>());
+            ("input-file", "Input file", value<vector<string>>());
+
         options.parse_positional({ "input-file" });
         options.positional_help("<input file>");
 

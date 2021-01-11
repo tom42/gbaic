@@ -1,8 +1,10 @@
 * Add all the shrinkler compression options to the command line parser
   * For the 6 options:
-    * Specify that they go into an int
     * Implement min/max values (can cxxopts do that?)
     * Put them options somehow into a shrinkler_parameters thing
+  * Implement presets. Err. How?
+    * Hidden -1 .. -9 options: then they don't show up in help
+    * -p,--preset: easier to implement, and more standard anyway, since the preset number is really an argument
 * Prepare shrinkler:
   * OK: wrap shrinkler source into a library: we simply need it to do in memory compression of data files, I guess
     * How to we manage compiler flags? Shrinkler won't compile warning-free withour settings I am afraid
