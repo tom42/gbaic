@@ -8,6 +8,7 @@
     * We want to exit when --usage, --help or --version is seen => Can handle them ourselves
       * If we always use argp, then we also don't get unwanted partial localization from glibc
     * Well...try it, I'd say
+      * We can probably even emulate -1 to -9, and using the help filter we can probably also adapt the documentation for this.
 * Add all the shrinkler compression options to the command line parser
   * For the 6 options:
     * Implement min/max values (can cxxopts do that?)
