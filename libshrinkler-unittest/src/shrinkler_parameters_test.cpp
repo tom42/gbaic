@@ -29,7 +29,7 @@ namespace libshrinkler_unittest
 
 BOOST_AUTO_TEST_SUITE(shrinkler_parameters_test)
 
-BOOST_AUTO_TEST_CASE(constructor)
+BOOST_AUTO_TEST_CASE(constructor_default_preset)
 {
     libshrinkler::shrinkler_parameters parameters;
 
@@ -38,6 +38,18 @@ BOOST_AUTO_TEST_CASE(constructor)
     BOOST_CHECK_EQUAL(20, parameters.same_length);
     BOOST_CHECK_EQUAL(200, parameters.effort);
     BOOST_CHECK_EQUAL(2000, parameters.skip_length);
+    BOOST_CHECK_EQUAL(100000, parameters.references);
+}
+
+BOOST_AUTO_TEST_CASE(constructor_preset9)
+{
+    libshrinkler::shrinkler_parameters parameters(9);
+
+    BOOST_CHECK_EQUAL(9, parameters.iterations);
+    BOOST_CHECK_EQUAL(9, parameters.length_margin);
+    BOOST_CHECK_EQUAL(90, parameters.same_length);
+    BOOST_CHECK_EQUAL(900, parameters.effort);
+    BOOST_CHECK_EQUAL(9000, parameters.skip_length);
     BOOST_CHECK_EQUAL(100000, parameters.references);
 }
 

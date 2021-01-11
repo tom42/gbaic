@@ -34,12 +34,12 @@ namespace libshrinkler
 class shrinkler_parameters
 {
 public:
-    shrinkler_parameters()
-        : iterations(2),
-        length_margin(2),
-        same_length(20),
-        effort(200),
-        skip_length(2000),
+    shrinkler_parameters(int preset = 2)
+        : iterations(1 * preset),
+        length_margin(1 * preset),
+        same_length(10 * preset),
+        effort(100 * preset),
+        skip_length(1000 * preset),
         references(100000) {}
 
     int iterations;
