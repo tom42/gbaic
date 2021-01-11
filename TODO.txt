@@ -33,3 +33,5 @@
 * Design input file loading
   * Binary files, with an assumed load address of IWRAM (do we allow overriding this?)
   * Elf files, which we convert to raw binary and whose load address we determine from the entry point
+* Remove cxxopts (including the submodule)
+* Check: does our argp.h supersede system argp?

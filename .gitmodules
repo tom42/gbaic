@@ -1,3 +1,6 @@
 [submodule "3rdparty/cxxopts"]
 	path = 3rdparty/cxxopts
 	url = https://github.com/jarro2783/cxxopts
+[submodule "3rdparty/argp-standalone"]
+	path = 3rdparty/argp-standalone
+	url = https://github.com/tom42/argp-standalone
