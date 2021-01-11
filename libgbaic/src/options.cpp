@@ -45,7 +45,8 @@ options parse_options(std::ostream& /*os*/, int argc, char* argv[])
     static const char doc[] =
         PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
         "Shrinkler compressor by Blueberry";
-    static const struct argp argp = { nullptr, nullptr, nullptr, doc, nullptr, nullptr, nullptr };
+    static const char args_doc[] = "FILE";
+    static const struct argp argp = { nullptr, nullptr, args_doc, doc, nullptr, nullptr, nullptr };
 
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT, nullptr, nullptr);
     throw std::runtime_error("YIKES");
