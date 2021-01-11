@@ -65,13 +65,13 @@ options parse_options(std::ostream& os, int argc, char* argv[])
             ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", value<string>(), "FILE");
 
         options.add_options("Shrinkler compression")
-
             ("i,iterations", "Number of iterations for the compression (2)", value<int>(), "#")
             ("l,length-margin", "Number of shorter matches considered for each match (2)", value<int>(), "#")
             ("a,same-length", "Number of matches of the same length to consider (20)", value<int>(), "#")
             ("e,effort", "Perseverance in finding multiple matches (200)", value<int>(), "#")
             ("s,skip-length", "Minimum match length to accept greedily (2000)", value<int>(), "#")
-            ("r,references", "Number of reference edges to keep in memory (100000)", value<int>(), "#");
+            ("r,references", "Number of reference edges to keep in memory (100000)", value<int>(), "#")
+            ("p,preset", "Preset for all compression options except --references (1..9, default 2)", value<int>(), "#");
 
         options.add_options("Help")
             ("h,help", "Print this help")
