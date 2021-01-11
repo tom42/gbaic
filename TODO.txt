@@ -1,3 +1,13 @@
+* Reevaluate argp:
+  * cxxopts does not allow -?, so we must do -h/--help rather than -?/--help
+  * cxxopts does not auto-generate --version option
+  * cxxopts does not support --usage option
+  * cxxopts does not understand -i2, only -i 2, where 2 is an argument. This sucks, heavily.
+  * argp
+    * We do not want it to exit automatically => use ARGP_NO_EXIT or however it is called
+    * We want to exit when --usage, --help or --version is seen => Can handle them ourselves
+      * If we always use argp, then we also don't get unwanted partial localization from glibc
+    * Well...try it, I'd say
 * Add all the shrinkler compression options to the command line parser
   * For the 6 options:
     * Implement min/max values (can cxxopts do that?)
