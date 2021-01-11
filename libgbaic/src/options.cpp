@@ -39,17 +39,28 @@ static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::o
 
 // TODO: somehow, stop this from exiting. On any path.
 // TODO: remove os argument
+// TODO: unit test for
+//       * --version
+//       * --usage
+//       * --help
 options parse_options(std::ostream& /*os*/, int argc, char* argv[])
 {
     static const char doc[] =
         PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
         "Shrinkler compressor by Blueberry";
     static const char args_doc[] = "FILE";
-    static const struct argp argp = { nullptr, nullptr, args_doc, doc, nullptr, nullptr, nullptr };
 
-    libgbaic::options options;
-    argp_parse(&argp, argc, argv, ARGP_NO_EXIT, nullptr, nullptr);
-    return options;
+    static const struct argp_option options[] =
+    {
+        // TODO: try intercepting --version, --help, --usage, if possible. If not, reimplement them.
+        { 0, 0, 0, 0, 0 }
+    };
+
+    static const struct argp argp = { options, 0, args_doc, doc, 0, 0, 0 };
+
+    libgbaic::options result;
+    argp_parse(&argp, argc, argv, ARGP_NO_EXIT, 0, 0);
+    return result;
 }
 
 
