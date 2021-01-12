@@ -21,16 +21,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <boost/test/unit_test.hpp>
+
+namespace libgbaic_unittest
+{
+
+struct fixture
+{
+};
+
+BOOST_FIXTURE_TEST_SUITE(quux, fixture)
+
+BOOST_AUTO_TEST_CASE(empty_command_line)
+{
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+}
+
+// TODO: redo stuff below (once more)
+#if 0
 #include <boost/algorithm/string.hpp>
 #include <boost/numeric/conversion/cast.hpp>
-#include <boost/test/unit_test.hpp>
 #include <stdexcept>
 #include <string>
 #include <vector>
 #include "options.hpp"
 
-namespace libgbaic_unittest
-{
 
 using libgbaic::options;
 using std::runtime_error;
@@ -131,3 +149,4 @@ BOOST_AUTO_TEST_CASE(output_file_option_after_input_file)
 BOOST_AUTO_TEST_SUITE_END()
 
 }
+#endif
