@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
         {
             case libgbaic::action::exit_failure:
                 return EXIT_FAILURE;
-            case libgbaic::action::exit_sucess:
+            case libgbaic::action::exit_success:
                 return EXIT_SUCCESS;
             case libgbaic::action::process:
                 // TODO: process stuff

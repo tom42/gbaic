@@ -64,7 +64,7 @@ private:
 enum class action
 {
     exit_failure,
-    exit_sucess,
+    exit_success,
     process
 };
 
