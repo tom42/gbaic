@@ -21,10 +21,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <iostream> // TODO: remove if not needed
 #include <type_traits>
 #include "argp.h"
 #include "options.hpp"
+
+namespace libgbaic
+{
+
+static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
+
+action parse_options(int argc, char* argv[])
+{
+    argp_parse(0, argc, argv, 0, 0, 0); // TODO: custimize
+    return action::exit_failure;        // TODO: real return value
+}
+
+}
+
+// TODO: redo all of this shite below
+#if 0
+#include <iostream> // TODO: remove if not needed
+
 #include "version.hpp"
 
 extern "C"
@@ -35,8 +52,6 @@ extern "C"
 
 namespace libgbaic
 {
-
-static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
 
 static error_t parse_opt(int key, char* /*arg*/, struct argp_state* state)
 {
@@ -181,4 +196,5 @@ options parse_options(std::ostream& os, int argc, char* argv[])
 }
 
 }
+#endif
 #endif
