@@ -99,26 +99,23 @@ BOOST_AUTO_TEST_CASE(help_option)
     BOOST_CHECK(action::exit_success == parse_options("--help"));
 }
 
+BOOST_AUTO_TEST_CASE(version_option)
+{
+    BOOST_CHECK(action::exit_success == parse_options("-V"));
+    BOOST_CHECK(action::exit_success == parse_options("--version"));
+}
+
+BOOST_AUTO_TEST_CASE(usage_option)
+{
+    BOOST_CHECK(action::exit_success == parse_options("--usage"));
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 }
 
 // TODO: redo stuff below (once more)
 #if 0
-
-BOOST_AUTO_TEST_CASE(exceptions_thrown_by_cxxopts_get_message_updated)
-{
-    BOOST_CHECK_EXCEPTION(
-        parse_options("-o"),
-        runtime_error,
-        [](const auto& e) { BOOST_CHECK_EQUAL("Option 'o' is missing an argument\nTry 'gbaic --help' for more information", e.what()); return true; });
-}
-
-BOOST_AUTO_TEST_CASE(version_option)
-{
-    auto options = parse_options("--version");
-    BOOST_CHECK_EQUAL(true, options.should_exit());
-}
 
 BOOST_AUTO_TEST_CASE(output_file_option_before_input_file)
 {
