@@ -156,68 +156,11 @@ extern "C"
     const char* argp_program_bug_address = "TODO: do we want this?";
 }
 
-namespace libgbaic
-{
-
-static error_t parse_opt(int key, char* /*arg*/, argp_state* state)
-{
-    std::cout << (char)key << std::endl;
-
-    switch (key)
-    {
-        case '?':
-            argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
-            state->next = state->argc;
-            return 0;
-        case 333:
-            argp_state_help(state, stdout, ARGP_HELP_STD_USAGE);
-            state->next = state->argc;
-            return 0;
-        case ARGP_KEY_ARG:
-            return 0;
-        default:
-            return ARGP_ERR_UNKNOWN;
-    }
-}
-
-// TODO: somehow, stop this from exiting. On any path.
-// TODO: unit test for
-//       * --version
-//       * --usage
-//       * --help
-action parse_options(int argc, char* argv[])
-{
-
-    argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, 0);
-    return action::exit_failure; // TODO: real return code
-}
-
-
-}
-
 // TODO: redo stuff below
 #if 0
 
 namespace libgbaic
 {
-
-using cxxopts::value;
-using std::string;
-using std::vector;
-
-
-static const string& get_input_file(const cxxopts::ParseResult& parse_result)
-{
-    switch (parse_result.count("input-file"))
-    {
-        case 0:
-            throw cxxopts::OptionParseException("No input file given");
-        case 1:
-            return parse_result["input-file"].as<vector<string>>().front();
-        default:
-            throw cxxopts::OptionParseException("More than one input file given");
-    }
-}
 
 options parse_options(std::ostream& os, int argc, char* argv[])
 {
