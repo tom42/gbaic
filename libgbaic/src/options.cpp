@@ -24,6 +24,12 @@
 #include <type_traits>
 #include "argp.h"
 #include "options.hpp"
+#include "version.hpp"
+
+extern "C"
+{
+    const char* argp_program_version = PROJECT_NAME " " PROJECT_VERSION;
+}
 
 namespace libgbaic
 {
@@ -40,13 +46,9 @@ action parse_options(int argc, char* argv[])
 
 // TODO: redo all of this shite below
 #if 0
-#include <iostream> // TODO: remove if not needed
-
-#include "version.hpp"
 
 extern "C"
 {
-    const char* argp_program_version = PROJECT_NAME " " PROJECT_VERSION;
     const char* argp_program_bug_address = "TODO: do we want this?";
 }
 
