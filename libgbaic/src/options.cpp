@@ -55,6 +55,10 @@ public:
                 print_version();
                 stop_parsing_and_exit(state);
                 return 0;
+            case option::usage:
+                argp_state_help(state, stdout, ARGP_HELP_STD_USAGE);
+                stop_parsing_and_exit(state);
+                return 0;
             default:
                 return ARGP_ERR_UNKNOWN;
         }
@@ -91,7 +95,7 @@ action parse_options(int argc, char* argv[])
         // TODO: how does group ordering work? Also I don't think we should use negative numbers here.
         { "help", '?', 0, 0, "Give this help list", -1 },
         { "version", 'V', 0, 0, "Print program version", -1 },
-        { "usage", 333, 0, 0, "xGive a short usage message" },
+        { "usage", option::usage, 0, 0, "Give a short usage message" },
         { 0, 0, 0, 0, 0 }
     };
 
