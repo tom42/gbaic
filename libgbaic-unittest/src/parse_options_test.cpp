@@ -21,19 +21,60 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <boost/algorithm/string.hpp>
+#include <boost/numeric/conversion/cast.hpp>
 #include <boost/test/unit_test.hpp>
+#include <string>
+#include <vector>
+#include "options.hpp"
 
 namespace libgbaic_unittest
 {
 
-struct fixture
+using libgbaic::action;
+using std::string;
+using std::vector;
+
+class fixture
 {
+public:
+    action parse_options(const char* command_line)
+    {
+        // Split string into individual arguments and convert them to vector<char>
+        vector<vector<char>> vectors;
+        vectors.push_back(to_vector("program_name"));
+        if (strlen(command_line))
+        {
+            vector<string> strings;
+            boost::split(strings, command_line, boost::is_any_of(" "));
+            for (const auto& s : strings)
+            {
+                vectors.push_back(to_vector(s));
+            }
+        }
+
+        // Put together an argv array.
+        vector<char*> argv;
+        for (auto& v : vectors)
+        {
+            argv.push_back(v.data());
+        }
+
+        return libgbaic::parse_options(boost::numeric_cast<int>(argv.size()), argv.data());
+    }
+
+private:
+    static vector<char> to_vector(const string& s)
+    {
+        return vector<char>(s.c_str(), s.c_str() + s.size() + 1);
+    }
 };
 
 BOOST_FIXTURE_TEST_SUITE(quux, fixture)
 
 BOOST_AUTO_TEST_CASE(empty_command_line)
 {
+    BOOST_CHECK(action::exit_failure == parse_options(""));
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -42,48 +83,6 @@ BOOST_AUTO_TEST_SUITE_END()
 
 // TODO: redo stuff below (once more)
 #if 0
-#include <boost/algorithm/string.hpp>
-#include <boost/numeric/conversion/cast.hpp>
-#include <stdexcept>
-#include <string>
-#include <vector>
-#include "options.hpp"
-
-
-using libgbaic::options;
-using std::runtime_error;
-using std::string;
-using std::vector;
-
-static vector<char> to_vector(const string& s)
-{
-    return vector<char>(s.c_str(), s.c_str() + s.size() + 1);
-}
-
-static options parse_options(const char* command_line)
-{
-    // Split string into individual arguments and convert them to vector<char>
-    vector<vector<char>> vectors;
-    vectors.push_back(to_vector("program_name"));
-    if (strlen(command_line))
-    {
-        vector<string> strings;
-        boost::split(strings, command_line, boost::is_any_of(" "));
-        for (const auto& s : strings)
-        {
-            vectors.push_back(to_vector(s));
-        }
-    }
-
-    // Put together an argv array.
-    vector<char*> argv;
-    for (auto& v : vectors)
-    {
-        argv.push_back(v.data());
-    }
-
-    return libgbaic::parse_options(boost::numeric_cast<int>(argv.size()), argv.data());
-}
 
 BOOST_AUTO_TEST_SUITE(parse_options_test)
 
