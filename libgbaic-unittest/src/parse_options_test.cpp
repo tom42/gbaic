@@ -77,20 +77,17 @@ BOOST_AUTO_TEST_CASE(empty_command_line)
     BOOST_CHECK(action::exit_failure == parse_options(""));
 }
 
+BOOST_AUTO_TEST_CASE(more_than_one_input_file)
+{
+    BOOST_CHECK(action::exit_failure == parse_options("file1 file2"));
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 }
 
 // TODO: redo stuff below (once more)
 #if 0
-
-BOOST_AUTO_TEST_CASE(more_than_one_input_file)
-{
-    BOOST_CHECK_EXCEPTION(
-        parse_options("file1 file2"),
-        runtime_error,
-        [](const auto& e) { BOOST_CHECK_EQUAL("More than one input file given\nTry 'gbaic --help' for more information", e.what()); return true; });
-}
 
 BOOST_AUTO_TEST_CASE(one_input_file)
 {
