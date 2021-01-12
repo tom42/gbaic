@@ -110,6 +110,11 @@ BOOST_AUTO_TEST_CASE(usage_option)
     BOOST_CHECK(action::exit_success == parse_options("--usage"));
 }
 
+BOOST_AUTO_TEST_CASE(invalid_option)
+{
+    BOOST_CHECK(action::exit_failure == parse_options("--invalid-option"));
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 }

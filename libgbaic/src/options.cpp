@@ -107,7 +107,6 @@ action parse_options(int argc, char* argv[])
     parser parser;
     if (argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, &parser))
     {
-        // TODO: test invalid option or some other error
         return action::exit_failure;
     }
 
