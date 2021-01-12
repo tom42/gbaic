@@ -47,6 +47,9 @@ public:
     {
         switch (key)
         {
+            case 'o':
+                m_options.output_file(arg);
+                return 0;
             case '?':
                 argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
                 stop_parsing_and_exit(state);
@@ -116,6 +119,7 @@ action parse_options(int argc, char* argv[], options& options)
 {
     static const argp_option argp_options[] =
     {
+        { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba" },
         // Define argp's builtin help options ourselves, so that we can intercept them.
         // Because argp messes around with the group of help and version, using anything
         // else than group -1 for any of help, version or usage gives unexpected ordering,
@@ -221,8 +225,6 @@ options parse_options(std::ostream& os, int argc, char* argv[])
 {
     try
     {
-        options.add_options()
-            ("o,output-file", "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", value<string>(), "FILE");
 
         options.add_options("Shrinkler compression")
             ("i,iterations", "Number of iterations for the compression (2)", value<int>(), "N")
