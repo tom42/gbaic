@@ -59,6 +59,16 @@ public:
                 argp_state_help(state, stdout, ARGP_HELP_STD_USAGE);
                 stop_parsing_and_exit(state);
                 return 0;
+            case ARGP_KEY_NO_ARGS:
+                if (m_action != action::exit_success)
+                {
+                    argp_error(state, "No input file given");
+                    return EINVAL;
+                }
+                else
+                {
+                    return ARGP_ERR_UNKNOWN;
+                }
             default:
                 return ARGP_ERR_UNKNOWN;
         }
