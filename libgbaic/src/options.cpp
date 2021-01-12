@@ -130,7 +130,6 @@ action parse_options(int argc, char* argv[], options& options)
         // TODO: add documentation option?
         // TODO: parse them options (new test)
         /*
-            ("a,same-length", "Number of matches of the same length to consider (20)", value<int>(), "N")
             ("e,effort", "Perseverance in finding multiple matches (200)", value<int>(), "N")
             ("s,skip-length", "Minimum match length to accept greedily (2000)", value<int>(), "N")
             ("r,references", "Number of reference edges to keep in memory (100000)", value<int>(), "N")
@@ -138,6 +137,7 @@ action parse_options(int argc, char* argv[], options& options)
         */
         { "iterations", 'i', "N", 0, "Number of iterations for the compression (2)", 1 },
         { "length-margin", 'l', "N", 0, "Number of shorter matches considered for each match (2)" },
+        { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)" },
 
         // Define argp's builtin help options ourselves, so that we can intercept them.
         // Because argp messes around with the group of help and version, using anything
