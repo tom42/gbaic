@@ -68,20 +68,9 @@ private:
 
 static error_t parse_opt(int key, char* arg, argp_state* state)
 {
+    // TODO: catch all exceptions here and somehow abort
     parser& p = *static_cast<parser*>(state->input);
-
-    // TODO: catch all exceptions here
     return p.parse_opt(key, arg, state);
-
-    // TODO: move crap below
-    /*switch (key)
-    {
-        case '?':
-            stop_parsing(state);
-            return 0;
-        default:
-            return ARGP_ERR_UNKNOWN;
-    }*/
 }
 
 action parse_options(int argc, char* argv[])
