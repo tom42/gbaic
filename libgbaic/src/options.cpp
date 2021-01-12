@@ -32,6 +32,12 @@ namespace libgbaic
 
 static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
 
+enum option
+{
+    first = 256,
+    usage
+};
+
 class parser
 {
 public:
