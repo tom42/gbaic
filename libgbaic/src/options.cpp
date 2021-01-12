@@ -88,8 +88,10 @@ action parse_options(int argc, char* argv[])
 {
     static const argp_option options[] =
     {
+        // TODO: how does group ordering work? Also I don't think we should use negative numbers here.
         { "help", '?', 0, 0, "Give this help list", -1 },
         { "version", 'V', 0, 0, "Print program version", -1 },
+        { "usage", 333, 0, 0, "xGive a short usage message" },
         { 0, 0, 0, 0, 0 }
     };
 
@@ -151,11 +153,6 @@ action parse_options(int argc, char* argv[])
         "Shrinkler compressor by Blueberry";
     static const char args_doc[] = "FILE";
 
-    static const argp_option options[] =
-    {
-        // TODO: try intercepting --version, --help, --usage, if possible. If not, reimplement them.
-        { "usage", 333, 0, 0, "xGive a short usage message" },
-    };
 
     static const argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0 };
 
