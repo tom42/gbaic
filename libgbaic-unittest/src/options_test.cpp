@@ -35,7 +35,6 @@ BOOST_AUTO_TEST_CASE(constructor)
 {
     options options;
 
-    BOOST_CHECK_EQUAL(false, options.should_exit());
     BOOST_CHECK_EQUAL("", options.input_file());
     BOOST_CHECK_EQUAL("", options.output_file());
 }
