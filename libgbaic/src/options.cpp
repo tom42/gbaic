@@ -38,7 +38,7 @@ static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::o
 
 action parse_options(int argc, char* argv[])
 {
-    argp_parse(0, argc, argv, ARGP_NO_EXIT, 0, 0); // TODO: custimize
+    argp_parse(0, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, 0); // TODO: custimize
     return action::exit_failure;        // TODO: real return value
 }
 
