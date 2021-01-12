@@ -41,40 +41,58 @@ class parser
 public:
     parser() : m_action(action::process) {}
 
+    error_t parse_opt(int key, char* /*arg*/, argp_state* state)
+    {
+        switch (key)
+        {
+            case '?':
+                argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
+                stop_parsing_and_exit(state);
+                return 0;
+            default:
+                return ARGP_ERR_UNKNOWN;
+        }
+    }
+
     action action() const { return m_action; }
 
 private:
+    void stop_parsing_and_exit(argp_state* state)
+    {
+        state->next = state->argc;
+        m_action = action::exit_success;
+    }
+
     libgbaic::action m_action;
 };
 
-static void stop_parsing(struct argp_state* state)
+static error_t parse_opt(int key, char* arg, argp_state* state)
 {
-    state->next = state->argc;
-}
+    parser& p = *static_cast<parser*>(state->input);
 
-static error_t parse_opt(int key, char* /*arg*/, struct argp_state* state)
-{
     // TODO: catch all exceptions here
-    switch (key)
+    return p.parse_opt(key, arg, state);
+
+    // TODO: move crap below
+    /*switch (key)
     {
         case '?':
-            argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
             stop_parsing(state);
             return 0;
         default:
             return ARGP_ERR_UNKNOWN;
-    }
+    }*/
 }
 
 action parse_options(int argc, char* argv[])
 {
-    static const struct argp_option options[] =
+    static const argp_option options[] =
     {
         { "help", '?', 0, 0, "Give this help list", -1 },
         { 0, 0, 0, 0, 0 }
     };
 
-    static const struct argp argp = { options, parse_opt, 0, 0, 0, 0, 0 };
+    static const argp argp = { options, parse_opt, 0, 0, 0, 0, 0 };
 
     parser parser;
     if (argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, &parser))
@@ -99,7 +117,7 @@ extern "C"
 namespace libgbaic
 {
 
-static error_t parse_opt(int key, char* /*arg*/, struct argp_state* state)
+static error_t parse_opt(int key, char* /*arg*/, argp_state* state)
 {
     std::cout << (char)key << std::endl;
 
@@ -132,14 +150,14 @@ action parse_options(int argc, char* argv[])
         "Shrinkler compressor by Blueberry";
     static const char args_doc[] = "FILE";
 
-    static const struct argp_option options[] =
+    static const argp_option options[] =
     {
         // TODO: try intercepting --version, --help, --usage, if possible. If not, reimplement them.
         { "version", 'V', 0, 0, "Print program version", -1 },
         { "usage", 333, 0, 0, "xGive a short usage message" },
     };
 
-    static const struct argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0 };
+    static const argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0 };
 
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, 0);
     return action::exit_failure; // TODO: real return code
