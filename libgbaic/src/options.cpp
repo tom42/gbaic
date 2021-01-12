@@ -40,6 +40,7 @@ action parse_options(int argc, char* argv[])
 {
     static const struct argp_option options[] =
     {
+        { "help", '?', 0, 0, "Give this help list", -1 },
         { 0, 0, 0, 0, 0 }
     };
 
@@ -99,7 +100,6 @@ action parse_options(int argc, char* argv[])
     static const struct argp_option options[] =
     {
         // TODO: try intercepting --version, --help, --usage, if possible. If not, reimplement them.
-        { "help", '?', 0, 0, "Give this help list", -1 },
         { "version", 'V', 0, 0, "Print program version", -1 },
         { "usage", 333, 0, 0, "xGive a short usage message" },
     };
