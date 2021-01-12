@@ -41,7 +41,7 @@ enum option
 class parser
 {
 public:
-    parser() : m_action(action::process) {}
+    parser() : m_action(action::process), m_inputfile_seen(false) {}
 
     error_t parse_opt(int key, char* /*arg*/, argp_state* state)
     {
@@ -59,6 +59,17 @@ public:
                 argp_state_help(state, stdout, ARGP_HELP_STD_USAGE);
                 stop_parsing_and_exit(state);
                 return 0;
+            case ARGP_KEY_ARG:
+                if (!m_inputfile_seen)
+                {
+                    m_inputfile_seen = true;
+                    return 0;
+                }
+                else
+                {
+                    argp_error(state, "More than one input file given");
+                    return EINVAL;
+                }
             case ARGP_KEY_NO_ARGS:
                 if (m_action != action::exit_success)
                 {
@@ -89,6 +100,7 @@ private:
     }
 
     libgbaic::action m_action;
+    bool m_inputfile_seen;
 };
 
 static error_t parse_opt(int key, char* arg, argp_state* state)
