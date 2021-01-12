@@ -38,7 +38,15 @@ static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::o
 
 action parse_options(int argc, char* argv[])
 {
-    argp_parse(0, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, 0); // TODO: custimize
+    static const struct argp_option options[] =
+    {
+        { 0, 0, 0, 0, 0 }
+    };
+
+    static const struct argp argp = { options, 0, 0, 0, 0, 0, 0 };
+
+    argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, 0); // TODO: custimize
+
     return action::exit_failure;        // TODO: real return value
 }
 
@@ -94,7 +102,6 @@ action parse_options(int argc, char* argv[])
         { "help", '?', 0, 0, "Give this help list", -1 },
         { "version", 'V', 0, 0, "Print program version", -1 },
         { "usage", 333, 0, 0, "xGive a short usage message" },
-        { 0, 0, 0, 0, 0 }
     };
 
     static const struct argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0 };
