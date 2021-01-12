@@ -117,6 +117,11 @@ static error_t parse_opt(int key, char* arg, argp_state* state)
 
 action parse_options(int argc, char* argv[], options& options)
 {
+    static const char doc[] =
+        PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
+        "Shrinkler compressor by Blueberry";
+    static const char args_doc[] = "FILE";
+
     static const argp_option argp_options[] =
     {
         { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba" },
@@ -130,7 +135,7 @@ action parse_options(int argc, char* argv[], options& options)
         { 0, 0, 0, 0, 0 }
     };
 
-    static const argp argp = { argp_options, parse_opt, 0, 0, 0, 0, 0 };
+    static const argp argp = { argp_options, parse_opt, args_doc, doc, 0, 0, 0 };
 
     parser parser(options);
     if (argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, &parser))
@@ -182,13 +187,6 @@ static error_t parse_opt(int key, char* /*arg*/, argp_state* state)
 //       * --help
 action parse_options(int argc, char* argv[])
 {
-    static const char doc[] =
-        PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
-        "Shrinkler compressor by Blueberry";
-    static const char args_doc[] = "FILE";
-
-
-    static const argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0 };
 
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, 0);
     return action::exit_failure; // TODO: real return code
