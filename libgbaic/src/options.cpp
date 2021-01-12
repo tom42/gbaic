@@ -125,6 +125,20 @@ action parse_options(int argc, char* argv[], options& options)
     static const argp_option argp_options[] =
     {
         { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba" },
+
+        // TODO: add shrinkler compression options. Maybe in their own group?
+        // TODO: add documentation option?
+        // TODO: parse them options (new test)
+        /*
+            ("l,length-margin", "Number of shorter matches considered for each match (2)", value<int>(), "N")
+            ("a,same-length", "Number of matches of the same length to consider (20)", value<int>(), "N")
+            ("e,effort", "Perseverance in finding multiple matches (200)", value<int>(), "N")
+            ("s,skip-length", "Minimum match length to accept greedily (2000)", value<int>(), "N")
+            ("r,references", "Number of reference edges to keep in memory (100000)", value<int>(), "N")
+            ("p,preset", "Preset for all compression options except --references (1..9, default 2)", value<int>(), "N");
+        */
+        { "iterations", 'i', "N", 0, "Number of iterations for the compression (2)", 1 },
+
         // Define argp's builtin help options ourselves, so that we can intercept them.
         // Because argp messes around with the group of help and version, using anything
         // else than group -1 for any of help, version or usage gives unexpected ordering,
@@ -168,13 +182,6 @@ options parse_options(std::ostream& os, int argc, char* argv[])
     {
 
         options.add_options("Shrinkler compression")
-            ("i,iterations", "Number of iterations for the compression (2)", value<int>(), "N")
-            ("l,length-margin", "Number of shorter matches considered for each match (2)", value<int>(), "N")
-            ("a,same-length", "Number of matches of the same length to consider (20)", value<int>(), "N")
-            ("e,effort", "Perseverance in finding multiple matches (200)", value<int>(), "N")
-            ("s,skip-length", "Minimum match length to accept greedily (2000)", value<int>(), "N")
-            ("r,references", "Number of reference edges to keep in memory (100000)", value<int>(), "N")
-            ("p,preset", "Preset for all compression options except --references (1..9, default 2)", value<int>(), "N");
 
         options.add_options("Help")
             ("h,help", "Print this help")
