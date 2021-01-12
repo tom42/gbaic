@@ -24,7 +24,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 #include <boost/test/unit_test.hpp>
-#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -65,8 +64,7 @@ static options parse_options(const char* command_line)
         argv.push_back(v.data());
     }
 
-    std::ostringstream null_stdout;
-    return libgbaic::parse_options(null_stdout, boost::numeric_cast<int>(argv.size()), argv.data());
+    return libgbaic::parse_options(boost::numeric_cast<int>(argv.size()), argv.data());
 }
 
 BOOST_AUTO_TEST_SUITE(parse_options_test)

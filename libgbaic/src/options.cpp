@@ -60,12 +60,11 @@ static error_t parse_opt(int key, char* /*arg*/, struct argp_state* state)
 }
 
 // TODO: somehow, stop this from exiting. On any path.
-// TODO: remove os argument
 // TODO: unit test for
 //       * --version
 //       * --usage
 //       * --help
-options parse_options(std::ostream& /*os*/, int argc, char* argv[])
+options parse_options(int argc, char* argv[])
 {
     static const char doc[] =
         PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
