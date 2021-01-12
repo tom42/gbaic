@@ -32,11 +32,7 @@ namespace libgbaic
 class options
 {
 public:
-    options() : m_should_exit(false), m_output_file_set(false) {}
-
-    bool should_exit() const { return m_should_exit; }
-
-    void should_exit(bool should_exit) { m_should_exit = should_exit; }
+    options() : m_output_file_set(false) {}
 
     const std::filesystem::path& input_file() const { return m_input_file; }
 
@@ -60,13 +56,19 @@ public:
     }
 
 private:
-    bool m_should_exit;
     bool m_output_file_set;
     std::filesystem::path m_input_file;
     std::filesystem::path m_output_file;
 };
 
-options parse_options(int argc, char* argv[]);
+enum class action
+{
+    exit_failure,
+    exit_sucess,
+    process
+};
+
+action parse_options(int argc, char* argv[]);
 
 }
 

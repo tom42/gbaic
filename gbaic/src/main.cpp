@@ -30,18 +30,22 @@ int main(int argc, char* argv[])
 {
     try
     {
-        auto options = libgbaic::parse_options(argc, argv);
-        if (options.should_exit())
+        auto action = libgbaic::parse_options(argc, argv);
+        switch (action)
         {
-            return EXIT_SUCCESS;
+            case libgbaic::action::exit_failure:
+                return EXIT_FAILURE;
+            case libgbaic::action::exit_sucess:
+                return EXIT_SUCCESS;
+            case libgbaic::action::process:
+                // TODO: process stuff
+                //       * Load input file (bin or elf)
+                //       * Compress it (shrinkler or LZSS+Huffman)
+                //       * Write output file (should automatically determine which one is the smallest)
+                return EXIT_SUCCESS;
+            default:
+                throw std::runtime_error("Unknown action returned by command line parser");
         }
-
-        // TODO: process stuff
-        //       * Load input file (bin or elf)
-        //       * Compress it (shrinkler or LZSS+Huffman)
-        //       * Write output file (should automatically determine which one is the smallest)
-
-        return EXIT_SUCCESS;
     }
     catch (const std::exception& e)
     {

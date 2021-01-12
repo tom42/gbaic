@@ -64,7 +64,7 @@ static error_t parse_opt(int key, char* /*arg*/, struct argp_state* state)
 //       * --version
 //       * --usage
 //       * --help
-options parse_options(int argc, char* argv[])
+action parse_options(int argc, char* argv[])
 {
     static const char doc[] =
         PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
@@ -82,10 +82,8 @@ options parse_options(int argc, char* argv[])
 
     static const struct argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0 };
 
-    libgbaic::options result;
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, 0);
-    std::cout << "BYE" << std::endl; // TODO: remove
-    return result;
+    return action::exit_failure; // TODO: real return code
 }
 
 
