@@ -1,4 +1,4 @@
-// MIT License
+// MIT License7
 //
 // gbaic: Gameboy Advance Intro Cruncher
 // Copyright (c) 2020 Thomas Mathys
@@ -21,6 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <iostream> // TODO: remove if not needed
 #include <type_traits>
 #include "argp.h"
 #include "options.hpp"
@@ -36,6 +37,27 @@ namespace libgbaic
 {
 
 static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
+
+static error_t parse_opt(int key, char* /*arg*/, struct argp_state* state)
+{
+    std::cout << (char)key << std::endl;
+
+    switch (key)
+    {
+        case '?':
+            argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
+            state->next = state->argc;
+            return 0;
+        case 333:
+            argp_state_help(state, stdout, ARGP_HELP_STD_USAGE);
+            state->next = state->argc;
+            return 0;
+        case ARGP_KEY_ARG:
+            return 0;
+        default:
+            return ARGP_ERR_UNKNOWN;
+    }
+}
 
 // TODO: somehow, stop this from exiting. On any path.
 // TODO: remove os argument
@@ -53,13 +75,17 @@ options parse_options(std::ostream& /*os*/, int argc, char* argv[])
     static const struct argp_option options[] =
     {
         // TODO: try intercepting --version, --help, --usage, if possible. If not, reimplement them.
+        { "help", '?', 0, 0, "Give this help list", -1 },
+        { "version", 'V', 0, 0, "Print program version", -1 },
+        { "usage", 333, 0, 0, "xGive a short usage message" },
         { 0, 0, 0, 0, 0 }
     };
 
-    static const struct argp argp = { options, 0, args_doc, doc, 0, 0, 0 };
+    static const struct argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0 };
 
     libgbaic::options result;
-    argp_parse(&argp, argc, argv, ARGP_NO_EXIT, 0, 0);
+    argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, 0);
+    std::cout << "BYE" << std::endl; // TODO: remove
     return result;
 }
 

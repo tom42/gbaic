@@ -1,3 +1,10 @@
+* OK, got it:
+  * ARGP_NO_EXIT disables exiting
+  * ARGP_NO_HELP disables builtin help options => So we can emulate them
+  * Option groups define order. When emulating builtin help options, use correct groups. help and version are in -1, usage is in 0.
+  * We can use argp_state_help to reimplement --help and --usage. What about --version?
+  * Finally, state->next = state->argc stops all further processing by moving the input pointer to the end of the arguments.
+  * VERIFY WITH ARGP DOCUMENTATION THIS IS ALL OK
 * Reevaluate argp:
   * cxxopts does not allow -?, so we must do -h/--help rather than -?/--help
   * cxxopts does not auto-generate --version option
