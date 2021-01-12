@@ -27,11 +27,6 @@
 #include "options.hpp"
 #include "version.hpp"
 
-extern "C"
-{
-    const char* argp_program_version = PROJECT_NAME " " PROJECT_VERSION;
-}
-
 namespace libgbaic
 {
 
@@ -70,7 +65,7 @@ private:
 
     static void print_version()
     {
-        std::cout << argp_program_version << std::endl;
+        std::cout << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
     }
 
     libgbaic::action m_action;
