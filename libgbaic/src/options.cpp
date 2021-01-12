@@ -92,10 +92,13 @@ action parse_options(int argc, char* argv[])
 {
     static const argp_option options[] =
     {
-        // TODO: how does group ordering work? Also I don't think we should use negative numbers here.
+        // Define argp's builtin help options ourselves, so that we can intercept them.
+        // Because argp messes around with the group of help and version, using anything
+        // else than group -1 for any of help, version or usage gives unexpected ordering,
+        // so we specify -1 for all three of them.
         { "help", '?', 0, 0, "Give this help list", -1 },
         { "version", 'V', 0, 0, "Print program version", -1 },
-        { "usage", option::usage, 0, 0, "Give a short usage message" },
+        { "usage", option::usage, 0, 0, "Give a short usage message", -1 },
         { 0, 0, 0, 0, 0 }
     };
 
