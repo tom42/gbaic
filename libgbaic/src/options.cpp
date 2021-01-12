@@ -21,6 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <iostream>
 #include <type_traits>
 #include "argp.h"
 #include "options.hpp"
@@ -49,6 +50,10 @@ public:
                 argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
                 stop_parsing_and_exit(state);
                 return 0;
+            case 'V':
+                print_version();
+                stop_parsing_and_exit(state);
+                return 0;
             default:
                 return ARGP_ERR_UNKNOWN;
         }
@@ -61,6 +66,11 @@ private:
     {
         state->next = state->argc;
         m_action = action::exit_success;
+    }
+
+    static void print_version()
+    {
+        std::cout << argp_program_version << std::endl;
     }
 
     libgbaic::action m_action;
@@ -78,6 +88,7 @@ action parse_options(int argc, char* argv[])
     static const argp_option options[] =
     {
         { "help", '?', 0, 0, "Give this help list", -1 },
+        { "version", 'V', 0, 0, "Print program version", -1 },
         { 0, 0, 0, 0, 0 }
     };
 
@@ -142,7 +153,6 @@ action parse_options(int argc, char* argv[])
     static const argp_option options[] =
     {
         // TODO: try intercepting --version, --help, --usage, if possible. If not, reimplement them.
-        { "version", 'V', 0, 0, "Print program version", -1 },
         { "usage", 333, 0, 0, "xGive a short usage message" },
     };
 
