@@ -36,6 +36,16 @@ namespace libgbaic
 
 static_assert(std::is_move_constructible<libgbaic::options>::value, "libgbaic::options is not move constructible");
 
+static error_t parse_opt(int key, char* /*arg*/, struct argp_state* /*state*/)
+{
+    switch (key)
+    {
+        case '?':
+        default:
+            return ARGP_ERR_UNKNOWN;
+    }
+}
+
 action parse_options(int argc, char* argv[])
 {
     static const struct argp_option options[] =
@@ -44,7 +54,7 @@ action parse_options(int argc, char* argv[])
         { 0, 0, 0, 0, 0 }
     };
 
-    static const struct argp argp = { options, 0, 0, 0, 0, 0, 0 };
+    static const struct argp argp = { options, parse_opt, 0, 0, 0, 0, 0 };
 
     argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, 0); // TODO: custimize
 
