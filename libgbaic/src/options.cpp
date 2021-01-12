@@ -41,9 +41,9 @@ enum option
 class parser
 {
 public:
-    parser() : m_action(action::process), m_inputfile_seen(false) {}
+    parser(options& options) : m_options(options), m_action(action::process), m_inputfile_seen(false) {}
 
-    error_t parse_opt(int key, char* /*arg*/, argp_state* state)
+    error_t parse_opt(int key, char* arg, argp_state* state)
     {
         switch (key)
         {
@@ -63,6 +63,7 @@ public:
                 if (!m_inputfile_seen)
                 {
                     m_inputfile_seen = true;
+                    m_options.input_file(arg);
                     return 0;
                 }
                 else
@@ -99,6 +100,7 @@ private:
         std::cout << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
     }
 
+    options& m_options;
     libgbaic::action m_action;
     bool m_inputfile_seen;
 };
@@ -110,9 +112,9 @@ static error_t parse_opt(int key, char* arg, argp_state* state)
     return p.parse_opt(key, arg, state);
 }
 
-action parse_options(int argc, char* argv[])
+action parse_options(int argc, char* argv[], options& options)
 {
-    static const argp_option options[] =
+    static const argp_option argp_options[] =
     {
         // Define argp's builtin help options ourselves, so that we can intercept them.
         // Because argp messes around with the group of help and version, using anything
@@ -124,9 +126,9 @@ action parse_options(int argc, char* argv[])
         { 0, 0, 0, 0, 0 }
     };
 
-    static const argp argp = { options, parse_opt, 0, 0, 0, 0, 0 };
+    static const argp argp = { argp_options, parse_opt, 0, 0, 0, 0, 0 };
 
-    parser parser;
+    parser parser(options);
     if (argp_parse(&argp, argc, argv, ARGP_NO_EXIT | ARGP_NO_HELP, 0, &parser))
     {
         return action::exit_failure;

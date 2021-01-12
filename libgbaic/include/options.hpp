@@ -68,7 +68,7 @@ enum class action
     process
 };
 
-action parse_options(int argc, char* argv[]);
+action parse_options(int argc, char* argv[], options& options);
 
 }
 

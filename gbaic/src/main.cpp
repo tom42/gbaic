@@ -30,7 +30,8 @@ int main(int argc, char* argv[])
 {
     try
     {
-        auto action = libgbaic::parse_options(argc, argv);
+        libgbaic::options options;
+        auto action = libgbaic::parse_options(argc, argv, options);
         switch (action)
         {
             case libgbaic::action::exit_failure:
