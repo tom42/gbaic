@@ -162,14 +162,6 @@ action parse_options(int argc, char* argv[])
 
 // TODO: redo stuff below
 #if 0
-#include <iostream>
-#include <stdexcept>
-#include <string>
-#include <type_traits>
-#include <vector>
-#include "cxxopts.hpp"
-#include "options.hpp"
-#include "version.hpp"
 
 namespace libgbaic
 {
