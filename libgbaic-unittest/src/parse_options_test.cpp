@@ -42,6 +42,8 @@ public:
 
     action parse_options(const char* command_line)
     {
+        options = libgbaic::options();
+
         // Split string into individual arguments and convert them to vector<char>
         vector<vector<char>> vectors;
         vectors.push_back(to_vector("program_name"));
@@ -91,18 +93,18 @@ BOOST_AUTO_TEST_CASE(one_input_file)
     BOOST_CHECK_EQUAL("file1.gba", options.output_file());
 }
 
+BOOST_AUTO_TEST_CASE(help_option)
+{
+    BOOST_CHECK(action::exit_success == parse_options("-?"));
+    BOOST_CHECK(action::exit_success == parse_options("--help"));
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 }
 
 // TODO: redo stuff below (once more)
 #if 0
-
-BOOST_AUTO_TEST_CASE(help_option)
-{
-    auto options = parse_options("--help");
-    BOOST_CHECK_EQUAL(true, options.should_exit());
-}
 
 BOOST_AUTO_TEST_CASE(exceptions_thrown_by_cxxopts_get_message_updated)
 {
