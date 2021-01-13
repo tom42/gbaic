@@ -59,7 +59,7 @@ public:
                 stop_parsing_and_exit(state);
                 return 0;
             case option::usage:
-                argp_state_help(state, stdout, ARGP_HELP_STD_USAGE);
+                argp_state_help(state, stdout, ARGP_HELP_USAGE);
                 stop_parsing_and_exit(state);
                 return 0;
             case ARGP_KEY_ARG:
@@ -163,63 +163,3 @@ action parse_options(int argc, char* argv[], options& options)
 }
 
 }
-
-// TODO: redo all of this shite below
-#if 0
-
-
-namespace libgbaic
-{
-
-options parse_options(std::ostream& os, int argc, char* argv[])
-{
-    try
-    {
-
-        options.add_options("Shrinkler compression")
-
-        options.add_options("Help")
-            ("h,help", "Print this help")
-            ("V,version", "Print program version");
-
-        options.add_options("hidden")
-            ("input-file", "Input file", value<vector<string>>());
-
-        options.parse_positional({ "input-file" });
-        options.positional_help("<INPUT FILE>");
-
-        auto result = options.parse(argc, argv);
-
-        libgbaic::options opts;
-
-        if (result.count("help"))
-        {
-            os << options.help({ "", "Shrinkler compression", "Help" }) << std::endl;
-            opts.should_exit(true);
-            return opts;
-        }
-
-        if (result.count("version"))
-        {
-            os << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
-            opts.should_exit(true);
-            return opts;
-        }
-
-        opts.input_file(get_input_file(result));
-
-        if (result.count("output-file"))
-        {
-            opts.output_file(result["output-file"].as<string>());
-        }
-
-        return opts;
-    }
-    catch (const cxxopts::OptionParseException& e)
-    {
-        throw std::runtime_error(string(e.what()) + "\nTry '" PROJECT_NAME " --help' for more information");
-    }
-}
-
-}
-#endif
