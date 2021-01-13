@@ -124,6 +124,7 @@ action parse_options(int argc, char* argv[], options& options)
 
     static const argp_option argp_options[] =
     {
+        { 0, 0, 0, 0, "General options", 0 },
         { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", 0 },
 
         // TODO: add shrinkler compression options. Maybe in their own group?
@@ -135,14 +136,15 @@ action parse_options(int argc, char* argv[], options& options)
             ("r,references", "Number of reference edges to keep in memory (100000)", value<int>(), "N")
             ("p,preset", "Preset for all compression options except --references (1..9, default 2)", value<int>(), "N");
         */
-        { "iterations", 'i', "N", 0, "Number of iterations for the compression (2)", 1 },
+
+        { 0, 0, 0, 0, "Shrinkler compression options", 0 },
+        { "iterations", 'i', "N", 0, "Number of iterations for the compression (2)", 0 },
         { "length-margin", 'l', "N", 0, "Number of shorter matches considered for each match (2)", 0 },
         { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)", 0 },
 
         // argp always forces "help" and "version" into group -1, but not "usage".
         // But we want "usage" to be there too, so we explicitly specify -1 for "help".
         // That way, "version" and "usage" will inherit it.
-        { 0, 0, 0, 0, "Help options", 0 },
         { "help", '?', 0, 0, "Give this help list", -1 },
         { "version", 'V', 0, 0, "Print program version", 0},
         { "usage", option::usage, 0, 0, "Give a short usage message", 0 },
