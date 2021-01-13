@@ -128,17 +128,13 @@ action parse_options(int argc, char* argv[], options& options)
         { 0, 0, 0, 0, "General options:", 0 },
         { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", 0 },
 
-        // TODO: somehow emulate the -1 .. -9 options => nah. Just use -p
         // TODO: parse them options (new test)
-        /*
-            ("p,preset", "Preset for all compression options except --references (1..9, default 2)", value<int>(), "N");
-        */
-
         { 0, 0, 0, 0, "Shrinkler compression options (default values in parentheses):", 0 },
         { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)", 0 },
         { "effort", 'e', "N", 0, "Perseverance in finding multiple matches (200)", 0 },
         { "iterations", 'i', "N", 0, "Number of iterations for the compression (2)", 0 },
         { "length-margin", 'l', "N", 0, "Number of shorter matches considered for each match (2)", 0 },
+        { "preset", 'p', "PRESET", 0, "Preset for all compression options except --references (1..9, default 2)", 0 },
         { "references", 'r', "N", 0, "Number of reference edges to keep in memory (100000)", 0 },
         { "skip-length", 's', "N", 0, "Minimum match length to accept greedily (2000)", 0 },
 
