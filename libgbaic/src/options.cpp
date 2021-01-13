@@ -139,13 +139,13 @@ action parse_options(int argc, char* argv[], options& options)
         { "length-margin", 'l', "N", 0, "Number of shorter matches considered for each match (2)", 0 },
         { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)", 0 },
 
-        // Define argp's builtin help options ourselves, so that we can intercept them.
-        // Because argp messes around with the group of help and version, using anything
-        // else than group -1 for any of help, version or usage gives unexpected ordering,
-        // so we specify -1 for all three of them.
+        // argp always forces "help" and "version" into group -1, but not "usage".
+        // But we want "usage" to be there too, so we explicitly specify -1 for "help".
+        // That way, "version" and "usage" will inherit it.
+        { 0, 0, 0, 0, "Help options", 0 },
         { "help", '?', 0, 0, "Give this help list", -1 },
-        { "version", 'V', 0, 0, "Print program version", -1 },
-        { "usage", option::usage, 0, 0, "Give a short usage message", -1 },
+        { "version", 'V', 0, 0, "Print program version", 0},
+        { "usage", option::usage, 0, 0, "Give a short usage message", 0 },
         { 0, 0, 0, 0, 0, 0 }
     };
 
