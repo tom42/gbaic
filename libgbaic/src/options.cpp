@@ -124,7 +124,7 @@ action parse_options(int argc, char* argv[], options& options)
 
     static const argp_option argp_options[] =
     {
-        { 0, 0, 0, 0, "General options", 0 },
+        { 0, 0, 0, 0, "General options:", 0 },
         { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", 0 },
 
         // TODO: somehow emulate the -1 .. -9 options.
@@ -134,7 +134,7 @@ action parse_options(int argc, char* argv[], options& options)
             ("p,preset", "Preset for all compression options except --references (1..9, default 2)", value<int>(), "N");
         */
 
-        { 0, 0, 0, 0, "Shrinkler compression options", 0 },
+        { 0, 0, 0, 0, "Shrinkler compression options:", 0 },
         { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)", 0 },
         { "effort", 'e', "N", 0, "Perseverance in finding multiple matches (200)", 0 },
         { "iterations", 'i', "N", 0, "Number of iterations for the compression (2)", 0 },
