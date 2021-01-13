@@ -127,20 +127,20 @@ action parse_options(int argc, char* argv[], options& options)
         { 0, 0, 0, 0, "General options", 0 },
         { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", 0 },
 
-        // TODO: add shrinkler compression options. Maybe in their own group?
-        // TODO: add documentation option?
+        // TODO: somehow emulate the -1 .. -9 options.
         // TODO: parse them options (new test)
+        // TODO: can we somehow disable option sorting?
         /*
-            ("e,effort", "Perseverance in finding multiple matches (200)", value<int>(), "N")
-            ("s,skip-length", "Minimum match length to accept greedily (2000)", value<int>(), "N")
-            ("r,references", "Number of reference edges to keep in memory (100000)", value<int>(), "N")
             ("p,preset", "Preset for all compression options except --references (1..9, default 2)", value<int>(), "N");
         */
 
         { 0, 0, 0, 0, "Shrinkler compression options", 0 },
+        { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)", 0 },
+        { "effort", 'e', "N", 0, "Perseverance in finding multiple matches (200)", 0 },
         { "iterations", 'i', "N", 0, "Number of iterations for the compression (2)", 0 },
         { "length-margin", 'l', "N", 0, "Number of shorter matches considered for each match (2)", 0 },
-        { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)", 0 },
+        { "references", 'r', "N", 0, "Number of reference edges to keep in memory (100000)", 0 },
+        { "skip-length", 's', "N", 0, "Minimum match length to accept greedily (2000)", 0 },
 
         // argp always forces "help" and "version" into group -1, but not "usage".
         // But we want "usage" to be there too, so we explicitly specify -1 for "help".
