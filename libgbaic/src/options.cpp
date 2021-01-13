@@ -127,9 +127,8 @@ action parse_options(int argc, char* argv[], options& options)
         { 0, 0, 0, 0, "General options:", 0 },
         { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", 0 },
 
-        // TODO: somehow emulate the -1 .. -9 options.
+        // TODO: somehow emulate the -1 .. -9 options => nah. Just use -p
         // TODO: parse them options (new test)
-        // TODO: can we somehow disable option sorting?
         /*
             ("p,preset", "Preset for all compression options except --references (1..9, default 2)", value<int>(), "N");
         */
