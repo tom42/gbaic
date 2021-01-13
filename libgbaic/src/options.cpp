@@ -119,7 +119,8 @@ action parse_options(int argc, char* argv[], options& options)
 {
     static const char doc[] =
         PROJECT_NAME " - Gameboy Advance Intro Cruncher by Tom/Vantage\n"
-        "Shrinkler compressor by Blueberry";
+        "Uses Shrinkler compression by Blueberry\n"
+        "https://github.com/tom42/gbaic";
     static const char args_doc[] = "FILE";
 
     static const argp_option argp_options[] =
@@ -166,13 +167,6 @@ action parse_options(int argc, char* argv[], options& options)
 // TODO: redo all of this shite below
 #if 0
 
-extern "C"
-{
-    const char* argp_program_bug_address = "TODO: do we want this?";
-}
-
-// TODO: redo stuff below
-#if 0
 
 namespace libgbaic
 {
@@ -228,5 +222,4 @@ options parse_options(std::ostream& os, int argc, char* argv[])
 }
 
 }
-#endif
 #endif
