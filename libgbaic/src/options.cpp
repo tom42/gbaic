@@ -124,7 +124,7 @@ action parse_options(int argc, char* argv[], options& options)
 
     static const argp_option argp_options[] =
     {
-        { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba" },
+        { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", 0 },
 
         // TODO: add shrinkler compression options. Maybe in their own group?
         // TODO: add documentation option?
@@ -136,8 +136,8 @@ action parse_options(int argc, char* argv[], options& options)
             ("p,preset", "Preset for all compression options except --references (1..9, default 2)", value<int>(), "N");
         */
         { "iterations", 'i', "N", 0, "Number of iterations for the compression (2)", 1 },
-        { "length-margin", 'l', "N", 0, "Number of shorter matches considered for each match (2)" },
-        { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)" },
+        { "length-margin", 'l', "N", 0, "Number of shorter matches considered for each match (2)", 0 },
+        { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)", 0 },
 
         // Define argp's builtin help options ourselves, so that we can intercept them.
         // Because argp messes around with the group of help and version, using anything
@@ -146,7 +146,7 @@ action parse_options(int argc, char* argv[], options& options)
         { "help", '?', 0, 0, "Give this help list", -1 },
         { "version", 'V', 0, 0, "Print program version", -1 },
         { "usage", option::usage, 0, 0, "Give a short usage message", -1 },
-        { 0, 0, 0, 0, 0 }
+        { 0, 0, 0, 0, 0, 0 }
     };
 
     static const argp argp = { argp_options, parse_opt, args_doc, doc, 0, 0, 0 };
