@@ -129,6 +129,36 @@ BOOST_AUTO_TEST_CASE(output_file_option_after_input_file)
     BOOST_CHECK_EQUAL("output", options.output_file());
 }
 
+BOOST_AUTO_TEST_CASE(shrinkler_iterations_option)
+{
+    BOOST_CHECK(action::exit_failure == parse_options("input -i"));
+    BOOST_CHECK(action::exit_failure == parse_options("input -i x"));
+    BOOST_CHECK(action::exit_failure == parse_options("input -i 0"));
+    BOOST_CHECK(action::exit_failure == parse_options("input -i 10"));
+
+    // TODO: test -i1, should set the option to 1
+    // TODO: test -i9, should set the option to 9
+}
+
+// TODO: test parsing of shrinkler options (too small, min, max, too big)
+//       .iterations());
+//       .length_margin());
+//       .same_length());
+//       .effort());
+//       .skip_length());
+//       .references());
+// TODO: TEST preset (too small, min, max, too big)
+// TODO: test by default it is using default options?
+/*
+    // TODO: min/max values for reference
+    IntParameter    iterations    ("-i", "--iterations",      1,        9,    1*p, argc, argv, consumed);
+    IntParameter    length_margin ("-l", "--length-margin",   0,      100,    1*p, argc, argv, consumed);
+    IntParameter    same_length   ("-a", "--same-length",     1,   100000,   10*p, argc, argv, consumed);
+    IntParameter    effort        ("-e", "--effort",          0,   100000,  100*p, argc, argv, consumed);
+    IntParameter    skip_length   ("-s", "--skip-length",     2,   100000, 1000*p, argc, argv, consumed);
+    IntParameter    references    ("-r", "--references",   1000,100000000, 100000, argc, argv, consumed);
+*/
+
 BOOST_AUTO_TEST_SUITE_END()
 
 }
