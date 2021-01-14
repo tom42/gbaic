@@ -64,7 +64,7 @@ public:
             argv.push_back(v.data());
         }
 
-        return libgbaic::parse_options(boost::numeric_cast<int>(argv.size()), argv.data(), options);
+        return libgbaic::parse_options(boost::numeric_cast<int>(argv.size()), argv.data(), options, true);
     }
 
 private:
