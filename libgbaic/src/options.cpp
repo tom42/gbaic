@@ -42,7 +42,7 @@ enum option
 class parser
 {
 public:
-    parser(options& options) : m_options(options), m_action(action::process), m_inputfile_seen(false) {}
+    parser(options& options, bool silent) : m_options(options), m_silent(silent), m_action(action::process), m_inputfile_seen(false) {}
 
     error_t parse_opt(int key, char* arg, argp_state* state)
     {
@@ -110,12 +110,16 @@ private:
         m_action = action::exit_success;
     }
 
-    static void print_version()
+    void print_version()
     {
-        std::cout << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
+        if (!m_silent)
+        {
+            std::cout << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
+        }
     }
 
     options& m_options;
+    const bool m_silent;
     libgbaic::action m_action;
     bool m_inputfile_seen;
 };
@@ -161,7 +165,7 @@ action parse_options(int argc, char* argv[], options& options, bool silent)
 
     static const argp argp = { argp_options, parse_opt, args_doc, doc, 0, 0, 0 };
 
-    parser parser(options);
+    parser parser(options, silent);
 
     unsigned int flags = ARGP_NO_EXIT | ARGP_NO_HELP;
     if (silent)
