@@ -23,7 +23,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <string> // TODO: remove if possible
 #include <type_traits>
 #include "argp.h"
 #include "options.hpp"
