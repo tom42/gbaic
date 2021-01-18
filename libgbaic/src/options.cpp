@@ -59,6 +59,10 @@ public:
                 return parse_int("number of iterations", arg, 1, 9, state, m_options.shrinkler_parameters().iterations);
             case 'l':
                 return parse_int("length margin", arg, 0, 100, state, m_options.shrinkler_parameters().length_margin);
+            case 'r':
+                return parse_int("number of references", arg, 1000, 100000000, state, m_options.shrinkler_parameters().references);
+            case 's':
+                return parse_int("skip length", arg, 2, 100000, state, m_options.shrinkler_parameters().skip_length);
             case '?':
                 argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
                 stop_parsing_and_exit(state);
