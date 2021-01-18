@@ -48,6 +48,10 @@ int main(int argc, char* argv[])
                 std::cout << "output:        " << options.output_file() << std::endl;
                 std::cout << "iterations:    " << options.shrinkler_parameters().iterations << std::endl;
                 std::cout << "length_margin: " << options.shrinkler_parameters().length_margin << std::endl;
+                std::cout << "same_length:   " << options.shrinkler_parameters().same_length << std::endl;
+                std::cout << "effort:        " << options.shrinkler_parameters().effort << std::endl;
+                std::cout << "skip_length:   " << options.shrinkler_parameters().skip_length << std::endl;
+                std::cout << "references:    " << options.shrinkler_parameters().references<< std::endl;
                 return EXIT_SUCCESS;
             default:
                 throw std::runtime_error("Unknown action returned by command line parser");
