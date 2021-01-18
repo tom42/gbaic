@@ -126,8 +126,8 @@ private:
 
         if ((*end) || (value < min) || (value > max))
         {
-            // TODO: why do we pass EXIT_FAILURE.
-            // TODO: do we pass min/max info? Then again, we could just as well do this in the help. Or not at all.
+            // Exit code (EXIT_FAILURE) is not really used here since we don't allow argp to exit the program.
+            // But if we did then that's what we wanted to have as exit code.
             argp_failure(state, EXIT_FAILURE, 0, "invalid %s: %s", value_description, s);
             return EINVAL;
         }
@@ -162,7 +162,7 @@ action parse_options(int argc, char* argv[], options& options, bool silent)
         { 0, 0, 0, 0, "General options:", 0 },
         { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", 0 },
 
-        // TODO: parse them options (new test)
+        // Shrinkler compression options
         { 0, 0, 0, 0, "Shrinkler compression options (default values in parentheses):", 0 },
         { "same-length", 'a', "N", 0, "Number of matches of the same length to consider (20)", 0 },
         { "effort", 'e', "N", 0, "Perseverance in finding multiple matches (200)", 0 },
