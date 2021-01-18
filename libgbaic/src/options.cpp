@@ -21,6 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <cstdlib>
 #include <iostream>
 #include <string> // TODO: remove if possible
 #include <type_traits>
@@ -57,11 +58,11 @@ public:
                 //       Well basically in 2020 it is still atoi or stoi and you must check yourself whether there is any trailing garbage. Oh well.
                 // TODO: check whether arg is in range. If that fails => error
                 // TODO: all good, stash arg
-                std::cout << atoi("43gaga") << std::endl;
+                /*std::cout << atoi("43gaga") << std::endl;
                 std::cout << std::stoi("43gaga") << std::endl;
                 std::cout << atoi("66") << std::endl;
-                std::cout << atoi("1234567890123456789012345678901234567890") << std::endl;
-                return 0;
+                std::cout << atoi("1234567890123456789012345678901234567890") << std::endl;*/
+                return parse_int(arg, 1, 9);
             case '?':
                 argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
                 stop_parsing_and_exit(state);
@@ -116,6 +117,20 @@ private:
         {
             std::cout << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
         }
+    }
+
+    static int parse_int(const char* s, int min, int max)
+    {
+        char* end;
+        auto value = strtol(s, &end, 10);
+
+        if ((*end) || (value < min) || (value > max))
+        {
+            return EINVAL;
+        }
+
+        // TODO: ok, store value
+        return 0;
     }
 
     options& m_options;
