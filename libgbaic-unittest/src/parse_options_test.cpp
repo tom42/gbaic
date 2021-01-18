@@ -136,8 +136,11 @@ BOOST_AUTO_TEST_CASE(shrinkler_iterations_option)
     BOOST_CHECK(action::exit_failure == parse_options("input -i 0"));
     BOOST_CHECK(action::exit_failure == parse_options("input -i 10"));
 
-    // TODO: test -i1, should set the option to 1
-    // TODO: test -i9, should set the option to 9
+    BOOST_CHECK(action::process == parse_options("input -i 1"));
+    BOOST_CHECK_EQUAL(1, options.shrinkler_parameters().iterations);
+
+    BOOST_CHECK(action::process == parse_options("input -i 9"));
+    BOOST_CHECK_EQUAL(9, options.shrinkler_parameters().iterations);
 }
 
 // TODO: test parsing of shrinkler options (too small, min, max, too big)
