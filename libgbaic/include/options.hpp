@@ -25,6 +25,7 @@
 #define LIBGBAIC_OPTIONS_HPP_INCLUDED
 
 #include <filesystem>
+#include "libshrinkler.hpp"
 
 namespace libgbaic
 {
@@ -49,6 +50,8 @@ public:
 
     const std::filesystem::path& output_file() const { return m_output_file; }
 
+    const libshrinkler::shrinkler_parameters& shrinkler_parameters() const { return m_shrinkler_parameters; }
+
     void output_file(const std::filesystem::path& output_file)
     {
         m_output_file = output_file;
@@ -59,6 +62,7 @@ private:
     bool m_output_file_set;
     std::filesystem::path m_input_file;
     std::filesystem::path m_output_file;
+    libshrinkler::shrinkler_parameters m_shrinkler_parameters;
 };
 
 enum class action

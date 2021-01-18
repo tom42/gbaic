@@ -40,3 +40,4 @@ target_include_directories(
   include)
 
 target_link_libraries(libgbaic PRIVATE argp-standalone)
+target_link_libraries(libgbaic PUBLIC libshrinkler)
