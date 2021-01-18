@@ -61,7 +61,7 @@ public:
                 std::cout << std::stoi("43gaga") << std::endl;
                 std::cout << atoi("66") << std::endl;
                 std::cout << atoi("1234567890123456789012345678901234567890") << std::endl;*/
-                return parse_int("number of iterations", arg, 1, 9, state);
+                return parse_int("number of iterations", arg, 1, 9, state, m_options.shrinkler_parameters().iterations);
             case '?':
                 argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
                 stop_parsing_and_exit(state);
@@ -118,7 +118,7 @@ private:
         }
     }
 
-    static int parse_int(const char* value_description, const char* s, int min, int max, const argp_state* state)
+    static int parse_int(const char* value_description, const char* s, int min, int max, const argp_state* state, int& parsed_int)
     {
         char* end;
         auto value = strtol(s, &end, 10);
@@ -131,7 +131,7 @@ private:
             return EINVAL;
         }
 
-        // TODO: ok, store value
+        parsed_int = value;
         return 0;
     }
 

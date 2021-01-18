@@ -52,6 +52,8 @@ public:
 
     const libshrinkler::shrinkler_parameters& shrinkler_parameters() const { return m_shrinkler_parameters; }
 
+    libshrinkler::shrinkler_parameters& shrinkler_parameters() { return m_shrinkler_parameters; }
+
     void output_file(const std::filesystem::path& output_file)
     {
         m_output_file = output_file;
