@@ -145,9 +145,10 @@ BOOST_AUTO_TEST_CASE(shrinkler_iterations_option)
 
 BOOST_AUTO_TEST_CASE(shrinkler_options)
 {
-    BOOST_CHECK(action::process == parse_options("input -i1 -l11"));
+    BOOST_CHECK(action::process == parse_options("input -i1 -l11 -a111"));
     BOOST_CHECK_EQUAL(1, options.shrinkler_parameters().iterations);
     BOOST_CHECK_EQUAL(11, options.shrinkler_parameters().length_margin);
+    BOOST_CHECK_EQUAL(111, options.shrinkler_parameters().same_length);
 }
 
 // TODO: test parsing of shrinkler options (too small, min, max, too big)
@@ -160,10 +161,6 @@ BOOST_AUTO_TEST_CASE(shrinkler_options)
 // TODO: TEST preset (too small, min, max, too big)
 // TODO: test by default it is using default options?
 /*
-    // TODO: min/max values for reference
-    IntParameter    iterations    ("-i", "--iterations",      1,        9,    1*p, argc, argv, consumed);
-    IntParameter    length_margin ("-l", "--length-margin",   0,      100,    1*p, argc, argv, consumed);
-    IntParameter    same_length   ("-a", "--same-length",     1,   100000,   10*p, argc, argv, consumed);
     IntParameter    effort        ("-e", "--effort",          0,   100000,  100*p, argc, argv, consumed);
     IntParameter    skip_length   ("-s", "--skip-length",     2,   100000, 1000*p, argc, argv, consumed);
     IntParameter    references    ("-r", "--references",   1000,100000000, 100000, argc, argv, consumed);
