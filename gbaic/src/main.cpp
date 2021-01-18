@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
                 // TODO: test code: dump options
                 std::cout << "input:      " << options.input_file() << std::endl;
                 std::cout << "output:     " << options.output_file() << std::endl;
-                std::cout << "iterations: " << options.shrinkler_parameters().iterations() << std::endl;
+                std::cout << "iterations: " << options.shrinkler_parameters().iterations << std::endl;
                 return EXIT_SUCCESS;
             default:
                 throw std::runtime_error("Unknown action returned by command line parser");
