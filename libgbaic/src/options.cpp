@@ -62,7 +62,7 @@ public:
                 std::cout << std::stoi("43gaga") << std::endl;
                 std::cout << atoi("66") << std::endl;
                 std::cout << atoi("1234567890123456789012345678901234567890") << std::endl;*/
-                return parse_int(arg, 1, 9);
+                return parse_int("number of iterations", arg, 1, 9, state);
             case '?':
                 argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
                 stop_parsing_and_exit(state);
@@ -84,13 +84,13 @@ public:
                 }
                 else
                 {
-                    argp_error(state, "More than one input file given");
+                    argp_error(state, "more than one input file given");
                     return EINVAL;
                 }
             case ARGP_KEY_NO_ARGS:
                 if (m_action != action::exit_success)
                 {
-                    argp_error(state, "No input file given");
+                    argp_error(state, "no input file given");
                     return EINVAL;
                 }
                 else
@@ -119,13 +119,16 @@ private:
         }
     }
 
-    static int parse_int(const char* s, int min, int max)
+    static int parse_int(const char* value_description, const char* s, int min, int max, const argp_state* state)
     {
         char* end;
         auto value = strtol(s, &end, 10);
 
         if ((*end) || (value < min) || (value > max))
         {
+            // TODO: why do we pass EXIT_FAILURE.
+            // TODO: do we pass min/max info? Then again, we could just as well do this in the help. Or not at all.
+            argp_failure(state, EXIT_FAILURE, 0, "invalid %s: %s", value_description, s);
             return EINVAL;
         }
 
