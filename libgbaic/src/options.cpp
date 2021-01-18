@@ -51,12 +51,14 @@ public:
             case 'o':
                 m_options.output_file(arg);
                 return 0;
+            case 'a':
+                return parse_int("same length count", arg, 1, 100000, state, m_options.shrinkler_parameters().same_length);
+            case 'e':
+                return parse_int("effort", arg, 0, 100000, state, m_options.shrinkler_parameters().effort);
             case 'i':
                 return parse_int("number of iterations", arg, 1, 9, state, m_options.shrinkler_parameters().iterations);
             case 'l':
                 return parse_int("length margin", arg, 0, 100, state, m_options.shrinkler_parameters().length_margin);
-            case 'a':
-                return parse_int("same length count", arg, 1, 100000, state, m_options.shrinkler_parameters().same_length);
             case '?':
                 argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
                 stop_parsing_and_exit(state);

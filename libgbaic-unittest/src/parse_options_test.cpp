@@ -145,10 +145,13 @@ BOOST_AUTO_TEST_CASE(shrinkler_iterations_option)
 
 BOOST_AUTO_TEST_CASE(shrinkler_options)
 {
-    BOOST_CHECK(action::process == parse_options("input -i1 -l11 -a111"));
+    BOOST_CHECK(action::process == parse_options("input -i1 -l11 -a111 -e1111 -s11111"));
     BOOST_CHECK_EQUAL(1, options.shrinkler_parameters().iterations);
     BOOST_CHECK_EQUAL(11, options.shrinkler_parameters().length_margin);
     BOOST_CHECK_EQUAL(111, options.shrinkler_parameters().same_length);
+    BOOST_CHECK_EQUAL(1111, options.shrinkler_parameters().effort);
+    BOOST_CHECK_EQUAL(11111, options.shrinkler_parameters().skip_length);
+    BOOST_CHECK_EQUAL(111111, options.shrinkler_parameters().references);
 }
 
 // TODO: test parsing of shrinkler options (too small, min, max, too big)
