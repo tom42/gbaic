@@ -5,17 +5,6 @@
   * We can use argp_state_help to reimplement --help and --usage. What about --version?
   * Finally, state->next = state->argc stops all further processing by moving the input pointer to the end of the arguments.
   * VERIFY WITH ARGP DOCUMENTATION THIS IS ALL OK
-* Reevaluate argp:
-  * cxxopts does not allow -?, so we must do -h/--help rather than -?/--help
-  * cxxopts does not auto-generate --version option
-  * cxxopts does not support --usage option
-  * cxxopts does not understand -i2, only -i 2, where 2 is an argument. This sucks, heavily.
-  * argp
-    * We do not want it to exit automatically => use ARGP_NO_EXIT or however it is called
-    * We want to exit when --usage, --help or --version is seen => Can handle them ourselves
-      * If we always use argp, then we also don't get unwanted partial localization from glibc
-    * Well...try it, I'd say
-      * We can probably even emulate -1 to -9, and using the help filter we can probably also adapt the documentation for this.
 * Add all the shrinkler compression options to the command line parser
   * For the 6 options:
     * Implement min/max values (can cxxopts do that?)
