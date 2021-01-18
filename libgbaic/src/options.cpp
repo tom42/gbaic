@@ -52,15 +52,6 @@ public:
                 m_options.output_file(arg);
                 return 0;
             case 'i':
-                // TODO: convert arg to integer. If that fails => error
-                //       Problem: what's the most nice/modern/31337 way to do this including proper error handling?
-                //       Well basically in 2020 it is still atoi or stoi and you must check yourself whether there is any trailing garbage. Oh well.
-                // TODO: check whether arg is in range. If that fails => error
-                // TODO: all good, stash arg
-                /*std::cout << atoi("43gaga") << std::endl;
-                std::cout << std::stoi("43gaga") << std::endl;
-                std::cout << atoi("66") << std::endl;
-                std::cout << atoi("1234567890123456789012345678901234567890") << std::endl;*/
                 return parse_int("number of iterations", arg, 1, 9, state, m_options.shrinkler_parameters().iterations);
             case '?':
                 argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
