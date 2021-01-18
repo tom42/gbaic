@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(shrinkler_iterations_option)
     BOOST_CHECK_EQUAL(9, options.shrinkler_parameters().iterations);
 }
 
-BOOST_AUTO_TEST_CASE(shrinkler_options)
+BOOST_AUTO_TEST_CASE(shrinkler_compression_options)
 {
     BOOST_CHECK(action::process == parse_options("input -i1 -l11 -a111 -e1111 -s11111 -r111111"));
     BOOST_CHECK_EQUAL(1, options.shrinkler_parameters().iterations);
@@ -154,8 +154,16 @@ BOOST_AUTO_TEST_CASE(shrinkler_options)
     BOOST_CHECK_EQUAL(111111, options.shrinkler_parameters().references);
 }
 
-// TODO: TEST preset (too small, min, max, too big)
-// TODO: test by default it is using default options?
+BOOST_AUTO_TEST_CASE(shrinkler_preset_option)
+{
+    BOOST_CHECK(action::process == parse_options("input -p3"));
+    BOOST_CHECK_EQUAL(3, options.shrinkler_parameters().iterations);
+    BOOST_CHECK_EQUAL(3, options.shrinkler_parameters().length_margin);
+    BOOST_CHECK_EQUAL(30, options.shrinkler_parameters().same_length);
+    BOOST_CHECK_EQUAL(300, options.shrinkler_parameters().effort);
+    BOOST_CHECK_EQUAL(3000, options.shrinkler_parameters().skip_length);
+    BOOST_CHECK_EQUAL(100000, options.shrinkler_parameters().references);
+}
 
 BOOST_AUTO_TEST_SUITE_END()
 

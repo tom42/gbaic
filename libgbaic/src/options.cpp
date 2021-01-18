@@ -59,6 +59,8 @@ public:
                 return parse_int("number of iterations", arg, 1, 9, state, m_options.shrinkler_parameters().iterations);
             case 'l':
                 return parse_int("length margin", arg, 0, 100, state, m_options.shrinkler_parameters().length_margin);
+            case 'p':
+                return parse_preset(arg, state);
             case 'r':
                 return parse_int("number of references", arg, 1000, 100000000, state, m_options.shrinkler_parameters().references);
             case 's':
@@ -117,6 +119,19 @@ private:
         {
             std::cout << PROJECT_NAME << " " << PROJECT_VERSION << std::endl;
         }
+    }
+
+    int parse_preset(const char* s, const argp_state* state)
+    {
+        int preset = 0;
+        auto parse_result = parse_int("preset", s, 1, 9, state, preset);
+
+        if (!parse_result)
+        {
+            m_options.shrinkler_parameters(libshrinkler::shrinkler_parameters(preset));
+        }
+
+        return parse_result;
     }
 
     static int parse_int(const char* value_description, const char* s, int min, int max, const argp_state* state, int& parsed_int)
