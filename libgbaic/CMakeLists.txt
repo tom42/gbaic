@@ -39,5 +39,5 @@ target_include_directories(
   PUBLIC
   include)
 
-target_link_libraries(libgbaic PRIVATE argp-standalone)
+target_link_libraries(libgbaic PRIVATE argp-standalone elfio)
 target_link_libraries(libgbaic PUBLIC libshrinkler)
