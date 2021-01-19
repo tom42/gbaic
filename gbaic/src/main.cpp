@@ -26,6 +26,23 @@
 #include <stdexcept>
 #include "options.hpp"
 
+static void process(const libgbaic::options& options)
+{
+    // TODO: process stuff
+    //       * Load input file (bin or elf)
+    //       * Compress it (shrinkler or LZSS+Huffman)
+    //       * Write output file (should automatically determine which one is the smallest)
+    // TODO: test code: dump options
+    std::cout << "input:         " << options.input_file() << std::endl;
+    std::cout << "output:        " << options.output_file() << std::endl;
+    std::cout << "iterations:    " << options.shrinkler_parameters().iterations << std::endl;
+    std::cout << "length_margin: " << options.shrinkler_parameters().length_margin << std::endl;
+    std::cout << "same_length:   " << options.shrinkler_parameters().same_length << std::endl;
+    std::cout << "effort:        " << options.shrinkler_parameters().effort << std::endl;
+    std::cout << "skip_length:   " << options.shrinkler_parameters().skip_length << std::endl;
+    std::cout << "references:    " << options.shrinkler_parameters().references << std::endl;
+}
+
 int main(int argc, char* argv[])
 {
     try
@@ -39,19 +56,7 @@ int main(int argc, char* argv[])
             case libgbaic::action::exit_success:
                 return EXIT_SUCCESS;
             case libgbaic::action::process:
-                // TODO: process stuff
-                //       * Load input file (bin or elf)
-                //       * Compress it (shrinkler or LZSS+Huffman)
-                //       * Write output file (should automatically determine which one is the smallest)
-                // TODO: test code: dump options
-                std::cout << "input:         " << options.input_file() << std::endl;
-                std::cout << "output:        " << options.output_file() << std::endl;
-                std::cout << "iterations:    " << options.shrinkler_parameters().iterations << std::endl;
-                std::cout << "length_margin: " << options.shrinkler_parameters().length_margin << std::endl;
-                std::cout << "same_length:   " << options.shrinkler_parameters().same_length << std::endl;
-                std::cout << "effort:        " << options.shrinkler_parameters().effort << std::endl;
-                std::cout << "skip_length:   " << options.shrinkler_parameters().skip_length << std::endl;
-                std::cout << "references:    " << options.shrinkler_parameters().references<< std::endl;
+                process(options);
                 return EXIT_SUCCESS;
             default:
                 throw std::runtime_error("Unknown action returned by command line parser");
