@@ -24,11 +24,15 @@
 #ifndef LIBGBAIC_INPUT_FILE_HPP_INCLUDED
 #define LIBGBAIC_INPUT_FILE_HPP_INCLUDED
 
+#include <string>
+
 namespace libgbaic
 {
 
 class input_file
 {
+public:
+	input_file(const std::string& filename);
 };
 
 }
