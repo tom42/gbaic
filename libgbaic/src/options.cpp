@@ -23,6 +23,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <stdexcept>
 #include <type_traits>
 #include "argp.h"
 #include "options.hpp"
@@ -157,11 +158,19 @@ private:
     bool m_inputfile_seen;
 };
 
-static error_t parse_opt(int key, char* arg, argp_state* state)
+static error_t parse_opt(int key, char* arg, argp_state* state) noexcept
 {
-    // TODO: catch all exceptions here and somehow abort
-    parser& p = *static_cast<parser*>(state->input);
-    return p.parse_opt(key, arg, state);
+    try
+    {
+        parser* p = static_cast<parser*>(state->input);
+        return p->parse_opt(key, arg, state);
+    }
+    catch (const std::exception& e)
+    {
+        // Do not let any exception escape into argp, which is written in C.
+        argp_error(state, "%s", e.what());
+        return EINVAL;
+    }
 }
 
 action parse_options(int argc, char* argv[], options& options, bool silent)
