@@ -24,14 +24,16 @@
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
+#include "input_file.hpp"
 #include "options.hpp"
 
-static void process(const libgbaic::options& /*options*/)
+static void process(const libgbaic::options& options)
 {
     // TODO: process stuff
     //       * Load input file (bin or elf)
     //       * Compress it (shrinkler or LZSS+Huffman)
     //       * Write output file (should automatically determine which one is the smallest)
+    libgbaic::input_file input_file(options.input_file());
 }
 
 int main(int argc, char* argv[])
