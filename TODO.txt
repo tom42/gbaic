@@ -1,10 +1,9 @@
-* Add all the shrinkler compression options to the command line parser
-  * For the 6 options:
-    * Implement min/max values (can cxxopts do that?)
-    * Put them options somehow into a shrinkler_parameters thing
-  * Implement presets. Err. How?
-    * Hidden -1 .. -9 options: then they don't show up in help
-    * -p,--preset: easier to implement, and more standard anyway, since the preset number is really an argument
+* Need a break from shrinkler:
+  * Next up is input file loading
+  * Primary input file format is ELF, so should work on that.
+  * We might want to support binary as input file format, but probably this should be opt-in.
+    * This means we expect ELF by default and fail if input file is not ELF.
+    * Only load file as binary if requested to do so.
 * Prepare shrinkler:
   * OK: wrap shrinkler source into a library: we simply need it to do in memory compression of data files, I guess
     * How to we manage compiler flags? Shrinkler won't compile warning-free withour settings I am afraid
@@ -16,9 +15,7 @@
   * Include shrinkler's LICENSE.txt!
   * Include a README.md stating CLEARLY that this is NOT the original shrinkler
 * Stop using submodules?
-  * Yes and then hack CXXOPTS to support the following
-    * -?
-    * Abbreviation of long options (orly?)
+  * Just for real 3rd party modules. Keep it for our own, e.g. argp-standalone
 * Design input file loading
   * Binary files, with an assumed load address of IWRAM (do we allow overriding this?)
   * Elf files, which we convert to raw binary and whose load address we determine from the entry point
