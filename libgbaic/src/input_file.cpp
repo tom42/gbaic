@@ -33,11 +33,18 @@ namespace libgbaic
 input_file::input_file(const std::filesystem::path& path)
 {
 	// TODO: open the stream as binary. Then load ELF file from stream
-	std::ifstream stream(path, std::ios::binary);
-	if (!stream)
+	try
 	{
-		// TODO: use strerror_r / strerror_s, no?
-		throw std::runtime_error(strerror(errno));
+		std::ifstream stream(path, std::ios::binary);
+		if (!stream)
+		{
+			// TODO: use strerror_r / strerror_s, no?
+			throw std::runtime_error(strerror(errno));
+		}
+	}
+	catch (const std::exception& e)
+	{
+		throw std::runtime_error(path.string() + ": " + e.what());
 	}
 }
 
