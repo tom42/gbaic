@@ -4,6 +4,7 @@
   * We might want to support binary as input file format, but probably this should be opt-in.
     * This means we expect ELF by default and fail if input file is not ELF.
     * Only load file as binary if requested to do so.
+  * Well, try out subtree.
 * Prepare shrinkler:
   * OK: wrap shrinkler source into a library: we simply need it to do in memory compression of data files, I guess
     * How to we manage compiler flags? Shrinkler won't compile warning-free withour settings I am afraid
@@ -16,6 +17,10 @@
   * Include a README.md stating CLEARLY that this is NOT the original shrinkler
 * Stop using submodules?
   * Just for real 3rd party modules. Keep it for our own, e.g. argp-standalone
+  * Or use subtree everywhere:
+    * Delete the cxxopts submodule
+    * Add shrinkler as subtree
+    * Add argp-standalone as subtree
 * Design input file loading
   * Binary files, with an assumed load address of IWRAM (do we allow overriding this?)
   * Elf files, which we convert to raw binary and whose load address we determine from the entry point
