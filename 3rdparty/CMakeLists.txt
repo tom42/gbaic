@@ -22,6 +22,7 @@
 # SOFTWARE.
 
 add_subdirectory(argp-standalone)
+add_subdirectory(elfio)
 
 set(CXXOPTS_BUILD_EXAMPLES OFF CACHE BOOL "Set to ON to build examples" FORCE)
 set(CXXOPTS_BUILD_TESTS OFF CACHE BOOL "Set to ON to build tests" FORCE)
