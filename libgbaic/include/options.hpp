@@ -50,17 +50,17 @@ public:
 
     const std::filesystem::path& output_file() const { return m_output_file; }
 
-    const libshrinkler::shrinkler_parameters& shrinkler_parameters() const { return m_shrinkler_parameters; }
-
-    libshrinkler::shrinkler_parameters& shrinkler_parameters() { return m_shrinkler_parameters; }
-
-    void shrinkler_parameters(const libshrinkler::shrinkler_parameters& p) { m_shrinkler_parameters = p; }
-
     void output_file(const std::filesystem::path& output_file)
     {
         m_output_file = output_file;
         m_output_file_set = true;
     }
+
+    const libshrinkler::shrinkler_parameters& shrinkler_parameters() const { return m_shrinkler_parameters; }
+
+    libshrinkler::shrinkler_parameters& shrinkler_parameters() { return m_shrinkler_parameters; }
+
+    void shrinkler_parameters(const libshrinkler::shrinkler_parameters& p) { m_shrinkler_parameters = p; }
 
 private:
     bool m_output_file_set;
