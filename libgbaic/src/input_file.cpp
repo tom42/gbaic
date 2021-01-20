@@ -86,6 +86,17 @@ static void check_abi_version(elfio& reader)
 	}
 }
 
+static void check_object_file_version(elfio& reader)
+{
+	const auto expected_object_file_version = 1;
+
+	auto e_version = reader.get_version();
+	if (e_version != expected_object_file_version)
+	{
+		throw runtime_error(format("unknown object file version {}. Expected {}", e_version, expected_object_file_version));
+	}
+}
+
 static void check_header(elfio& reader)
 {
 	check_executable_type(reader);
@@ -94,11 +105,8 @@ static void check_header(elfio& reader)
 	// Not sure these matter. Checking them to be on the safe side.
 	check_os_abi(reader);
 	check_abi_version(reader);
+	check_object_file_version(reader);
 
-	// TODO: check elf header. Probably we want to check (or perhaps not all of them, need to check):
-	// * e_version											MUST BE 0
-	// TODO: testcode: CHECK THESE FIELDS
-	std::cout << "e_version:     " << reader.get_version() << std::endl;
 	// TODO: do not use std::hex, since it is global.
 	// TODO: do consider having some sort of verbose mode, since things ARE going to fail
 	std::cout << "entry:         " << std::hex << reader.get_entry() << std::dec << std::endl;
