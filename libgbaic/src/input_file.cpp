@@ -111,6 +111,10 @@ static void check_header(elfio& reader)
 
 	// TODO: do not use std::hex, since it is global.
 	// TODO: do consider having some sort of verbose mode, since things ARE going to fail
+	// TODO: introduce some verbose logging. Until we know better what we need just put this into some function, no?)
+	// TODO: store this, we're going to need it.
+	//       Do we limit the entry points we are going to accept? Well perhaps, but not in this class.
+	//       How do we find the load address, anyway?
 	std::cout << "entry:         " << std::hex << reader.get_entry() << std::dec << std::endl;
 }
 

@@ -24,6 +24,7 @@
 #ifndef LIBGBAIC_INPUT_FILE_HPP_INCLUDED
 #define LIBGBAIC_INPUT_FILE_HPP_INCLUDED
 
+#include <cstdint>
 #include <filesystem>
 #include <iosfwd>
 
@@ -39,6 +40,8 @@ public:
 
 private:
 	void load_elf(std::istream& stream);
+
+	uint_fast32_t m_entry = 0;
 };
 
 }
