@@ -23,7 +23,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS // TODO: really? I mean...we should be using strerror_r or strerror_s, no?
 #include <cstring>
-#include <elfio/elfio.hpp>
+#include <elfio/elfio.hpp> // TODO: <elfio/elfio.hpp> or "elfio/elfio.hpp"?
 #include <fstream>
 #include <stdexcept>
 #include "input_file.hpp"
@@ -40,7 +40,6 @@ input_file::input_file(const std::filesystem::path& path)
 		if (!stream)
 		{
 			// TODO: use strerror_r / strerror_s, no?
-			// TODO: unit test?
 			throw std::runtime_error(strerror(errno));
 		}
 

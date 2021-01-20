@@ -23,6 +23,7 @@
 
 set(
   SOURCES
+  src/input_file_test.cpp
   src/main.cpp
   src/options_test.cpp
   src/parse_options_test.cpp)
