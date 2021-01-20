@@ -44,11 +44,13 @@ static void open_elf(elfio& reader, std::istream& stream)
 	}
 }
 
-static void check_bitness_and_endianness(elfio& reader)
+static void check_executable_type(elfio& reader)
 {
-	if ((reader.get_class() != ELFCLASS32) || (reader.get_encoding() != ELFDATA2LSB))
+	if ((reader.get_class() != ELFCLASS32) ||
+		(reader.get_encoding() != ELFDATA2LSB) ||
+		(reader.get_type() != ET_EXEC))
 	{
-		throw runtime_error("file is not a 32-bit little endian ELF file");
+		throw runtime_error("file is not a 32-bit little endian executable ELF file");
 	}
 }
 
@@ -85,7 +87,7 @@ static void check_abi_version(elfio& reader)
 
 static void check_header(elfio& reader)
 {
-	check_bitness_and_endianness(reader);
+	check_executable_type(reader);
 	check_elf_version(reader);
 
 	// Not sure the OS ABI matters. Checking it to be on the safe side for the time being.
@@ -93,11 +95,9 @@ static void check_header(elfio& reader)
 	check_abi_version(reader);
 
 	// TODO: check elf header. Probably we want to check (or perhaps not all of them, need to check):
-	// * e_type												MUST BE ET_EXEC (2)
 	// * e_machine											MUST BE 0x28 (ARM)
 	// * e_version											MUST BE 0
 	// TODO: testcode: CHECK THESE FIELDS
-	std::cout << "e_type:        " << reader.get_type() << std::endl;
 	std::cout << "e_machine:     " << reader.get_machine() << std::endl;
 	std::cout << "e_version:     " << reader.get_version() << std::endl;
 	// TODO: do not use std::hex, since it is global.
