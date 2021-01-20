@@ -32,10 +32,11 @@
 namespace libgbaic
 {
 
+using ELFIO::elfio;
 using fmt::format;
 using std::runtime_error;
 
-static void open_elf(ELFIO::elfio& reader, std::istream& stream)
+static void open_elf(elfio& reader, std::istream& stream)
 {
 	if (!reader.load(stream))
 	{
@@ -43,25 +44,39 @@ static void open_elf(ELFIO::elfio& reader, std::istream& stream)
 	}
 }
 
-static void check_header(ELFIO::elfio& reader)
+static void check_bitness_and_endianness(elfio& reader)
 {
 	if ((reader.get_class() != ELFCLASS32) || (reader.get_encoding() != ELFDATA2LSB))
 	{
 		throw runtime_error("file is not a 32-bit little endian ELF file");
 	}
+}
 
+static void check_elf_version(elfio& reader)
+{
 	auto ei_version = reader.get_elf_version();
 	if (ei_version != 1)
 	{
 		throw runtime_error(format("unknown ELF format version {}", ei_version));
 	}
+}
 
-	// Not sure the OS ABI matters. Checking it to be on the safe side for the time being.
+static void check_os_abi(elfio& reader)
+{
 	auto ei_osabi = reader.get_os_abi();
 	if (ei_osabi != ELFOSABI_NONE)
 	{
 		throw runtime_error(format("unknown ELF OS ABI {0}. Expected none ({1})", ei_osabi, ELFOSABI_NONE));
 	}
+}
+
+static void check_header(elfio& reader)
+{
+	check_bitness_and_endianness(reader);
+	check_elf_version(reader);
+
+	// Not sure the OS ABI matters. Checking it to be on the safe side for the time being.
+	check_os_abi(reader);
 
 	// TODO: check elf header. Probably we want to check (or perhaps not all of them, need to check):
 	// * EI_ABIVERSION										(would't know its meaning. don't check)																(OR expect it to be 0)
@@ -104,7 +119,7 @@ input_file::input_file(std::istream& stream)
 
 void input_file::load_elf(std::istream& stream)
 {
-	ELFIO::elfio reader;
+	elfio reader;
 
 	open_elf(reader, stream);
 	check_header(reader);
