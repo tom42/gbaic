@@ -27,3 +27,4 @@
 * Remove cxxopts (including the submodule)
 * Check: does our argp.h supersede system argp?
 * Update copyright notice (Copyright (c) 2020 Thomas Mathys => 2020, 2021)
+* For deploying windows binaries, do we need to take care to distribute runtime libraries? Or do we link statically?
