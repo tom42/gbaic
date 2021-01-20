@@ -149,7 +149,6 @@ void input_file::load_elf(std::istream& stream)
 	check_header(reader);
 
 	m_entry = reader.get_entry();
-	// TODO: log this through some sort of verbose log method
 	verbose_log(fmt::format("Entry: {:#x}", m_entry));
 }
 
