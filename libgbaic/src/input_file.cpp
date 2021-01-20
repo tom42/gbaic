@@ -109,13 +109,11 @@ static void check_header(elfio& reader)
 	check_abi_version(reader);
 	check_object_file_version(reader);
 
-	// TODO: do not use std::hex, since it is global.
 	// TODO: do consider having some sort of verbose mode, since things ARE going to fail
 	// TODO: introduce some verbose logging. Until we know better what we need just put this into some function, no?)
 	// TODO: store this, we're going to need it.
 	//       Do we limit the entry points we are going to accept? Well perhaps, but not in this class.
 	//       How do we find the load address, anyway?
-	std::cout << "entry:         " << std::hex << reader.get_entry() << std::dec << std::endl;
 }
 
 input_file::input_file(const std::filesystem::path& path)
@@ -148,6 +146,10 @@ void input_file::load_elf(std::istream& stream)
 
 	open_elf(reader, stream);
 	check_header(reader);
+
+	m_entry = reader.get_entry();
+	// TODO: log this through some sort of verbose log method
+	std::cout << fmt::format("Entry: {:#x}", m_entry);
 }
 
 }

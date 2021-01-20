@@ -41,7 +41,7 @@ public:
 private:
 	void load_elf(std::istream& stream);
 
-	uint_fast32_t m_entry = 0;
+	uint_fast64_t m_entry = 0;
 };
 
 }
