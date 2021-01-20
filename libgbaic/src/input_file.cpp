@@ -120,6 +120,7 @@ input_file::input_file(const std::filesystem::path& path)
 {
 	try
 	{
+		verbose_log(fmt::format("Loading: {}", path.string()));
 		std::ifstream stream(path, std::ios::binary);
 		if (!stream)
 		{
