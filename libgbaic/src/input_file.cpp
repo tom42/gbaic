@@ -59,6 +59,9 @@ static void check_header(ELFIO::elfio& reader)
 	std::cout << "e_type:        " << reader.get_type() << std::endl;
 	std::cout << "e_machine:     " << reader.get_machine() << std::endl;
 	std::cout << "e_version:     " << reader.get_version() << std::endl;
+	// TODO: do not use std::hex, since it is global.
+	// TODO: do consider having some sort of verbose mode, since things ARE going to fail
+	std::cout << "entry:         " << std::hex << reader.get_entry() << std::dec << std::endl;
 }
 
 input_file::input_file(const std::filesystem::path& path)
