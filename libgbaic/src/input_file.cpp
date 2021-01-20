@@ -45,14 +45,12 @@ static void open_elf(ELFIO::elfio& reader, std::istream& stream)
 
 static void check_header(ELFIO::elfio& reader)
 {
-	auto elf_class = reader.get_class();
-	if (elf_class != ELFCLASS32)
+	if ((reader.get_class() != ELFCLASS32) || (reader.get_encoding() != ELFDATA2LSB))
 	{
-		throw runtime_error(format("file is not a 32-bit ELF file (EI_CLASS = {})", elf_class));
+		throw runtime_error("file is not a 32-bit little endian ELF file");
 	}
 
 	// TODO: check elf header. Probably we want to check (or perhaps not all of them, need to check):
-	// * little endian  (EI_DATA)							MUST BE LITTLE ENDIAN
 	// * version        (EI_VERSION) (get_elf_version)		MUST BE 1
 	// * osabi          (EI_OSABI)							(probably don't check this; we get 0, which is System V, which is certainly not what the GBA uses)  (OR expect it to be 0)
 	// * EI_ABIVERSION										(would't know its meaning. don't check)																(OR expect it to be 0)
@@ -60,7 +58,6 @@ static void check_header(ELFIO::elfio& reader)
 	// * e_machine											MUST BE 0x28 (ARM)
 	// * e_version											MUST BE 0
 	// TODO: testcode: CHECK THESE FIELDS
-	std::cout << "EI_DATA:       " << (reader.get_encoding() == ELFDATA2LSB ? "Little endian" : "Big endian") << std::endl;
 	std::cout << "EI_VERSION:    " << ((int)reader.get_elf_version()) << std::endl;
 	std::cout << "EI_OSABI:      " << ((int)reader.get_os_abi()) << std::endl;
 	std::cout << "EI_ABIVERSION: " << ((int)reader.get_abi_version()) << std::endl;
