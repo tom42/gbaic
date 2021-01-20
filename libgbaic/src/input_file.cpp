@@ -52,7 +52,12 @@ input_file::input_file(const std::filesystem::path& path)
 	}
 }
 
-void input_file::load_elf(std::ifstream& stream)
+input_file::input_file(std::istream& stream)
+{
+	load_elf(stream);
+}
+
+void input_file::load_elf(std::istream& stream)
 {
 	ELFIO::elfio reader;
 	if (!reader.load(stream))

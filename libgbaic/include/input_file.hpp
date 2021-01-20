@@ -34,8 +34,11 @@ class input_file
 {
 public:
 	input_file(const std::filesystem::path& path);
+
+	input_file(std::istream& stream);
+
 private:
-	void load_elf(std::ifstream& stream);
+	void load_elf(std::istream& stream);
 };
 
 }
