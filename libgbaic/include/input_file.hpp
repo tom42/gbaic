@@ -25,6 +25,7 @@
 #define LIBGBAIC_INPUT_FILE_HPP_INCLUDED
 
 #include <filesystem>
+#include <iosfwd>
 
 namespace libgbaic
 {
@@ -33,6 +34,8 @@ class input_file
 {
 public:
 	input_file(const std::filesystem::path& path);
+private:
+	void load_elf(std::ifstream& stream);
 };
 
 }
