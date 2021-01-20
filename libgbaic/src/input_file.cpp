@@ -56,14 +56,19 @@ static void check_header(ELFIO::elfio& reader)
 		throw runtime_error(format("unknown ELF format version {}", ei_version));
 	}
 
+	// Not sure the OS ABI matters. Checking it to be on the safe side for the time being.
+	auto ei_osabi = reader.get_os_abi();
+	if (ei_osabi != ELFOSABI_NONE)
+	{
+		throw runtime_error(format("unknown ELF OS ABI {0}. Expected none ({1})", ei_osabi, ELFOSABI_NONE));
+	}
+
 	// TODO: check elf header. Probably we want to check (or perhaps not all of them, need to check):
-	// * osabi          (EI_OSABI)							(probably don't check this; we get 0, which is System V, which is certainly not what the GBA uses)  (OR expect it to be 0)
 	// * EI_ABIVERSION										(would't know its meaning. don't check)																(OR expect it to be 0)
 	// * e_type												MUST BE ET_EXEC (2)
 	// * e_machine											MUST BE 0x28 (ARM)
 	// * e_version											MUST BE 0
 	// TODO: testcode: CHECK THESE FIELDS
-	std::cout << "EI_OSABI:      " << ((int)reader.get_os_abi()) << std::endl;
 	std::cout << "EI_ABIVERSION: " << ((int)reader.get_abi_version()) << std::endl;
 	std::cout << "e_type:        " << reader.get_type() << std::endl;
 	std::cout << "e_machine:     " << reader.get_machine() << std::endl;
