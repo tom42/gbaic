@@ -57,10 +57,12 @@ static void check_executable_type(elfio& reader)
 
 static void check_elf_version(elfio& reader)
 {
+	const auto expected_elf_version = 1;
+
 	auto ei_version = reader.get_elf_version();
-	if (ei_version != 1)
+	if (ei_version != expected_elf_version)
 	{
-		throw runtime_error(format("unknown ELF format version {}", ei_version));
+		throw runtime_error(format("unknown ELF format version {}. Expected {}", ei_version, expected_elf_version));
 	}
 }
 
