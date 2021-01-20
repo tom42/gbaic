@@ -66,7 +66,6 @@ static void check_header(ELFIO::elfio& reader)
 
 input_file::input_file(const std::filesystem::path& path)
 {
-	// TODO: open the stream as binary. Then load ELF file from stream
 	try
 	{
 		std::ifstream stream(path, std::ios::binary);
