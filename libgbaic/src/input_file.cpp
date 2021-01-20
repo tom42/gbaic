@@ -63,10 +63,23 @@ static void check_elf_version(elfio& reader)
 
 static void check_os_abi(elfio& reader)
 {
+	const auto expected_abi = ELFOSABI_NONE;
+
 	auto ei_osabi = reader.get_os_abi();
-	if (ei_osabi != ELFOSABI_NONE)
+	if (ei_osabi != expected_abi)
 	{
-		throw runtime_error(format("unknown ELF OS ABI {0}. Expected none ({1})", ei_osabi, ELFOSABI_NONE));
+		throw runtime_error(format("unknown ELF OS ABI {}. Expected none ({})", ei_osabi, expected_abi));
+	}
+}
+
+static void check_abi_version(elfio& reader)
+{
+	const auto expected_abi_version = 0;
+
+	auto ei_abiversion = reader.get_abi_version();
+	if (ei_abiversion != expected_abi_version)
+	{
+		throw runtime_error(format("unknown ABI version {}. Expected {}", ei_abiversion, expected_abi_version));
 	}
 }
 
@@ -77,14 +90,13 @@ static void check_header(elfio& reader)
 
 	// Not sure the OS ABI matters. Checking it to be on the safe side for the time being.
 	check_os_abi(reader);
+	check_abi_version(reader);
 
 	// TODO: check elf header. Probably we want to check (or perhaps not all of them, need to check):
-	// * EI_ABIVERSION										(would't know its meaning. don't check)																(OR expect it to be 0)
 	// * e_type												MUST BE ET_EXEC (2)
 	// * e_machine											MUST BE 0x28 (ARM)
 	// * e_version											MUST BE 0
 	// TODO: testcode: CHECK THESE FIELDS
-	std::cout << "EI_ABIVERSION: " << ((int)reader.get_abi_version()) << std::endl;
 	std::cout << "e_type:        " << reader.get_type() << std::endl;
 	std::cout << "e_machine:     " << reader.get_machine() << std::endl;
 	std::cout << "e_version:     " << reader.get_version() << std::endl;
