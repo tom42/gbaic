@@ -23,10 +23,10 @@
 
 #define _CRT_SECURE_NO_WARNINGS // TODO: really? I mean...we should be using strerror_r or strerror_s, no?
 #include <cstring>
-#include <elfio/elfio.hpp>	// TODO: <elfio/elfio.hpp> or "elfio/elfio.hpp"?
-#include <fmt/core.h>	    // TODO: <> or ""?
 #include <fstream>
 #include <stdexcept>
+#include "elfio/elfio.hpp"
+#include "fmt/core.h"
 #include "input_file.hpp"
 
 namespace libgbaic
@@ -48,9 +48,10 @@ static void check_executable_type(elfio& reader)
 {
 	if ((reader.get_class() != ELFCLASS32) ||
 		(reader.get_encoding() != ELFDATA2LSB) ||
-		(reader.get_type() != ET_EXEC))
+		(reader.get_type() != ET_EXEC) ||
+		(reader.get_machine() != EM_ARM))
 	{
-		throw runtime_error("file is not a 32-bit little endian executable ELF file");
+		throw runtime_error("file is not a 32-bit little endian ARM executable ELF file");
 	}
 }
 
@@ -90,15 +91,13 @@ static void check_header(elfio& reader)
 	check_executable_type(reader);
 	check_elf_version(reader);
 
-	// Not sure the OS ABI matters. Checking it to be on the safe side for the time being.
+	// Not sure these matter. Checking them to be on the safe side.
 	check_os_abi(reader);
 	check_abi_version(reader);
 
 	// TODO: check elf header. Probably we want to check (or perhaps not all of them, need to check):
-	// * e_machine											MUST BE 0x28 (ARM)
 	// * e_version											MUST BE 0
 	// TODO: testcode: CHECK THESE FIELDS
-	std::cout << "e_machine:     " << reader.get_machine() << std::endl;
 	std::cout << "e_version:     " << reader.get_version() << std::endl;
 	// TODO: do not use std::hex, since it is global.
 	// TODO: do consider having some sort of verbose mode, since things ARE going to fail
