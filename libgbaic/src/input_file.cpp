@@ -149,7 +149,13 @@ void input_file::load_elf(std::istream& stream)
 
 	m_entry = reader.get_entry();
 	// TODO: log this through some sort of verbose log method
-	std::cout << fmt::format("Entry: {:#x}", m_entry);
+	verbose_log(fmt::format("Entry: {:#x}", m_entry));
+}
+
+void input_file::verbose_log(const std::string& s)
+{
+	// TODO: make it possible to disable output
+	std::cout << s << std::endl;
 }
 
 }

@@ -27,6 +27,7 @@
 #include <cstdint>
 #include <filesystem>
 #include <iosfwd>
+#include <string>
 
 namespace libgbaic
 {
@@ -40,6 +41,7 @@ public:
 
 private:
 	void load_elf(std::istream& stream);
+	void verbose_log(const std::string& s);
 
 	uint_fast64_t m_entry = 0;
 };
