@@ -31,16 +31,24 @@
 namespace libgbaic
 {
 
+using std::runtime_error;
+
 static void open_elf(ELFIO::elfio& reader, std::istream& stream)
 {
 	if (!reader.load(stream))
 	{
-		throw std::runtime_error("file is not a valid ELF file");
+		throw runtime_error("file is not a valid ELF file");
 	}
 }
 
 static void check_header(ELFIO::elfio& reader)
 {
+	auto elf_class = reader.get_class();
+	if (elf_class == ELFCLASS32) // TODO: !=
+	{
+		throw runtime_error("file is not a 32-bit ELF file (EI_CLASS = " + std::to_string(elf_class) + ")");
+	}
+
 	// TODO: check elf header. Probably we want to check (or perhaps not all of them, need to check):
 	// * class (32 bit) (EI_CLASS)							MUST BE ELF32
 	// * little endian  (EI_DATA)							MUST BE LITTLE ENDIAN
@@ -72,14 +80,14 @@ input_file::input_file(const std::filesystem::path& path)
 		if (!stream)
 		{
 			// TODO: use strerror_r / strerror_s, no?
-			throw std::runtime_error(strerror(errno));
+			throw runtime_error(strerror(errno));
 		}
 
 		load_elf(stream);
 	}
 	catch (const std::exception& e)
 	{
-		throw std::runtime_error(path.string() + ": " + e.what());
+		throw runtime_error(path.string() + ": " + e.what());
 	}
 }
 
