@@ -22,6 +22,7 @@
 // SOFTWARE.
 
 #include <boost/test/unit_test.hpp>
+#include <sstream>
 #include <stdexcept>
 #include "input_file.hpp"
 
@@ -38,6 +39,18 @@ BOOST_AUTO_TEST_CASE(load_elf_file_does_not_exist)
 		libgbaic::input_file f("non-existing-file.elf"),
 		runtime_error,
 		[](const auto& e) { BOOST_CHECK_EQUAL("non-existing-file.elf: No such file or directory", e.what()); return true; });
+}
+
+BOOST_AUTO_TEST_CASE(load_elf_file_is_invalid)
+{
+	const char c = 0x42;
+	std::stringstream s;
+	s.write(&c, 1);
+
+	BOOST_CHECK_EXCEPTION(
+		libgbaic::input_file f(s),
+		runtime_error,
+		[](const auto& e) { BOOST_CHECK_EQUAL("file is not a valid ELF file", e.what()); return true; });
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -61,8 +61,7 @@ void input_file::load_elf(std::istream& stream)
 	ELFIO::elfio reader;
 	if (!reader.load(stream))
 	{
-		// TODO: unit test?
-		throw std::runtime_error("not a valid ELF file");
+		throw std::runtime_error("file is not a valid ELF file");
 	}
 
 	// TODO: check elf header. Probably we want to check (or perhaps not all of them, need to check):
