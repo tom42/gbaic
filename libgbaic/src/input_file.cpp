@@ -23,7 +23,8 @@
 
 #define _CRT_SECURE_NO_WARNINGS // TODO: really? I mean...we should be using strerror_r or strerror_s, no?
 #include <cstring>
-#include <elfio/elfio.hpp> // TODO: <elfio/elfio.hpp> or "elfio/elfio.hpp"?
+#include <elfio/elfio.hpp>	// TODO: <elfio/elfio.hpp> or "elfio/elfio.hpp"?
+#include <fmt/format.h>	    // TODO: <> or ""?
 #include <fstream>
 #include <stdexcept>
 #include "input_file.hpp"
