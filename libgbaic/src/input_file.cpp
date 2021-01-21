@@ -168,15 +168,23 @@ void input_file::log_program_headers(elfio& reader)
 		return;
 	}
 
+	verbose_log("Program headers");
+	verbose_log(fmt::format(" {:4} {:7} {:10} {:10} {:7} {:7}",
+		"Type",
+		"Offset",
+		"VirtAddr",
+		"PhysAddr",
+		"FileSiz",
+		"MemSiz"));
+
 	for (Elf_Half i = 0; i < nheaders; ++i)
 	{
 		// TODO: human readable type
 		// TODO: print flags, human readable
 		// TODO: print alignment
 		// TODO: print a title
-		// TODO: align everything nicely
 		const auto& s = *reader.segments[i];
-		verbose_log(fmt::format	("{} {:#x} {:#x} {:#x} {:#x} {:#x}",
+		verbose_log(fmt::format	(" {:4} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x}",
 			s.get_type(),
 			s.get_offset(),
 			s.get_virtual_address(),
