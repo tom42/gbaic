@@ -33,6 +33,7 @@ namespace libgbaic
 {
 
 using ELFIO::elfio;
+using ELFIO::Elf_Half;
 using fmt::format;
 using std::runtime_error;
 
@@ -148,13 +149,41 @@ void input_file::load_elf(std::istream& stream)
 	open_elf(reader, stream);
 	check_header(reader);
 	read_entry(reader);
-
+	log_program_headers(reader);
 }
 
 void input_file::read_entry(elfio& reader)
 {
 	m_entry = reader.get_entry();
 	verbose_log(fmt::format("Entry: {:#x}", m_entry));
+}
+
+void input_file::log_program_headers(elfio& reader)
+{
+	Elf_Half nheaders = reader.segments.size();
+	if (nheaders == 0)
+	{
+		// TODO: when just logging this is OK, but when actually converting to binary we'll probably fail if this is the case, no?
+		verbose_log("File has no program headers");
+		return;
+	}
+
+	for (Elf_Half i = 0; i < nheaders; ++i)
+	{
+		// TODO: human readable type
+		// TODO: print flags, human readable
+		// TODO: print alignment
+		// TODO: print a title
+		// TODO: align everything nicely
+		const auto& s = *reader.segments[i];
+		verbose_log(fmt::format	("{} {:#x} {:#x} {:#x} {:#x} {:#x}",
+			s.get_type(),
+			s.get_offset(),
+			s.get_virtual_address(),
+			s.get_physical_address(),
+			s.get_file_size(),
+			s.get_memory_size()));
+	}
 }
 
 void input_file::verbose_log(const std::string& s)
