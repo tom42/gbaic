@@ -147,7 +147,12 @@ void input_file::load_elf(std::istream& stream)
 
 	open_elf(reader, stream);
 	check_header(reader);
+	read_entry(reader);
 
+}
+
+void input_file::read_entry(elfio& reader)
+{
 	m_entry = reader.get_entry();
 	verbose_log(fmt::format("Entry: {:#x}", m_entry));
 }
