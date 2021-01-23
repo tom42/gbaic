@@ -35,11 +35,47 @@ namespace libgbaic
 
 using ELFIO::elfio;
 using ELFIO::Elf_Half;
+using ELFIO::Elf_Word;
 using fmt::format;
 using std::string;
 using std::runtime_error;
 
-static string segment_flags_to_string(ELFIO::Elf_Word flags)
+static string segment_type_to_string(Elf_Word type)
+{
+    struct table_entry
+    {
+        Elf_Word type;
+        const char* string;
+    };
+    static const table_entry table[] =
+    {
+        { PT_NULL,    "NULL" },
+        { PT_LOAD,    "LOAD" },
+        { PT_DYNAMIC, "DYNAMIC" },
+        { PT_INTERP,  "INTERP" },
+        { PT_NOTE,    "NOTE" },
+        { PT_SHLIB,   "SHLIB" },
+        { PT_PHDR,    "PHDR" },
+        { PT_TLS,     "TLS" },
+        { PT_LOOS,    "LOOS" },
+        { PT_HIOS,    "HIOS" },
+        { PT_LOPROC,  "LOPROC" },
+        { PT_HIPROC,  "HIPROC" }
+    };
+    static const size_t table_length = sizeof(table) / sizeof(table[0]);
+
+    for (size_t i = 0; i < table_length; ++i)
+    {
+        if (table[i].type == type)
+        {
+            return table[i].string;
+        }
+    }
+
+    return fmt::format("{:#010x}", type);
+}
+
+static string segment_flags_to_string(Elf_Word flags)
 {
     static const char* const table[] = { "", "X", "W", "WX", "R", "RX", "RW", "RWX" };
     static const size_t table_length = sizeof(table) / sizeof(table[0]);
@@ -176,6 +212,8 @@ void input_file::read_entry(elfio& reader)
 
 void input_file::log_program_headers(elfio& reader)
 {
+    // TODO: exit if verbose logging is disabled.
+
     Elf_Half nheaders = reader.segments.size();
     if (nheaders == 0)
     {
@@ -185,7 +223,7 @@ void input_file::log_program_headers(elfio& reader)
     }
 
     verbose_log("Program headers");
-    verbose_log(fmt::format(" {:4} {:7} {:10} {:10} {:7} {:7} {:7} {:3}",
+    verbose_log(fmt::format(" {:10} {:7} {:10} {:10} {:7} {:7} {:7} {:3}",
         "Type",
         "Offset",
         "VirtAddr",
@@ -197,10 +235,9 @@ void input_file::log_program_headers(elfio& reader)
 
     for (Elf_Half i = 0; i < nheaders; ++i)
     {
-        // TODO: human readable type
         const auto& s = *reader.segments[i];
-        verbose_log(fmt::format(" {:4} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:#07x} {}",
-            s.get_type(),
+        verbose_log(fmt::format(" {:10} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:#07x} {}",
+            segment_type_to_string(s.get_type()),
             s.get_offset(),
             s.get_virtual_address(),
             s.get_physical_address(),
