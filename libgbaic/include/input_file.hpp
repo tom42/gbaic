@@ -50,6 +50,7 @@ private:
     void load_elf(std::istream& stream);
     void read_entry(ELFIO::elfio& reader);
     void log_program_headers(ELFIO::elfio& reader);
+    void convert_to_binary(ELFIO::elfio& reader);
     void verbose_log(const std::string& s);
 
     uint_fast64_t m_entry = 0;

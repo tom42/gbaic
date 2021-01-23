@@ -201,6 +201,7 @@ void input_file::load_elf(std::istream& stream)
     check_header(reader);
     read_entry(reader);
     log_program_headers(reader);
+    convert_to_binary(reader);
     // TODO: log entry point and load address at the very end
 }
 
@@ -246,6 +247,22 @@ void input_file::log_program_headers(elfio& reader)
             s.get_align(),
             segment_flags_to_string(s.get_flags())));
     }
+}
+
+void input_file::convert_to_binary(elfio& reader)
+{
+    // TODO: Do we initially check whether there are any program headers?
+    //       Or do we simply do all the processing and fail if there is no data left?
+    //       Initial checks might be
+    //       * Are there any LOAD headers?
+    //       * Are the LOAD headers correctly ordered?
+
+    // TODO: go through all the headers
+    //       * If it is a LOAD header
+    //         * If LOAD headers are not ordered, bark
+    //         * Add data to binary data (or not, if not needed)
+    //         * Do that for each.
+    //         * Profit
 }
 
 void input_file::verbose_log(const string& s)
