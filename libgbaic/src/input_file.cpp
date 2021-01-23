@@ -271,10 +271,12 @@ void input_file::convert_to_binary(elfio& reader)
         {
             // TODO:
             // * Headers should not overlap
-            // * Headers should be ordered
-            // * virtual address == physical address
+            // * Headers should be ordered by vaddr
+            // * virtual address == physical address (just out of paranoia)
             // * Bark if filesiz > memsiz
             // * What is with the align thing?
+            //   * Could check whether (offset % align) == (vaddr % align), because that's what it should be,
+            //     except when align is 0 or 1. But since we're probably not going to use it we could just ignore it.
         }
     }
 }
