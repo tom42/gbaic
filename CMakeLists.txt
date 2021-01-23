@@ -66,6 +66,9 @@ if(MSVC)
   add_compile_options(/W4 /WX)
 else()
   add_compile_options(-Wall -Wextra -pedantic -Werror)
+
+  # Required by ELFIO 3.8
+  add_compile_options(-Wno-comment)
 endif()
 
 add_subdirectory(libshrinkler)
