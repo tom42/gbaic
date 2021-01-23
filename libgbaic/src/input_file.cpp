@@ -1,4 +1,4 @@
-// MIT License7
+// MIT License
 //
 // gbaic: Gameboy Advance Intro Cruncher
 // Copyright (c) 2020 Thomas Mathys
@@ -25,6 +25,7 @@
 #include <cstring>
 #include <fstream>
 #include <stdexcept>
+#include <string>
 #include "elfio/elfio.hpp"
 #include "fmt/core.h"
 #include "input_file.hpp"
@@ -35,7 +36,21 @@ namespace libgbaic
 using ELFIO::elfio;
 using ELFIO::Elf_Half;
 using fmt::format;
+using std::string;
 using std::runtime_error;
+
+static string segment_flags_to_string(ELFIO::Elf_Word flags)
+{
+    static const char* const table[] = { "", "X", "W", "WX", "R", "RX", "RW", "RWX" };
+    static const size_t table_length = sizeof(table) / sizeof(table[0]);
+
+    if (flags >= table_length)
+    {
+        return fmt::format("{:#x}", flags);
+    }
+
+    return table[flags];
+}
 
 static void open_elf(elfio& reader, std::istream& stream)
 {
@@ -170,34 +185,33 @@ void input_file::log_program_headers(elfio& reader)
     }
 
     verbose_log("Program headers");
-    verbose_log(fmt::format(" {:4} {:7} {:10} {:10} {:7} {:7} {:3} {:7}",
+    verbose_log(fmt::format(" {:4} {:7} {:10} {:10} {:7} {:7} {:7} {:3}",
         "Type",
         "Offset",
         "VirtAddr",
         "PhysAddr",
         "FileSiz",
         "MemSiz",
-        "Flg",
-        "Align"));
+        "Align",
+        "Flg"));
 
     for (Elf_Half i = 0; i < nheaders; ++i)
     {
         // TODO: human readable type
-        // TODO: print flags, human readable
         const auto& s = *reader.segments[i];
-        verbose_log(fmt::format(" {:4} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:03x} {:#07x}",
+        verbose_log(fmt::format(" {:4} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:#07x} {}",
             s.get_type(),
             s.get_offset(),
             s.get_virtual_address(),
             s.get_physical_address(),
             s.get_file_size(),
             s.get_memory_size(),
-            s.get_flags(),
-            s.get_align()));
+            s.get_align(),
+            segment_flags_to_string(s.get_flags())));
     }
 }
 
-void input_file::verbose_log(const std::string& s)
+void input_file::verbose_log(const string& s)
 {
     // TODO: make it possible to disable output
     std::cout << s << std::endl;
