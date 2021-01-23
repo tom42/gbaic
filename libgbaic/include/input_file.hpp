@@ -42,17 +42,17 @@ namespace libgbaic
 class input_file
 {
 public:
-	input_file(const std::filesystem::path& path);
+    input_file(const std::filesystem::path& path);
 
-	input_file(std::istream& stream);
+    input_file(std::istream& stream);
 
 private:
-	void load_elf(std::istream& stream);
-	void read_entry(ELFIO::elfio& reader);
-	void log_program_headers(ELFIO::elfio& reader);
-	void verbose_log(const std::string& s);
+    void load_elf(std::istream& stream);
+    void read_entry(ELFIO::elfio& reader);
+    void log_program_headers(ELFIO::elfio& reader);
+    void verbose_log(const std::string& s);
 
-	uint_fast64_t m_entry = 0;
+    uint_fast64_t m_entry = 0;
 };
 
 }
