@@ -150,6 +150,7 @@ void input_file::load_elf(std::istream& stream)
 	check_header(reader);
 	read_entry(reader);
 	log_program_headers(reader);
+	// TODO: log entry point and load address at the very end
 }
 
 void input_file::read_entry(elfio& reader)
