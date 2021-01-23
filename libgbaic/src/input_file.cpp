@@ -263,6 +263,20 @@ void input_file::convert_to_binary(elfio& reader)
     //         * Add data to binary data (or not, if not needed)
     //         * Do that for each.
     //         * Profit
+
+    const Elf_Half nheaders = reader.segments.size();
+    for (Elf_Half i = 0; i < nheaders; ++i)
+    {
+        if (reader.segments[i]->get_type() == PT_LOAD)
+        {
+            // TODO:
+            // * Headers should not overlap
+            // * Headers should be ordered
+            // * virtual address == physical address
+            // * Bark if filesiz > memsiz
+            // * What is with the align thing?
+        }
+    }
 }
 
 void input_file::verbose_log(const string& s)
