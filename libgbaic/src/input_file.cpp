@@ -268,7 +268,6 @@ void input_file::convert_to_binary(elfio& reader)
 
     // TODO: go through all the headers
     //       * If it is a LOAD header
-    //         * If LOAD headers are not ordered, bark
     //         * Add data to binary data (or not, if not needed)
     //         * Do that for each.
     //         * Profit
