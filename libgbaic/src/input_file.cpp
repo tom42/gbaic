@@ -177,6 +177,15 @@ static void throw_if_out_of_order(segment* last, segment* current)
     }
 }
 
+static void throw_if_invalid_load_segment(segment* seg)
+{
+    if (seg->get_virtual_address() != seg->get_physical_address())
+    {
+        // Not sure this is a problem. Refuse to process such a file until we know.
+        throw runtime_error("file contains LOAD segment whose virtual and physical address differ. Don't know how to handle that");
+    }
+}
+
 input_file::input_file(const std::filesystem::path& path)
 {
     try
@@ -290,12 +299,12 @@ void input_file::convert_to_binary(elfio& reader)
         if (current->get_type() == PT_LOAD)
         {
             throw_if_out_of_order(last, current);
+            throw_if_invalid_load_segment(current);
 
             last = current;
 
             // TODO:
             // * Headers should not overlap
-            // * virtual address == physical address (just out of paranoia)
             // * Bark if filesiz > memsiz
             // * What is with the align thing?
             //   * Could check whether (offset % align) == (vaddr % align), because that's what it should be,
