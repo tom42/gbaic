@@ -36,6 +36,7 @@ namespace libgbaic
 using ELFIO::elfio;
 using ELFIO::Elf_Half;
 using ELFIO::Elf_Word;
+using ELFIO::segment;
 using fmt::format;
 using std::string;
 using std::runtime_error;
@@ -168,6 +169,14 @@ static void check_header(elfio& reader)
     //       How do we find the load address, anyway?
 }
 
+static void throw_if_out_of_order(segment* last, segment* current)
+{
+    if (last && (current->get_virtual_address() < last->get_virtual_address()))
+    {
+        throw runtime_error("invalid ELF file. LOAD segments are not sorted by ascending virtual address");
+    }
+}
+
 input_file::input_file(const std::filesystem::path& path)
 {
     try
@@ -274,14 +283,19 @@ void input_file::convert_to_binary(elfio& reader)
     // Loadable segment entries in the program header table appear in ascending order,
     // sorted on the p_vaddr member.
 
+    segment* last = nullptr;
     const Elf_Half nheaders = reader.segments.size();
     for (Elf_Half i = 0; i < nheaders; ++i)
     {
-        if (reader.segments[i]->get_type() == PT_LOAD)
+        segment* current = reader.segments[i];
+        if (current->get_type() == PT_LOAD)
         {
+            throw_if_out_of_order(last, current);
+
+            last = current;
+
             // TODO:
             // * Headers should not overlap
-            // * Headers should be ordered by vaddr
             // * virtual address == physical address (just out of paranoia)
             // * Bark if filesiz > memsiz
             // * What is with the align thing?
