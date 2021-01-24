@@ -264,6 +264,16 @@ void input_file::convert_to_binary(elfio& reader)
     //         * Do that for each.
     //         * Profit
 
+    // PT_LOAD documentation from ELF specifications:
+    //
+    // "The array element specifies a loadable segment, described by p_fileszand p_memsz.
+    // The bytes from the file are mapped to the beginning of the memory segment.
+    // If the segment's memory size (p_memsz) is larger than the file size (p_filesz),
+    // the ``extra'' bytes are defined to hold the value 0 and to follow the segment's initialized area.
+    // The file size may not be larger than the memory size.
+    // Loadable segment entries in the program header table appear in ascending order,
+    // sorted on the p_vaddr member.
+
     const Elf_Half nheaders = reader.segments.size();
     for (Elf_Half i = 0; i < nheaders; ++i)
     {
