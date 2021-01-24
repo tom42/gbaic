@@ -184,6 +184,11 @@ static void throw_if_invalid_load_segment(segment* seg)
         // Not sure this is a problem. Refuse to process such a file until we know.
         throw runtime_error("file contains LOAD segment whose virtual and physical address differ. Don't know how to handle that");
     }
+
+    if (seg->get_file_size() > seg->get_memory_size())
+    {
+        throw runtime_error("invalid ELF file. Found LOAD segment whose file size is larger than its memory size");
+    }
 }
 
 input_file::input_file(const std::filesystem::path& path)
@@ -305,7 +310,6 @@ void input_file::convert_to_binary(elfio& reader)
 
             // TODO:
             // * Headers should not overlap
-            // * Bark if filesiz > memsiz
             // * What is with the align thing?
             //   * Could check whether (offset % align) == (vaddr % align), because that's what it should be,
             //     except when align is 0 or 1. But since we're probably not going to use it we could just ignore it.
