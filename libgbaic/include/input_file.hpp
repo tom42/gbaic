@@ -28,6 +28,7 @@
 #include <filesystem>
 #include <iosfwd>
 #include <string>
+#include <vector>
 
 namespace ELFIO
 {
@@ -53,7 +54,13 @@ private:
     void convert_to_binary(ELFIO::elfio& reader);
     void verbose_log(const std::string& s);
 
+    // TODO: provide access to
+    //       * entry point
+    //       * load address
+    //       * data
     uint_fast64_t m_entry = 0;
+    uint_fast64_t m_load_address = 0;
+    std::vector<std::byte> m_data;
 };
 
 }
