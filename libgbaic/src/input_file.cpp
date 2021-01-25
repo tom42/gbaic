@@ -21,6 +21,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// Some quotes from the ELF specifications:
+//
+// Segment type PT_LOAD:
+//
+// "The array element specifies a loadable segment, described by p_filesz and p_memsz.
+// The bytes from the file are mapped to the beginning of the memory segment.
+// If the segment's memory size (p_memsz) is larger than the file size (p_filesz),
+// the ``extra'' bytes are defined to hold the value 0 and to follow the segment's
+// initialized area. The file size may not be larger than the memory size.
+// Loadable segment entries in the program header table appear in ascending order,
+// sorted on the p_vaddr member."
+//
+// p_align field of segment header:
+//
+// "Loadable process segments must have congruent values for p_vaddr and p_offset,
+// modulo the page size. This member gives the value to which the segments are aligned
+// in memory and in the file.
+// Values 0 and 1 mean no alignment is required. Otherwise, p_align should be a positive,
+// integral power of 2, and p_vaddr should equal p_offset, modulo p_align."
+
 #define _CRT_SECURE_NO_WARNINGS // TODO: really? I mean...we should be using strerror_r or strerror_s, no?
 #include <cstring>
 #include <fstream>
@@ -171,24 +191,32 @@ static void check_header(elfio& reader)
 
 static void throw_if_load_segment_is_out_of_order(segment* last, segment* current)
 {
+    // Required by ELF specifications.
     if (last && (current->get_virtual_address() < last->get_virtual_address()))
     {
-        throw runtime_error("invalid ELF file. LOAD segments are not sorted by ascending virtual address");
+        throw runtime_error("invalid ELF file. LOAD segment headers are not sorted by ascending virtual address");
     }
 }
 
 static void throw_if_invalid_load_segment(segment* seg)
 {
+    // Not sure this is a problem. Refuse to process such a file until we know.
     if (seg->get_virtual_address() != seg->get_physical_address())
     {
-        // Not sure this is a problem. Refuse to process such a file until we know.
         throw runtime_error("file contains LOAD segment whose virtual and physical address differ. Don't know how to handle that");
     }
 
+    // Required by ELF specifications.
     if (seg->get_file_size() > seg->get_memory_size())
     {
         throw runtime_error("invalid ELF file. Found LOAD segment whose file size is larger than its memory size");
     }
+}
+
+static void verify_load_segment(segment* last, segment* current)
+{
+    throw_if_load_segment_is_out_of_order(last, current);
+    throw_if_invalid_load_segment(current);
 }
 
 input_file::input_file(const std::filesystem::path& path)
@@ -285,25 +313,6 @@ void input_file::convert_to_binary(elfio& reader)
     //         * Add data to binary data (or not, if not needed)
     //         * Do that for each.
     //         * Profit
-
-    // PT_LOAD documentation from ELF specifications:
-    //
-    // "The array element specifies a loadable segment, described by p_fileszand p_memsz.
-    // The bytes from the file are mapped to the beginning of the memory segment.
-    // If the segment's memory size (p_memsz) is larger than the file size (p_filesz),
-    // the ``extra'' bytes are defined to hold the value 0 and to follow the segment's initialized area.
-    // The file size may not be larger than the memory size.
-    // Loadable segment entries in the program header table appear in ascending order,
-    // sorted on the p_vaddr member."
-    //
-    // p_align documentation from ELF specifications:
-    //
-    // "Loadable process segments must have congruent values for p_vaddr and p_offset,
-    // modulo the page size. This member gives the value to which the segments are aligned in memory
-    // and in the file.
-    // Values 0 and 1 mean no alignment is required. Otherwise, p_align should be a positive,
-    // integral power of 2, and p_vaddr should equal p_offset, modulo p_align."
-
     segment* last = nullptr;
     const Elf_Half nheaders = reader.segments.size();
     for (Elf_Half i = 0; i < nheaders; ++i)
@@ -311,11 +320,8 @@ void input_file::convert_to_binary(elfio& reader)
         segment* current = reader.segments[i];
         if (current->get_type() == PT_LOAD)
         {
-            throw_if_load_segment_is_out_of_order(last, current);
-            throw_if_invalid_load_segment(current);
-
+            verify_load_segment(last, current);
             last = current;
-
             // TODO:
             // * Headers should not overlap
             // * What is with the align thing?
