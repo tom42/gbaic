@@ -211,6 +211,19 @@ static void throw_if_invalid_load_segment(segment* seg)
     {
         throw runtime_error("invalid ELF file. Found LOAD segment whose file size is larger than its memory size");
     }
+
+    // Not sure this could be a problem, but for the time being require
+    // segment alignment to be according to ELF specifications.
+    const auto align = seg->get_align();
+    if (align > 1)
+    {
+        if ((align & (align - 1)) != 0)
+        {
+            throw runtime_error("invalid ELF file. Found LOAD segment whose alignment is not a power of 2");
+        }
+
+        // TODO: now also check whether shit's congruent
+    }
 }
 
 static void verify_load_segment(segment* last, segment* current)
