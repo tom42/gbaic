@@ -34,6 +34,7 @@ namespace ELFIO
 {
 
 class elfio;
+class segment;
 
 }
 
@@ -52,6 +53,7 @@ private:
     void read_entry(ELFIO::elfio& reader);
     void log_program_headers(ELFIO::elfio& reader);
     void convert_to_binary(ELFIO::elfio& reader);
+    void add_load_segment_to_data(ELFIO::segment* seg);
     void verbose_log(const std::string& s);
 
     // TODO: provide access to

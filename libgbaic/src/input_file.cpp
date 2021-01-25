@@ -355,9 +355,14 @@ void input_file::convert_to_binary(elfio& reader)
         if (current->get_type() == PT_LOAD)
         {
             verify_load_segment(last, current);
+            add_load_segment_to_data(current);
             last = current;
         }
     }
+}
+
+void input_file::add_load_segment_to_data(segment* /*seg*/)
+{
 }
 
 void input_file::verbose_log(const string& s)
