@@ -229,9 +229,17 @@ static void throw_if_load_segments_are_out_of_order(segment* last, segment* curr
     }
 }
 
-static void throw_if_load_segments_overlap(segment* /*last*/, segment* /*current*/)
+static void throw_if_load_segments_overlap(segment* last, segment* current)
 {
-    // TODO: last.vaddr+last.memsize must not be > current.vaddr
+    if ((last->get_virtual_address() + last->get_memory_size()) < last->get_virtual_address())
+    {
+        throw runtime_error("invalid ELF file. Found LOAD segment that goes past the end of the 64-bit address space");
+    }
+
+    if ((last->get_virtual_address() + last->get_memory_size()) > current->get_virtual_address())
+    {
+        throw runtime_error("invalid ELF file. Found overlapping LOAD segments");
+    }
 }
 
 static void verify_load_segment(segment* last, segment* current)
@@ -348,8 +356,6 @@ void input_file::convert_to_binary(elfio& reader)
         {
             verify_load_segment(last, current);
             last = current;
-            // TODO:
-            // * Headers should not overlap
         }
     }
 }
