@@ -189,15 +189,6 @@ static void check_header(elfio& reader)
     //       How do we find the load address, anyway?
 }
 
-static void throw_if_load_segment_is_out_of_order(segment* last, segment* current)
-{
-    // Required by ELF specifications.
-    if (last && (current->get_virtual_address() < last->get_virtual_address()))
-    {
-        throw runtime_error("invalid ELF file. LOAD segment headers are not sorted by ascending virtual address");
-    }
-}
-
 static void throw_if_invalid_load_segment(segment* seg)
 {
     // Not sure this is a problem. Refuse to process such a file until we know.
@@ -229,10 +220,29 @@ static void throw_if_invalid_load_segment(segment* seg)
     }
 }
 
+static void throw_if_load_segments_are_out_of_order(segment* last, segment* current)
+{
+    // Required by ELF specifications.
+    if (current->get_virtual_address() < last->get_virtual_address())
+    {
+        throw runtime_error("invalid ELF file. LOAD segment headers are not sorted by ascending virtual address");
+    }
+}
+
+static void throw_if_load_segments_overlap(segment* /*last*/, segment* /*current*/)
+{
+    // TODO: last.vaddr+last.memsize must not be > current.vaddr
+}
+
 static void verify_load_segment(segment* last, segment* current)
 {
-    throw_if_load_segment_is_out_of_order(last, current);
     throw_if_invalid_load_segment(current);
+
+    if (last)
+    {
+        throw_if_load_segments_are_out_of_order(last, current);
+        throw_if_load_segments_overlap(last, current);
+    }
 }
 
 input_file::input_file(const std::filesystem::path& path)
