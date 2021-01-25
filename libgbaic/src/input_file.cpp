@@ -169,7 +169,7 @@ static void check_header(elfio& reader)
     //       How do we find the load address, anyway?
 }
 
-static void throw_if_out_of_order(segment* last, segment* current)
+static void throw_if_load_segment_is_out_of_order(segment* last, segment* current)
 {
     if (last && (current->get_virtual_address() < last->get_virtual_address()))
     {
@@ -311,7 +311,7 @@ void input_file::convert_to_binary(elfio& reader)
         segment* current = reader.segments[i];
         if (current->get_type() == PT_LOAD)
         {
-            throw_if_out_of_order(last, current);
+            throw_if_load_segment_is_out_of_order(last, current);
             throw_if_invalid_load_segment(current);
 
             last = current;
