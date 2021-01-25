@@ -222,7 +222,10 @@ static void throw_if_invalid_load_segment(segment* seg)
             throw runtime_error("invalid ELF file. Found LOAD segment whose alignment is not a power of 2");
         }
 
-        // TODO: now also check whether shit's congruent
+        if ((seg->get_offset() % align) != (seg->get_virtual_address() % align))
+        {
+            throw runtime_error("invalid ELF file. Found LOAD segment where (offset % align) != (virtual address % align)");
+        }
     }
 }
 
@@ -337,9 +340,6 @@ void input_file::convert_to_binary(elfio& reader)
             last = current;
             // TODO:
             // * Headers should not overlap
-            // * What is with the align thing?
-            //   * Could check whether (offset % align) == (vaddr % align), because that's what it should be,
-            //     except when align is 0 or 1. But since we're probably not going to use it we could just ignore it.
         }
     }
 }
