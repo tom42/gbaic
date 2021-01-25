@@ -355,6 +355,15 @@ void input_file::convert_to_binary(elfio& reader)
         if (current->get_type() == PT_LOAD)
         {
             verify_load_segment(last, current);
+
+            // TODO: copy data into array:
+            //       * basically, we move the output address to the current segment's virtual address
+            //         * If we haven't written any data, then this is just a write to the "origin"
+            //         * If we have written any data, then we must fill this with zeroes (might want to make this configurable later?)
+            //         * Now we can copy data from ELF data to byte array (filesiz)
+            //         * That's it, I think.
+
+            // TODO: might not need add_load_segment. In this case we should remove it (also from header)
             add_load_segment_to_data(current);
             last = current;
         }
