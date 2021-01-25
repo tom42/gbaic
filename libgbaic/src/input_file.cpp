@@ -294,7 +294,15 @@ void input_file::convert_to_binary(elfio& reader)
     // the ``extra'' bytes are defined to hold the value 0 and to follow the segment's initialized area.
     // The file size may not be larger than the memory size.
     // Loadable segment entries in the program header table appear in ascending order,
-    // sorted on the p_vaddr member.
+    // sorted on the p_vaddr member."
+    //
+    // p_align documentation from ELF specifications:
+    //
+    // "Loadable process segments must have congruent values for p_vaddr and p_offset,
+    // modulo the page size. This member gives the value to which the segments are aligned in memory
+    // and in the file.
+    // Values 0 and 1 mean no alignment is required. Otherwise, p_align should be a positive,
+    // integral power of 2, and p_vaddr should equal p_offset, modulo p_align."
 
     segment* last = nullptr;
     const Elf_Half nheaders = reader.segments.size();
