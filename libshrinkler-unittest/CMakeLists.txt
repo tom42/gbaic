@@ -30,7 +30,7 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
 add_executable(libshrinkler-unittest ${SOURCES})
 
-target_include_directories(libshrinkler-unittest PRIVATE ${Boost_INCLUDE_DIRS})
+target_include_directories(libshrinkler-unittest PRIVATE "${Boost_INCLUDE_DIRS}")
 target_link_libraries(libshrinkler-unittest PRIVATE libshrinkler)
 
 add_test(NAME libshrinkler-unittest COMMAND libshrinkler-unittest)
