@@ -22,14 +22,51 @@
 // SOFTWARE.
 
 #include <boost/test/unit_test.hpp>
+#include <filesystem>
+#include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <vector>
+#include "libgbaic_unittest_config.hpp"
 #include "input_file.hpp"
 
 namespace libgbaic_unittest
 {
 
+using std::filesystem::path;
 using std::runtime_error;
+using std::vector;
+
+static libgbaic::input_file load_elf_file(const path& filename)
+{
+    path full_path = LIBGBAIC_UNITTEST_TESTDATA_DIRECTORY / filename;
+    return libgbaic::input_file(full_path);
+}
+
+static vector<unsigned char> load_binary_file(const path& filename)
+{
+    path full_path = LIBGBAIC_UNITTEST_TESTDATA_DIRECTORY / filename;
+
+    // Open file, stop it from eating whitespace.
+    std::ifstream file(full_path, std::ios::binary);
+    BOOST_REQUIRE_MESSAGE(file, "Could not open " + full_path.string());
+    file.unsetf(std::ios::skipws);
+
+    // Create vector with sufficient capacity to hold entire file.
+    auto filesize = std::filesystem::file_size(full_path);
+    vector<unsigned char> data;
+    data.reserve(filesize);
+
+    // Read entire file
+    data.insert(
+        data.begin(),
+        std::istream_iterator<unsigned char>(file),
+        std::istream_iterator<unsigned char>());
+    BOOST_REQUIRE_MESSAGE(file || file.eof(), "Error reading " + full_path.string());
+    file.close();
+
+    return data;
+}
 
 BOOST_AUTO_TEST_SUITE(input_file_test)
 
@@ -51,6 +88,16 @@ BOOST_AUTO_TEST_CASE(load_elf_file_is_invalid)
         libgbaic::input_file f(s),
         runtime_error,
         [](const auto& e) { BOOST_CHECK_EQUAL("file is not a valid ELF file", e.what()); return true; });
+}
+
+BOOST_AUTO_TEST_CASE(load_elf_lostmarbles)
+{
+    auto input_file = load_elf_file("lostmarbles.elf");
+    auto expected_data = load_binary_file("lostmarbles.bin");
+
+    BOOST_REQUIRE_EQUAL(0x03000000, input_file.entry());
+    BOOST_REQUIRE_EQUAL(0x03000000, input_file.load_address());
+    BOOST_CHECK_EQUAL_COLLECTIONS(expected_data.begin(), expected_data.end(), input_file.data().begin(), input_file.data().end());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
