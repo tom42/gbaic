@@ -21,6 +21,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+set(LIBGBAIC_UNITTEST_TESTDATA_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/testdata")
+configure_file(libgbaic_unittest_config.hpp.in libgbaic_unittest_config.hpp)
+
 set(
   SOURCES
   src/input_file_test.cpp
@@ -32,7 +35,12 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
 add_executable(libgbaic-unittest ${SOURCES})
 
-target_include_directories(libgbaic-unittest PRIVATE ${Boost_INCLUDE_DIRS})
+target_include_directories(
+  libgbaic-unittest
+  PRIVATE
+  "${Boost_INCLUDE_DIRS}"
+  "${CMAKE_CURRENT_BINARY_DIR}")
+
 target_link_libraries(libgbaic-unittest PRIVATE libgbaic)
 
 add_test(NAME libgbaic-unittest COMMAND libgbaic-unittest)
