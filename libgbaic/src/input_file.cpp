@@ -267,6 +267,7 @@ input_file::input_file(const std::filesystem::path& path)
         }
 
         load_elf(stream);
+        stream.close();
     }
     catch (const std::exception& e)
     {
