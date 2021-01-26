@@ -288,13 +288,14 @@ void input_file::load_elf(std::istream& stream)
     read_entry(reader);
     log_program_headers(reader);
     convert_to_binary(reader);
-    // TODO: log entry point and load address at the very end
+
+    verbose_log(fmt::format("Entry: {:#x}", m_entry));
+    verbose_log(fmt::format("Load address: {:#x}", m_load_address));
 }
 
 void input_file::read_entry(elfio& reader)
 {
     m_entry = reader.get_entry();
-    verbose_log(fmt::format("Entry: {:#x}", m_entry));
 }
 
 void input_file::log_program_headers(elfio& reader)
@@ -369,8 +370,7 @@ void input_file::convert_to_binary(elfio& reader)
                 else
                 {
                     // No bytes written to output yet. Just set the output address then.
-                    // TODO: record load address. I think this is the first address we write data to, so we could do this here.
-                    output_address = current->get_virtual_address();
+                    m_load_address = output_address = current->get_virtual_address();
                 }
 
                 m_data.insert(m_data.end(), current->get_data(), current->get_data() + current->get_file_size());
