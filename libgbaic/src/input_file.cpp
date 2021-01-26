@@ -341,10 +341,6 @@ void input_file::convert_to_binary(elfio& reader)
 {
     // TODO: Do we initially check whether there are any program headers?
     //       Or do we simply do all the processing and fail if there is no data left?
-    //       Initial checks might be
-    //       * Are there any LOAD headers?
-    //       * Are the LOAD headers correctly ordered?
-
     segment* last = nullptr;
     const Elf_Half nheaders = reader.segments.size();
     Elf64_Addr output_address = 0;
@@ -378,8 +374,6 @@ void input_file::convert_to_binary(elfio& reader)
             }
 
             // TODO: make padding byte value configurable?
-            // TODO: at the very least write a unit test that tests with Lost Marbles. We might want to strip it first, though.
-            //       Then we create a raw binary with objcopy, and compare our code's output with that.
             // TODO: final size checks(?)
             //       * Should we check whether there are any bytes at all?
             //       * Should we check for a maximum size?
