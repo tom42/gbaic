@@ -364,7 +364,7 @@ void input_file::convert_to_binary(elfio& reader)
             {
                 if (m_data.size())
                 {
-                    // Move to start of segment in output file. Fill up with padding bytes.
+                    // Move to start of segment in output. Fill up with padding bytes.
                     const auto nbytes = current->get_virtual_address() - output_address;
                     m_data.insert(m_data.end(), nbytes, 0);
                     output_address += nbytes;
@@ -376,16 +376,12 @@ void input_file::convert_to_binary(elfio& reader)
                     m_load_address = output_address;
                 }
 
+                // Copy segment's data to output.
                 m_data.insert(m_data.end(), current->get_data(), current->get_data() + current->get_file_size());
                 output_address += current->get_file_size();
             }
 
-            // TODO: copy data into array:
-            //       * basically, we move the output address to the current segment's virtual address
-            //         * If we haven't written any data, then this is just a write to the "origin"
-            //         * If we have written any data, then we must fill this with zeroes (might want to make this configurable later?)
-            //         * Now we can copy data from ELF data to byte array (filesiz)
-            //         * That's it, I think.
+            // TODO: make padding byte value configurable?
             // TODO: at the very least write a unit test that tests with Lost Marbles. We might want to strip it first, though.
             //       Then we create a raw binary with objcopy, and compare our code's output with that.
             // TODO: final size checks(?)
