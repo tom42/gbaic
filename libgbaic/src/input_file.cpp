@@ -363,11 +363,13 @@ void input_file::convert_to_binary(elfio& reader)
             {
                 if (m_data.size())
                 {
+                    // TODO: basically, calculate virtual_address - output_address. Then insert that many zero bytes (might want to make that value configurable later. The padding byte I mean)
                     throw std::runtime_error("TODO: pad with zeros");
                 }
                 else
                 {
                     // No bytes written to output yet. Just set the output address then.
+                    // TODO: record load address. I think this is the first address we write data to, so we could do this here.
                     output_address = current->get_virtual_address();
                 }
 
