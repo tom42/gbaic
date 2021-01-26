@@ -385,6 +385,9 @@ void input_file::convert_to_binary(elfio& reader)
             //         * That's it, I think.
             // TODO: at the very least write a unit test that tests with Lost Marbles. We might want to strip it first, though.
             //       Then we create a raw binary with objcopy, and compare our code's output with that.
+            // TODO: final size checks(?)
+            //       * Should we check whether there are any bytes at all?
+            //       * Should we check for a maximum size?
 
             last = current;
         }
