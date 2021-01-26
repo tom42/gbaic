@@ -54,6 +54,7 @@ namespace libgbaic
 {
 
 using ELFIO::elfio;
+using ELFIO::Elf64_Addr;
 using ELFIO::Elf_Half;
 using ELFIO::Elf_Word;
 using ELFIO::segment;
@@ -349,12 +350,31 @@ void input_file::convert_to_binary(elfio& reader)
     //         * Profit
     segment* last = nullptr;
     const Elf_Half nheaders = reader.segments.size();
+    Elf64_Addr output_address = 0;
+
     for (Elf_Half i = 0; i < nheaders; ++i)
     {
         segment* current = reader.segments[i];
         if (current->get_type() == PT_LOAD)
         {
             verify_load_segment(last, current);
+
+            if (current->get_file_size())
+            {
+                if (m_data.size())
+                {
+                    throw std::runtime_error("TODO: pad with zeros");
+                }
+                else
+                {
+                    // No bytes written to output yet. Just set the output address then.
+                    output_address = current->get_virtual_address();
+                }
+
+                m_data.insert(m_data.end(), current->get_data(), current->get_data() + current->get_file_size());
+                output_address += current->get_file_size();
+            }
+
 
             // TODO: copy data into array:
             //       * basically, we move the output address to the current segment's virtual address
