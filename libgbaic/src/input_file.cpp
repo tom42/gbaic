@@ -344,11 +344,6 @@ void input_file::convert_to_binary(elfio& reader)
     //       * Are there any LOAD headers?
     //       * Are the LOAD headers correctly ordered?
 
-    // TODO: go through all the headers
-    //       * If it is a LOAD header
-    //         * Add data to binary data (or not, if not needed)
-    //         * Do that for each.
-    //         * Profit
     segment* last = nullptr;
     const Elf_Half nheaders = reader.segments.size();
     Elf64_Addr output_address = 0;
