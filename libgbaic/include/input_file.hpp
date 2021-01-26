@@ -48,6 +48,12 @@ public:
 
     input_file(std::istream& stream);
 
+    uint_fast64_t entry() const { return m_entry; }
+
+    uint_fast64_t load_address() const { return m_load_address; }
+
+    const std::vector<unsigned char>& data() const { return m_data; }
+
 private:
     void load_elf(std::istream& stream);
     void read_entry(ELFIO::elfio& reader);
@@ -55,10 +61,6 @@ private:
     void convert_to_binary(ELFIO::elfio& reader);
     void verbose_log(const std::string& s);
 
-    // TODO: provide access to
-    //       * entry point
-    //       * load address
-    //       * data
     uint_fast64_t m_entry = 0;
     uint_fast64_t m_load_address = 0;
     std::vector<unsigned char> m_data;
