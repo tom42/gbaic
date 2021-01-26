@@ -377,23 +377,18 @@ void input_file::convert_to_binary(elfio& reader)
                 output_address += current->get_file_size();
             }
 
-
             // TODO: copy data into array:
             //       * basically, we move the output address to the current segment's virtual address
             //         * If we haven't written any data, then this is just a write to the "origin"
             //         * If we have written any data, then we must fill this with zeroes (might want to make this configurable later?)
             //         * Now we can copy data from ELF data to byte array (filesiz)
             //         * That's it, I think.
+            // TODO: at the very least write a unit test that tests with Lost Marbles. We might want to strip it first, though.
+            //       Then we create a raw binary with objcopy, and compare our code's output with that.
 
-            // TODO: might not need add_load_segment. In this case we should remove it (also from header)
-            add_load_segment_to_data(current);
             last = current;
         }
     }
-}
-
-void input_file::add_load_segment_to_data(segment* /*seg*/)
-{
 }
 
 void input_file::verbose_log(const string& s)
