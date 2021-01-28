@@ -1,10 +1,24 @@
 * Need a break from shrinkler:
-  * Next up is input file loading
-  * Primary input file format is ELF, so should work on that.
+  * Wrap up input file loading:
+    * Verbose logging, somehow
+      * To support this and future features, change the input_file class so that it takes no ctor arguments. The usage is then
+        * Construct it (default ctor only)
+        * Configure it (logging, file format, whatnot)
+        * load the file
+        * read file data and properties such as entry point and load address
+    * Optional flat binary loading (with the option to specify load address and entry point!)
+      * Already implement the command line options
+      * They are file format independent, so we just do:
+        * Load file
+        * If options override entry, set it on the input file
+        * If options override load address, set it on the input file
+    * Remaining sanity checks. Either:
+      * Implement them
+      * Defer them
+      * Discard them
   * We might want to support binary as input file format, but probably this should be opt-in.
     * This means we expect ELF by default and fail if input file is not ELF.
     * Only load file as binary if requested to do so.
-  * Well, try out subtree.
 * Prepare shrinkler:
   * OK: wrap shrinkler source into a library: we simply need it to do in memory compression of data files, I guess
     * How to we manage compiler flags? Shrinkler won't compile warning-free withour settings I am afraid

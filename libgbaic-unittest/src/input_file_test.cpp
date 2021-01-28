@@ -21,6 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <boost/algorithm/string.hpp>
 #include <boost/test/unit_test.hpp>
 #include <filesystem>
 #include <fstream>
@@ -75,7 +76,7 @@ BOOST_AUTO_TEST_CASE(load_elf_file_does_not_exist)
     BOOST_CHECK_EXCEPTION(
         libgbaic::input_file f("non-existing-file.elf"),
         runtime_error,
-        [](const auto& e) { BOOST_CHECK_EQUAL("non-existing-file.elf: No such file or directory", e.what()); return true; });
+        [](const auto& e) { return boost::iequals("non-existing-file.elf: no such file or directory", e.what()); });
 }
 
 BOOST_AUTO_TEST_CASE(load_elf_file_is_invalid)
@@ -87,7 +88,7 @@ BOOST_AUTO_TEST_CASE(load_elf_file_is_invalid)
     BOOST_CHECK_EXCEPTION(
         libgbaic::input_file f(s),
         runtime_error,
-        [](const auto& e) { BOOST_CHECK_EQUAL("file is not a valid ELF file", e.what()); return true; });
+        [](const auto& e) { return boost::iequals("file is not a valid ELF file", e.what()); });
 }
 
 BOOST_AUTO_TEST_CASE(load_elf_lostmarbles)

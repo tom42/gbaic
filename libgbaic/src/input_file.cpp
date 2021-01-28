@@ -41,8 +41,6 @@
 // Values 0 and 1 mean no alignment is required. Otherwise, p_align should be a positive,
 // integral power of 2, and p_vaddr should equal p_offset, modulo p_align."
 
-#define _CRT_SECURE_NO_WARNINGS // TODO: really? I mean...we should be using strerror_r or strerror_s, no?
-#include <cstring>
 #include <fstream>
 #include <stdexcept>
 #include <string>
@@ -262,8 +260,8 @@ input_file::input_file(const std::filesystem::path& path)
         std::ifstream stream(path, std::ios::binary);
         if (!stream)
         {
-            // TODO: use strerror_r / strerror_s, no?
-            throw runtime_error(strerror(errno));
+            auto e = errno;
+            throw std::system_error(e, std::generic_category());
         }
 
         load_elf(stream);
