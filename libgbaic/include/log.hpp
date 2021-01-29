@@ -59,7 +59,7 @@ private:
 
 }
 
-inline bool initialize(bool enabled) { detail::configuration::initialize(enabled); }
+inline void initialize(bool enabled) { detail::configuration::initialize(enabled); }
 
 inline bool is_enabled() { return detail::configuration::enabled(); }
 
