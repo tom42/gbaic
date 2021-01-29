@@ -1,11 +1,8 @@
+* OK, back to shrinkler first:
+  * We can successfully load ELF files (one particular anyway)
+    * Now we must compress that using shrinkler data compression
 * Need a break from shrinkler:
   * Wrap up input file loading:
-    * Verbose logging, somehow
-      * To support this and future features, change the input_file class so that it takes no ctor arguments. The usage is then
-        * Construct it (default ctor only)
-        * Configure it (logging, file format, whatnot)
-        * load the file
-        * read file data and properties such as entry point and load address
     * Optional flat binary loading (with the option to specify load address and entry point!)
       * Already implement the command line options
       * They are file format independent, so we just do:

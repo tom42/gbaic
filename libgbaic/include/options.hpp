@@ -33,7 +33,7 @@ namespace libgbaic
 class options
 {
 public:
-    options() : m_output_file_set(false) {}
+    options() : m_output_file_set(false), m_verbose(false) {}
 
     const std::filesystem::path& input_file() const { return m_input_file; }
 
@@ -56,6 +56,10 @@ public:
         m_output_file_set = true;
     }
 
+    bool verbose() const{ return m_verbose; }
+
+    void verbose(bool verbose) { m_verbose = verbose; }
+
     const libshrinkler::shrinkler_parameters& shrinkler_parameters() const { return m_shrinkler_parameters; }
 
     libshrinkler::shrinkler_parameters& shrinkler_parameters() { return m_shrinkler_parameters; }
@@ -63,9 +67,10 @@ public:
     void shrinkler_parameters(const libshrinkler::shrinkler_parameters& p) { m_shrinkler_parameters = p; }
 
 private:
-    bool m_output_file_set;
     std::filesystem::path m_input_file;
     std::filesystem::path m_output_file;
+    bool m_output_file_set;
+    bool m_verbose;
     libshrinkler::shrinkler_parameters m_shrinkler_parameters;
 };
 

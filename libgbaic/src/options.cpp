@@ -52,6 +52,9 @@ public:
             case 'o':
                 m_options.output_file(arg);
                 return 0;
+            case 'v':
+                m_options.verbose(true);
+                return 0;
             case 'a':
                 return parse_int("same length count", arg, 1, 100000, state, m_options.shrinkler_parameters().same_length);
             case 'e':
@@ -185,6 +188,7 @@ action parse_options(int argc, char* argv[], options& options, bool silent)
     {
         { 0, 0, 0, 0, "General options:", 0 },
         { "output-file", 'o', "FILE", 0, "Specify output filename. The default output filename is the input filename with the extension replaced by .gba", 0 },
+        { "verbose", 'v', 0, 0, "Print verbose messages", 0 },
 
         // Shrinkler compression options
         { 0, 0, 0, 0, "Shrinkler compression options (default values in parentheses):", 0 },

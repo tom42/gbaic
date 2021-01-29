@@ -25,6 +25,7 @@
 #include <iostream>
 #include <stdexcept>
 #include "input_file.hpp"
+#include "log.hpp"
 #include "options.hpp"
 
 static void process(const libgbaic::options& options)
@@ -33,6 +34,7 @@ static void process(const libgbaic::options& options)
     //       * Load input file (bin or elf)
     //       * Compress it (shrinkler or LZSS+Huffman)
     //       * Write output file (should automatically determine which one is the smallest)
+    libgbaic::log::initialize(options.verbose());
     libgbaic::input_file input_file(options.input_file());
 }
 
