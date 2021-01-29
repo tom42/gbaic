@@ -22,3 +22,14 @@
 // SOFTWARE.
 
 #include "libshrinkler.hpp"
+
+namespace libshrinkler
+{
+
+std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& /*input*/)
+{
+    // TODO: shrinkler compression
+    return std::vector<unsigned char>();
+}
+
+}
