@@ -39,6 +39,7 @@ namespace detail
 class configuration
 {
 public:
+    static void initialize(bool enabled) { m_enabled = enabled; }
     static bool enabled() { return m_enabled; }
 private:
     inline static bool m_enabled = false;
@@ -58,7 +59,9 @@ private:
 
 }
 
-static inline bool is_enabled() { return detail::configuration::enabled(); }
+inline bool initialize(bool enabled) { detail::configuration::initialize(enabled); }
+
+inline bool is_enabled() { return detail::configuration::enabled(); }
 
 }
 
