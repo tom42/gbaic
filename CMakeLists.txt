@@ -62,10 +62,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# libshrinkler requires relaxed warning options, so do that first.
-add_subdirectory(libshrinkler)
-
-# Compile our remaining code with more warnings enabled.
 if(MSVC)
   add_compile_options(/W4 /WX)
 else()
@@ -75,6 +71,7 @@ else()
   add_compile_options(-Wno-comment)
 endif()
 
+add_subdirectory(libshrinkler)
 add_subdirectory(libgbaic)
 add_subdirectory(gbaic)
 

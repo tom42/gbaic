@@ -30,12 +30,6 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
 add_library(libshrinkler ${SOURCES})
 
-if(MSVC)
-  # TODO: MSVC compile options for libshrinkler
-else()
-  target_compile_options(libshrinkler PRIVATE -Wall -Wno-sign-compare)
-endif()
-
 target_include_directories(
   libshrinkler
   PRIVATE
