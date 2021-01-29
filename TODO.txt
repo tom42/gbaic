@@ -1,3 +1,4 @@
+* Get it to compile with MSVC x86
 * OK, back to shrinkler first:
   * We can successfully load ELF files (one particular anyway)
     * Now we must compress that using shrinkler data compression
