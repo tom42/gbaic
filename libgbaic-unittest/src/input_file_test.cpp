@@ -22,6 +22,7 @@
 // SOFTWARE.
 
 #include <boost/algorithm/string.hpp>
+#include <boost/numeric/conversion/cast.hpp>
 #include <boost/test/unit_test.hpp>
 #include <filesystem>
 #include <fstream>
@@ -56,7 +57,7 @@ static vector<unsigned char> load_binary_file(const path& filename)
     // Create vector with sufficient capacity to hold entire file.
     auto filesize = std::filesystem::file_size(full_path);
     vector<unsigned char> data;
-    data.reserve(filesize);
+    data.reserve(boost::numeric_cast<size_t>(filesize));
 
     // Read entire file
     data.insert(
