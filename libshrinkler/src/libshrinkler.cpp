@@ -25,16 +25,25 @@
 #include <cstdlib>
 #include "libshrinkler.hpp"
 
-#if __GNUC__
+#ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsign-compare"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4018 4100 4244 4389 4456 4458)
+#endif
+
 #include "Pack.h"
 
-#if __GNUC__
+#ifdef __GNUC__
 #pragma GCC diagnostic pop
+#endif
+
+#ifdef _MSC_VER
+#pragma warning(pop)
 #endif
 
 namespace libshrinkler
