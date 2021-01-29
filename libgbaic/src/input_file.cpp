@@ -300,7 +300,10 @@ void input_file::read_entry(elfio& reader)
 
 void input_file::log_program_headers(elfio& reader)
 {
-    // TODO: exit if verbose logging is disabled.
+    if (!log::is_enabled())
+    {
+        return;
+    }
 
     Elf_Half nheaders = reader.segments.size();
     if (nheaders == 0)
