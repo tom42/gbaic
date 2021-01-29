@@ -33,12 +33,7 @@
 namespace libgbaic::log
 {
 
-// TODO: not like that
-static inline bool is_enabled() { return true; }
-
-}
-
-namespace libgbaic::log::detail
+namespace detail
 {
 
 class log_message
@@ -52,6 +47,11 @@ private:
     log_message& operator = (const log_message&) = delete;
     std::stringstream m_buffer;
 };
+
+}
+
+// TODO: not like that
+static inline bool is_enabled() { return true; }
 
 }
 
