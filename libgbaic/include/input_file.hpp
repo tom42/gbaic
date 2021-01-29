@@ -59,7 +59,6 @@ private:
     void read_entry(ELFIO::elfio& reader);
     void log_program_headers(ELFIO::elfio& reader);
     void convert_to_binary(ELFIO::elfio& reader);
-    void verbose_log(const std::string& s);
 
     uint_fast64_t m_entry = 0;
     uint_fast64_t m_load_address = 0;

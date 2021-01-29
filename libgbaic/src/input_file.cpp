@@ -257,7 +257,7 @@ input_file::input_file(const std::filesystem::path& path)
 {
     try
     {
-        verbose_log(fmt::format("Loading: {}", path.string()));
+        LOG << fmt::format("Loading: {}", path.string());
         std::ifstream stream(path, std::ios::binary);
         if (!stream)
         {
@@ -305,13 +305,12 @@ void input_file::log_program_headers(elfio& reader)
     Elf_Half nheaders = reader.segments.size();
     if (nheaders == 0)
     {
-        // TODO: when just logging this is OK, but when actually converting to binary we'll probably fail if this is the case, no?
-        verbose_log("File has no program headers");
+        LOG << "File has no program headers";
         return;
     }
 
-    verbose_log("Program headers");
-    verbose_log(fmt::format(" {:10} {:7} {:10} {:10} {:7} {:7} {:7} {:3}",
+    LOG << "Program headers";
+    LOG << fmt::format(" {:10} {:7} {:10} {:10} {:7} {:7} {:7} {:3}",
         "Type",
         "Offset",
         "VirtAddr",
@@ -319,12 +318,12 @@ void input_file::log_program_headers(elfio& reader)
         "FileSiz",
         "MemSiz",
         "Align",
-        "Flg"));
+        "Flg");
 
     for (Elf_Half i = 0; i < nheaders; ++i)
     {
         const auto& s = *reader.segments[i];
-        verbose_log(fmt::format(" {:10} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:#07x} {}",
+        LOG << fmt::format(" {:10} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:#07x} {}",
             segment_type_to_string(s.get_type()),
             s.get_offset(),
             s.get_virtual_address(),
@@ -332,7 +331,7 @@ void input_file::log_program_headers(elfio& reader)
             s.get_file_size(),
             s.get_memory_size(),
             s.get_align(),
-            segment_flags_to_string(s.get_flags())));
+            segment_flags_to_string(s.get_flags()));
     }
 }
 
@@ -380,12 +379,6 @@ void input_file::convert_to_binary(elfio& reader)
             last = current;
         }
     }
-}
-
-void input_file::verbose_log(const string& s)
-{
-    // TODO: make it possible to disable output
-    std::cout << s << std::endl;
 }
 
 }
