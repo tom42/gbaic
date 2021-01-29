@@ -357,7 +357,7 @@ void input_file::convert_to_binary(elfio& reader)
                 {
                     // Move to start of segment in output. Fill up with padding bytes.
                     const auto nbytes = current->get_virtual_address() - output_address;
-                    m_data.insert(m_data.end(), nbytes, 0);
+                    m_data.insert(m_data.end(), nbytes, 0); // TODO: this is broken when building for x86. Fix it.
                     output_address += nbytes;
                 }
                 else
