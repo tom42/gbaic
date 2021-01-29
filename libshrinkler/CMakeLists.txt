@@ -30,4 +30,9 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
 add_library(libshrinkler ${SOURCES})
 
-target_include_directories(libshrinkler PUBLIC include)
+target_include_directories(
+  libshrinkler
+  PRIVATE
+  "${PROJECT_SOURCE_DIR}/3rdparty/shrinkler/cruncher"
+  PUBLIC
+  include)

@@ -22,6 +22,7 @@
 // SOFTWARE.
 
 #include "libshrinkler.hpp"
+#include "Pack.h"
 
 namespace libshrinkler
 {
