@@ -56,3 +56,30 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
 }
 
 }
+
+// TODO: port stuff below
+/*
+* From Shrinkler.cpp:
+* 
+		// Data file compression
+		printf("Loading file %s...\n\n", infile);
+		DataFile *orig = new DataFile;
+		orig->load(infile);
+
+		printf("Crunching...\n\n");
+		RefEdgeFactory edge_factory(references.value);
+		DataFile *crunched = orig->crunch(&params, &edge_factory, !no_progress.seen);
+		delete orig;
+		printf("References considered:%8d\n",  edge_factory.max_edge_count);
+		printf("References discarded:%9d\n\n", edge_factory.max_cleaned_edges);
+
+		printf("Saving file %s...\n\n", outfile);
+		crunched->save(outfile);
+
+		printf("Final file size: %d\n\n", crunched->size());
+		delete crunched;
+
+		if (edge_factory.max_edge_count > references.value) {
+			printf("Note: compression may benefit from a larger reference buffer (-r option).\n\n");
+		}
+*/
