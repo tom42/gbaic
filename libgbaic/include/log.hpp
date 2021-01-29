@@ -36,6 +36,14 @@ namespace libgbaic::log
 namespace detail
 {
 
+class configuration
+{
+public:
+    static bool enabled() { return m_enabled; }
+private:
+    inline static bool m_enabled = false;
+};
+
 class log_message
 {
 public:
@@ -50,13 +58,12 @@ private:
 
 }
 
-// TODO: not like that
-static inline bool is_enabled() { return true; }
+static inline bool is_enabled() { return detail::configuration::enabled(); }
 
 }
 
 #define LOG                                                     \
-    if (!::libgbaic::log::is_enabled());                        \
+    if (!::libgbaic::log::detail::configuration::enabled());    \
         else ::libgbaic::log::detail::log_message().buffer()
 
 #endif
