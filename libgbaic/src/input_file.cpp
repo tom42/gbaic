@@ -46,6 +46,7 @@
 #include <string>
 #include "elfio/elfio.hpp"
 #include "fmt/core.h"
+#include "log.hpp"
 #include "input_file.hpp"
 
 namespace libgbaic

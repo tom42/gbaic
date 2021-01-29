@@ -27,6 +27,7 @@ set(
   SOURCES
   include/input_file.hpp
   include/options.hpp
+  include/log.hpp
   src/input_file.cpp
   src/options.cpp)
 
