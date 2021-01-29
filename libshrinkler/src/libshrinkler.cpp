@@ -24,7 +24,12 @@
 #include <cstdio>
 #include <cstdlib>
 #include "libshrinkler.hpp"
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include "Pack.h"
+#pragma GCC diagnostic pop
 
 namespace libshrinkler
 {
