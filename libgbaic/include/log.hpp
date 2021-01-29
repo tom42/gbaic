@@ -21,15 +21,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// Really tiny logging facility. No log levels, no timestamps, one sink: stdout.
+// Exactly what gbaic needs to print optional verbose messages, but not more.
+
 #ifndef LIBGBAIC_LOG_HPP
 #define LIBGBAIC_LOG_HPP
 
+#include <iostream>
+#include <sstream>
+
+namespace libgbaic::log
+{
+
+// TODO: not like that
+static inline bool is_enabled() { return true; }
+
+}
+
 namespace libgbaic::log::detail
 {
+
+class log_message
+{
+public:
+    log_message() {}
+    ~log_message() { std::cout << m_buffer.str() << std::endl; }
+    std::stringstream& buffer() { return m_buffer; }
+private:
+    log_message(const log_message&) = delete;
+    log_message& operator = (const log_message&) = delete;
+    std::stringstream m_buffer;
+};
+
 }
 
 #define LOG                                                     \
-    if (!::libgbaic::log::detail::is_enabled());                \
+    if (!::libgbaic::log::is_enabled());                        \
         else ::libgbaic::log::detail::log_message().buffer()
 
 #endif

@@ -289,8 +289,8 @@ void input_file::load_elf(std::istream& stream)
     log_program_headers(reader);
     convert_to_binary(reader);
 
-    verbose_log(fmt::format("Entry: {:#x}", m_entry));
-    verbose_log(fmt::format("Load address: {:#x}", m_load_address));
+    LOG << fmt::format("Entry: {:#x}", m_entry);
+    LOG << fmt::format("Load address: {:#x}", m_load_address);
 }
 
 void input_file::read_entry(elfio& reader)
