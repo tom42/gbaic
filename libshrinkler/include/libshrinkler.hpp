@@ -56,15 +56,11 @@ public:
 class shrinkler
 {
 public:
-    const shrinkler_parameters& parameters();
+    const shrinkler_parameters& parameters() const { return m_parameters; }
 
-    void parameters(const shrinkler_parameters& pack_parameters);
+    void parameters(const shrinkler_parameters& parameters) { m_parameters = parameters; }
 
-    std::ostream& ostream();
-
-    void os(std::ostream& ostream);
-
-    std::vector<std::byte> compress(const std::vector<std::byte>& input);
+    std::vector<unsigned char> compress(const std::vector<unsigned char>& input);
 
 private:
     shrinkler_parameters m_parameters;
