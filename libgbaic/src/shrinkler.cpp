@@ -45,6 +45,7 @@
 #undef _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include "console.hpp"
@@ -54,10 +55,19 @@ namespace libgbaic
 {
 
 // TODO: do we need pointers all over the place here?
-static std::vector<uint32_t> compress(PackParams* /*params*/, RefEdgeFactory* /*edge_factory*/, bool /*show_progress*/)
+static std::vector<uint32_t> compress(PackParams* params, RefEdgeFactory* /*edge_factory*/, bool /*show_progress*/)
 {
     vector<uint32_t> pack_buffer;
-    RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+    RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer); // TODO: does this need to be a pointer?
+
+    // Print compression status header
+    // TODO: do we want this? Like that, with printfs?
+    const char* ordinals[] = { "st", "nd", "rd", "th" };
+    printf("Original");
+    for (int p = 1; p <= params->iterations; p++) {
+        printf("  After %d%s pass", p, ordinals[min(p, 4) - 1]);
+    }
+    printf("\n");
 
     // TODO: return pack_buffer instead
     throw std::runtime_error("yikes");
@@ -65,13 +75,6 @@ static std::vector<uint32_t> compress(PackParams* /*params*/, RefEdgeFactory* /*
     // TODO: port stuff below (DataFile::compress)
 /*
 
-        // Print compression status header
-        const char *ordinals[] = { "st", "nd", "rd", "th" };
-        printf("Original");
-        for (int p = 1 ; p <= params->iterations ; p++) {
-            printf("  After %d%s pass", p, ordinals[min(p,4)-1]);
-        }
-        printf("\n");
 
         // Crunch the data
         range_coder->reset();
