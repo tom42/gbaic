@@ -46,7 +46,7 @@ class console;
 class input_file
 {
 public:
-    input_file() {}
+    input_file(console& c) : m_console(c) {}
 
     void load(const std::filesystem::path& path);
 
@@ -64,8 +64,7 @@ private:
     void log_program_headers(ELFIO::elfio& reader);
     void convert_to_binary(ELFIO::elfio& reader);
 
-    // TODO: uncomment and initialize
-    //console& m_console;
+    console& m_console;
     uint_fast64_t m_entry = 0;
     uint_fast64_t m_load_address = 0;
     std::vector<unsigned char> m_data;

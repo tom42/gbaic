@@ -40,7 +40,7 @@ static void process(const libgbaic::options& options)
     //       * Write output file (should automatically determine which one is the smallest)
     libgbaic::log::initialize(options.verbose());
 
-    libgbaic::input_file input_file;
+    libgbaic::input_file input_file(console);
     input_file.load(options.input_file());
 
     libgbaic::shrinkler shrinkler(console);
