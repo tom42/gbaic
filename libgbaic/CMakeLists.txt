@@ -43,6 +43,7 @@ target_include_directories(
   PRIVATE
   "${CMAKE_CURRENT_BINARY_DIR}"
   "${PROJECT_SOURCE_DIR}/3rdparty/shrinkler/cruncher"
+  "${PROJECT_SOURCE_DIR}/3rdparty/shrinkler/decrunchers_bin"
   PUBLIC
   include)
 
