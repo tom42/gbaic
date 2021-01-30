@@ -48,11 +48,14 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include "fmt/core.h"
 #include "console.hpp"
 #include "shrinkler.hpp"
 
 namespace libgbaic
 {
+
+using fmt::format;
 
 // TODO: do we need pointers all over the place here?
 static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
@@ -161,6 +164,10 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     auto pack_params = create_pack_params(m_parameters);
     auto packed_bytes = crunch(data, &pack_params, &edge_factory, true);
 
+    // TODO: at best that's verbose output, no?
+    m_console.out << fmt::format("References considered: {}", edge_factory.max_edge_count) << std::endl;
+    m_console.out << fmt::format("References discarded: {}", edge_factory.max_cleaned_edges) << std::endl;
+
     return packed_bytes;
 }
 
@@ -170,11 +177,6 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
 /*
 * From Shrinkler.cpp:
 *
-        DataFile *crunched = orig->crunch(&params, &edge_factory, !no_progress.seen);
-        delete orig;
-        printf("References considered:%8d\n",  edge_factory.max_edge_count);
-        printf("References discarded:%9d\n\n", edge_factory.max_cleaned_edges);
-
         printf("Saving file %s...\n\n", outfile);
         crunched->save(outfile);
 
