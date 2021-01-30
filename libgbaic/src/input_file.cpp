@@ -57,6 +57,7 @@ using ELFIO::Elf64_Addr;
 using ELFIO::Elf_Half;
 using ELFIO::Elf_Word;
 using ELFIO::segment;
+using fmt::format;
 using std::string;
 using std::runtime_error;
 
@@ -92,7 +93,7 @@ static string segment_type_to_string(Elf_Word type)
         }
     }
 
-    return fmt::format("{:#010x}", type);
+    return format("{:#010x}", type);
 }
 
 static string segment_flags_to_string(Elf_Word flags)
@@ -102,7 +103,7 @@ static string segment_flags_to_string(Elf_Word flags)
 
     if (flags >= table_length)
     {
-        return fmt::format("{:#x}", flags);
+        return format("{:#x}", flags);
     }
 
     return table[flags];
@@ -254,7 +255,7 @@ input_file::input_file(const std::filesystem::path& path)
 {
     try
     {
-        LOG << fmt::format("Loading: {}", path.string());
+        LOG << format("Loading: {}", path.string());
         std::ifstream stream(path, std::ios::binary);
         if (!stream)
         {
@@ -286,9 +287,9 @@ void input_file::load_elf(std::istream& stream)
     log_program_headers(reader);
     convert_to_binary(reader);
 
-    LOG << fmt::format("Entry: {:#x}", m_entry);
-    LOG << fmt::format("Load address: {:#x}", m_load_address);
-    LOG << fmt::format("Total size of loaded data: {0:#x} ({0})", m_data.size());
+    LOG << format("Entry: {:#x}", m_entry);
+    LOG << format("Load address: {:#x}", m_load_address);
+    LOG << format("Total size of loaded data: {0:#x} ({0})", m_data.size());
 }
 
 void input_file::read_entry(elfio& reader)
@@ -311,7 +312,7 @@ void input_file::log_program_headers(elfio& reader)
     }
 
     LOG << "Program headers";
-    LOG << fmt::format(" {:10} {:7} {:10} {:10} {:7} {:7} {:7} {:3}",
+    LOG << format(" {:10} {:7} {:10} {:10} {:7} {:7} {:7} {:3}",
         "Type",
         "Offset",
         "VirtAddr",
@@ -324,7 +325,7 @@ void input_file::log_program_headers(elfio& reader)
     for (Elf_Half i = 0; i < nheaders; ++i)
     {
         const auto& s = *reader.segments[i];
-        LOG << fmt::format(" {:10} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:#07x} {}",
+        LOG << format(" {:10} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:#07x} {}",
             segment_type_to_string(s.get_type()),
             s.get_offset(),
             s.get_virtual_address(),
