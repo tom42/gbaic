@@ -55,7 +55,7 @@ namespace libgbaic
 {
 
 // TODO: do we need pointers all over the place here?
-static std::vector<uint32_t> compress(const std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
+static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
     vector<uint32_t> pack_buffer;
     RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer); // TODO: does this need to be a pointer?
@@ -69,14 +69,10 @@ static std::vector<uint32_t> compress(const std::vector<unsigned char>& data, Pa
     }
     printf("\n");
 
-    // packData wants non-const input data, possibly just by accident.
-    // Anway, let's create a non-const copy.
-    std::vector<unsigned char> non_const_data = data;
-
     // Crunch the data
     // TODO: remove printfs?
     range_coder->reset();
-    packData(&non_const_data[0], data.size(), 0, params, range_coder, edge_factory, show_progress);
+    packData(&data[0], data.size(), 0, params, range_coder, edge_factory, show_progress);
     range_coder->finish();
     printf("\n\n");
     fflush(stdout);
@@ -85,7 +81,8 @@ static std::vector<uint32_t> compress(const std::vector<unsigned char>& data, Pa
 }
 
 // TODO: verify all of this!
-int verify(const std::vector<unsigned char> data, const vector<uint32_t>& pack_buffer) {
+// TODO: are we sure we don't want to pass data by refernece?
+int verify(std::vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
     printf("Verifying... ");
     fflush(stdout);
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
@@ -101,7 +98,8 @@ int verify(const std::vector<unsigned char> data, const vector<uint32_t>& pack_b
     }
 
     // Check length
-    if (!error && verifier.size() != data.size()) {
+    // TODO: cast to size_t silences about != signed/unsigned mismatch. Is this REALLY a problem?
+    if (!error && (size_t)verifier.size() != data.size()) {
         printf("Verify error: data has incorrect length (%d, should have been %d)!\n", verifier.size(), (int)data.size());
         error = true;
     }
@@ -118,7 +116,10 @@ int verify(const std::vector<unsigned char> data, const vector<uint32_t>& pack_b
 // TODO: do we need pointers all over the place here (already on the args)
 static void crunch(const std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
-    vector<uint32_t> pack_buffer = compress(data, params, edge_factory, show_progress);
+    // Shrinkler code uses non-const buffers all over the place. Let's create a copy then.
+    std::vector<unsigned char> non_const_data = data;
+
+    vector<uint32_t> pack_buffer = compress(non_const_data, params, edge_factory, show_progress);
     int margin = verify(data, pack_buffer);
 
     // TODO: port stuff below (DataFile::crunch)
