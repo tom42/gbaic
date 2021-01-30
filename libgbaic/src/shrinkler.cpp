@@ -80,11 +80,12 @@ static std::vector<uint32_t> compress(PackParams* /*params*/, RefEdgeFactory* /*
 }
 
 // TODO: do we need pointers all over the place here (already on the args)
-static void crunch(PackParams* /*params*/, RefEdgeFactory* /*edge_factory*/, bool /*show_progress*/)
+static void crunch(PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
+    vector<unsigned> pack_buffer = compress(params, edge_factory, show_progress);
+
     // TODO: port stuff below (DataFile::crunch)
 /*
-        vector<unsigned> pack_buffer = compress(params, edge_factory, show_progress);
         int margin = verify(pack_buffer);
 
         printf("Minimum safety margin for overlapped decrunching: %d\n\n", margin);
@@ -122,7 +123,7 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     auto pack_params = create_pack_params(m_parameters);
     crunch(&pack_params, &edge_factory, true);
 
-    // TODO: shrinkler compression
+    // TODO: actually return something
     return std::vector<unsigned char>();
 }
 
