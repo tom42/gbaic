@@ -65,7 +65,7 @@ public:
 
     void parameters(const shrinkler_parameters& p) { m_parameters = p; }
 
-    std::vector<unsigned char> compress(const std::vector<unsigned char>& input);
+    std::vector<unsigned char> compress(const std::vector<unsigned char>& data);
 
 private:
     const console& m_console;

@@ -55,7 +55,7 @@ namespace libgbaic
 {
 
 // TODO: do we need pointers all over the place here?
-static std::vector<uint32_t> compress(PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
+static std::vector<uint32_t> compress(const std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
     vector<uint32_t> pack_buffer;
     RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer); // TODO: does this need to be a pointer?
@@ -81,9 +81,9 @@ static std::vector<uint32_t> compress(PackParams* params, RefEdgeFactory* edge_f
 }
 
 // TODO: do we need pointers all over the place here (already on the args)
-static void crunch(PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
+static void crunch(const std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
-    vector<uint32_t> pack_buffer = compress(params, edge_factory, show_progress);
+    vector<uint32_t> pack_buffer = compress(data, params, edge_factory, show_progress);
 
     // TODO: port stuff below (DataFile::crunch)
 /*
@@ -115,14 +115,14 @@ static PackParams create_pack_params(const shrinkler_parameters& parameters)
     };
 }
 
-std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& /*input*/)
+std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& data)
 {
     m_console.out << "Compressing..." << std::endl;
     RefEdgeFactory edge_factory(m_parameters.references);
 
     // TODO: unhardcode the progress thing (do we have that as an option, anyway?)
     auto pack_params = create_pack_params(m_parameters);
-    crunch(&pack_params, &edge_factory, true);
+    crunch(data, &pack_params, &edge_factory, true);
 
     // TODO: actually return something
     return std::vector<unsigned char>();
