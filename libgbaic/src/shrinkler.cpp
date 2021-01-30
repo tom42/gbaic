@@ -65,7 +65,7 @@ static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackPara
 
     // Print compression status header
     // TODO: do we want this? Like that, with printfs?
-    const char* ordinals[] = { "st", "nd", "rd", "th" };
+    static const char* const ordinals[] = { "st", "nd", "rd", "th" };
     printf("Original");
     for (int p = 1; p <= params.iterations; p++) {
         printf("  After %d%s pass", p, ordinals[min(p, 4) - 1]);
