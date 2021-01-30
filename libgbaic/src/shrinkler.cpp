@@ -53,12 +53,14 @@ namespace libgbaic
 // TODO: do we need pointers all over the place here?
 static std::vector<uint32_t> compress(PackParams* /*params*/, RefEdgeFactory* /*edge_factory*/, bool /*show_progress*/)
 {
+    vector<uint32_t> pack_buffer;
+    RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+
+    // TODO: return pack_buffer instead
     throw std::runtime_error("yikes");
 
     // TODO: port stuff below (DataFile::compress)
 /*
-        vector<unsigned> pack_buffer;
-        RangeCoder *range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
 
         // Print compression status header
         const char *ordinals[] = { "st", "nd", "rd", "th" };
@@ -82,7 +84,7 @@ static std::vector<uint32_t> compress(PackParams* /*params*/, RefEdgeFactory* /*
 // TODO: do we need pointers all over the place here (already on the args)
 static void crunch(PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
-    vector<unsigned> pack_buffer = compress(params, edge_factory, show_progress);
+    vector<uint32_t> pack_buffer = compress(params, edge_factory, show_progress);
 
     // TODO: port stuff below (DataFile::crunch)
 /*
