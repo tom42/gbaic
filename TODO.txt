@@ -1,3 +1,5 @@
+* Replace log.hpp with console.hpp
+  * Add enable/disable functionality to console and port that macro, somehow.
 * Get release build(s) to work
 * Get it to compile with MSVC x64
 * OK, back to shrinkler first:
