@@ -1,3 +1,4 @@
+* Final test with shrinkler: dump output data and compare with the stored file from shrinkler-arm repo
 * Replace log.hpp with console.hpp
   * Add enable/disable functionality to console and port that macro, somehow.
 * Get release build(s) to work
