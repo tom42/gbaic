@@ -165,8 +165,10 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     auto packed_bytes = crunch(data, &pack_params, &edge_factory, true);
 
     // TODO: at best that's verbose output, no?
-    m_console.out << fmt::format("References considered: {}", edge_factory.max_edge_count) << std::endl;
-    m_console.out << fmt::format("References discarded: {}", edge_factory.max_cleaned_edges) << std::endl;
+    m_console.out << format("References considered: {}", edge_factory.max_edge_count) << std::endl;
+    m_console.out << format("References discarded: {}", edge_factory.max_cleaned_edges) << std::endl;
+    m_console.out << format("Uncompressed data size: {} bytes", data.size()) << std::endl;
+    m_console.out << format("Final compressed data size: {} bytes", packed_bytes.size()) << std::endl;
 
     return packed_bytes;
 }
@@ -177,11 +179,7 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
 /*
 * From Shrinkler.cpp:
 *
-        printf("Saving file %s...\n\n", outfile);
-        crunched->save(outfile);
 
-        printf("Final file size: %d\n\n", crunched->size());
-        delete crunched;
 
         if (edge_factory.max_edge_count > references.value) {
             printf("Note: compression may benefit from a larger reference buffer (-r option).\n\n");
