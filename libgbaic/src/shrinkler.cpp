@@ -57,11 +57,10 @@ namespace libgbaic
 
 using fmt::format;
 
-// TODO: do we need pointers all over the place here?
 static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
 {
     vector<uint32_t> pack_buffer;
-    RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer); // TODO: does this need to be a pointer?
+    RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
 
     // Print compression status header
     // TODO: do we want this? Like that, with printfs?
@@ -74,9 +73,9 @@ static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackPara
 
     // Crunch the data
     // TODO: remove printfs?
-    range_coder->reset();
-    packData(&data[0], data.size(), 0, &params, range_coder, &edge_factory, show_progress);
-    range_coder->finish();
+    range_coder.reset();
+    packData(&data[0], data.size(), 0, &params, &range_coder, &edge_factory, show_progress);
+    range_coder.finish();
     printf("\n\n");
     fflush(stdout);
 
