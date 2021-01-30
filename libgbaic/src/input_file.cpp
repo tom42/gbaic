@@ -251,7 +251,7 @@ static void verify_load_segment(segment* last, segment* current)
     }
 }
 
-input_file::input_file(const std::filesystem::path& path)
+void input_file::load(const std::filesystem::path& path)
 {
     try
     {

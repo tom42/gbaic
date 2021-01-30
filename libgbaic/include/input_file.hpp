@@ -48,7 +48,7 @@ class input_file
 public:
     input_file() {}
 
-    input_file(const std::filesystem::path& path);
+    void load(const std::filesystem::path& path);
 
     void load(std::istream& stream);
 

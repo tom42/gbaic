@@ -39,7 +39,10 @@ static void process(const libgbaic::options& options)
     //       * Compress it (shrinkler or LZSS+Huffman)
     //       * Write output file (should automatically determine which one is the smallest)
     libgbaic::log::initialize(options.verbose());
-    libgbaic::input_file input_file(options.input_file());
+
+    libgbaic::input_file input_file;
+    input_file.load(options.input_file());
+
     libgbaic::shrinkler shrinkler(console);
     shrinkler.parameters(options.shrinkler_parameters());
     shrinkler.compress(input_file.data());
