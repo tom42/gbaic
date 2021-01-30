@@ -57,7 +57,6 @@ using ELFIO::Elf64_Addr;
 using ELFIO::Elf_Half;
 using ELFIO::Elf_Word;
 using ELFIO::segment;
-using fmt::format;
 using std::string;
 using std::runtime_error;
 
