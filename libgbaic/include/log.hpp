@@ -24,8 +24,8 @@
 // Really tiny logging facility. No log levels, no timestamps, one sink: stdout.
 // Exactly what gbaic needs to print optional verbose messages, but not more.
 
-#ifndef LIBGBAIC_LOG_HPP
-#define LIBGBAIC_LOG_HPP
+#ifndef LIBGBAIC_LOG_HPP_INCLUDED
+#define LIBGBAIC_LOG_HPP_INCLUDED
 
 #include <iostream>
 #include <sstream>
