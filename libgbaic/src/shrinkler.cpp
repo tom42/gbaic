@@ -50,6 +50,7 @@
 namespace libgbaic
 {
 
+// TODO: do we need pointers all over the place here (already on the args)
 static void crunch(PackParams* /*params*/, RefEdgeFactory* /*edge_factory*/, bool /*show_progress*/)
 {
     // TODO: port stuff below (DataFile::crunch)
@@ -84,9 +85,9 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     p.match_patience = m_parameters.effort;
     p.max_same_length = m_parameters.same_length;
 
-// TODO: pass PackParameters (ugh...need to construct that baby now)
-// TODO: pass edge factory
-// TODO: unhardcode the progress thing (do we have that as an option, anyway?)
+    // TODO: pass PackParameters (ugh...need to construct that baby now)
+    // TODO: pass edge factory
+    // TODO: unhardcode the progress thing (do we have that as an option, anyway?)
     crunch(nullptr, nullptr, true);
 
     // TODO: shrinkler compression
