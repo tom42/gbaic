@@ -42,7 +42,9 @@ using std::vector;
 static libgbaic::input_file load_elf_file(const path& filename)
 {
     path full_path = LIBGBAIC_UNITTEST_TESTDATA_DIRECTORY / filename;
-    return libgbaic::input_file(full_path);
+    libgbaic::input_file input_file;
+    input_file.load(full_path);
+    return input_file;
 }
 
 static vector<unsigned char> load_binary_file(const path& filename)
@@ -74,8 +76,10 @@ BOOST_AUTO_TEST_SUITE(input_file_test)
 
 BOOST_AUTO_TEST_CASE(load_elf_file_does_not_exist)
 {
+    libgbaic::input_file f;
+
     BOOST_CHECK_EXCEPTION(
-        libgbaic::input_file f("non-existing-file.elf"),
+        f.load("non-existing-file.elf"),
         runtime_error,
         [](const auto& e) { return boost::iequals("non-existing-file.elf: no such file or directory", e.what()); });
 }
@@ -86,8 +90,10 @@ BOOST_AUTO_TEST_CASE(load_elf_file_is_invalid)
     std::stringstream s;
     s.write(&c, 1);
 
+    libgbaic::input_file f;
+
     BOOST_CHECK_EXCEPTION(
-        libgbaic::input_file f(s),
+        f.load(s),
         runtime_error,
         [](const auto& e) { return boost::iequals("file is not a valid ELF file", e.what()); });
 }
