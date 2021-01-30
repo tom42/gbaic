@@ -170,18 +170,12 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     m_console.out << format("Uncompressed data size: {} bytes", data.size()) << std::endl;
     m_console.out << format("Final compressed data size: {} bytes", packed_bytes.size()) << std::endl;
 
+    if (edge_factory.max_edge_count > m_parameters.references)
+    {
+        m_console.out << "Note: compression may benefit from a larger reference buffer (-r option)" << std::endl;
+    }
+
     return packed_bytes;
 }
 
 }
-
-// TODO: port stuff below
-/*
-* From Shrinkler.cpp:
-*
-
-
-        if (edge_factory.max_edge_count > references.value) {
-            printf("Note: compression may benefit from a larger reference buffer (-r option).\n\n");
-        }
-*/
