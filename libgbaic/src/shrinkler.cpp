@@ -114,6 +114,7 @@ int verify(std::vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
 }
 
 // TODO: do we need pointers all over the place here (already on the args)
+// TODO: get rid of printf all over the place
 static void crunch(const std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
     // Shrinkler code uses non-const buffers all over the place. Let's create a copy then.
@@ -121,10 +122,10 @@ static void crunch(const std::vector<unsigned char>& data, PackParams* params, R
 
     vector<uint32_t> pack_buffer = compress(non_const_data, params, edge_factory, show_progress);
     int margin = verify(data, pack_buffer);
+    printf("Minimum safety margin for overlapped decrunching: %d\n\n", margin);
 
     // TODO: port stuff below (DataFile::crunch)
 /*
-        printf("Minimum safety margin for overlapped decrunching: %d\n\n", margin);
 
         DataFile *ef = new DataFile;
         ef->data.resize(pack_buffer.size() * 4, 0);
