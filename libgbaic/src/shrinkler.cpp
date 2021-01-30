@@ -84,11 +84,42 @@ static std::vector<uint32_t> compress(const std::vector<unsigned char>& data, Pa
     return pack_buffer;
 }
 
+// TODO: verify all of this!
+int verify(const std::vector<unsigned char> data, const vector<uint32_t>& pack_buffer) {
+    printf("Verifying... ");
+    fflush(stdout);
+    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+    LZDecoder lzd(&decoder);
+
+    // Verify data
+    bool error = false;
+    LZVerifier verifier(0, &data[0], data.size(), data.size());
+    decoder.reset();
+    decoder.setListener(&verifier);
+    if (!lzd.decode(verifier)) {
+        error = true;
+    }
+
+    // Check length
+    if (!error && verifier.size() != data.size()) {
+        printf("Verify error: data has incorrect length (%d, should have been %d)!\n", verifier.size(), (int)data.size());
+        error = true;
+    }
+
+    if (error) {
+        internal_error();
+    }
+
+    printf("OK\n\n");
+
+    return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size();
+}
+
 // TODO: do we need pointers all over the place here (already on the args)
 static void crunch(const std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
     vector<uint32_t> pack_buffer = compress(data, params, edge_factory, show_progress);
-    int margin = verify(pack_buffer);
+    int margin = verify(data, pack_buffer);
 
     // TODO: port stuff below (DataFile::crunch)
 /*
