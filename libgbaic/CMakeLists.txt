@@ -25,6 +25,7 @@ configure_file(version.hpp.in version.hpp)
 
 set(
   SOURCES
+  include/console.hpp
   include/input_file.hpp
   include/options.hpp
   include/log.hpp
