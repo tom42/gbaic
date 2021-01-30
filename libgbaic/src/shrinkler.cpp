@@ -70,6 +70,7 @@ static std::vector<uint32_t> compress(PackParams* params, RefEdgeFactory* edge_f
     printf("\n");
 
     // Crunch the data
+    // TODO: remove printfs?
     range_coder->reset();
     packData(&data[0], data.size(), 0, params, range_coder, edge_factory, show_progress);
     range_coder->finish();
