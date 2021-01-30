@@ -33,6 +33,8 @@ class console
 {
 public:
     console();
+    console(const console&) = delete;
+    void operator = (const console&) = delete;
 
     std::ostream& out;
 };
