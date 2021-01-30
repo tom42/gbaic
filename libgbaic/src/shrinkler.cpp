@@ -88,11 +88,10 @@ static std::vector<uint32_t> compress(const std::vector<unsigned char>& data, Pa
 static void crunch(const std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
     vector<uint32_t> pack_buffer = compress(data, params, edge_factory, show_progress);
+    int margin = verify(pack_buffer);
 
     // TODO: port stuff below (DataFile::crunch)
 /*
-        int margin = verify(pack_buffer);
-
         printf("Minimum safety margin for overlapped decrunching: %d\n\n", margin);
 
         DataFile *ef = new DataFile;
