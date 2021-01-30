@@ -69,10 +69,14 @@ static std::vector<uint32_t> compress(const std::vector<unsigned char>& data, Pa
     }
     printf("\n");
 
+    // packData wants non-const input data, possibly just by accident.
+    // Anway, let's create a non-const copy.
+    std::vector<unsigned char> non_const_data = data;
+
     // Crunch the data
     // TODO: remove printfs?
     range_coder->reset();
-    packData(&data[0], data.size(), 0, params, range_coder, edge_factory, show_progress);
+    packData(&non_const_data[0], data.size(), 0, params, range_coder, edge_factory, show_progress);
     range_coder->finish();
     printf("\n\n");
     fflush(stdout);
