@@ -1,3 +1,4 @@
+* Eventually, remove m_ prefixes from all classes fields and change them to use get/set named getters/setters
 * Get it to compile with MSVC x64
 * OK, back to shrinkler first:
   * We can successfully load ELF files (one particular anyway)
