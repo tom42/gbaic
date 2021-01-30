@@ -58,7 +58,7 @@ namespace libgbaic
 using fmt::format;
 
 // TODO: do we need pointers all over the place here?
-static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory* edge_factory, bool show_progress)
+static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
 {
     vector<uint32_t> pack_buffer;
     RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer); // TODO: does this need to be a pointer?
@@ -75,7 +75,7 @@ static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackPara
     // Crunch the data
     // TODO: remove printfs?
     range_coder->reset();
-    packData(&data[0], data.size(), 0, &params, range_coder, edge_factory, show_progress);
+    packData(&data[0], data.size(), 0, &params, range_coder, &edge_factory, show_progress);
     range_coder->finish();
     printf("\n\n");
     fflush(stdout);
@@ -119,7 +119,7 @@ int verify(std::vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
 
 // TODO: do we need pointers all over the place here (already on the args)
 // TODO: get rid of printf all over the place
-static std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory* edge_factory, bool show_progress)
+static std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
 {
     // Shrinkler code uses non-const buffers all over the place. Let's create a copy then.
     std::vector<unsigned char> non_const_data = data;
@@ -165,7 +165,7 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     //       on newer operating systems where it needs to be enabled:
     //       https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences?redirectedfrom=MSDN
     auto pack_params = create_pack_params(m_parameters);
-    auto packed_bytes = crunch(data, pack_params, &edge_factory, false);
+    auto packed_bytes = crunch(data, pack_params, edge_factory, false);
 
     // TODO: at best that's verbose output, no?
     m_console.out << format("References considered: {}", edge_factory.max_edge_count) << std::endl;
