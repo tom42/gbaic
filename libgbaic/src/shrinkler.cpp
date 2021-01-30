@@ -55,7 +55,7 @@ namespace libgbaic
 {
 
 // TODO: do we need pointers all over the place here?
-static std::vector<uint32_t> compress(PackParams* params, RefEdgeFactory* /*edge_factory*/, bool /*show_progress*/)
+static std::vector<uint32_t> compress(PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
     vector<uint32_t> pack_buffer;
     RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer); // TODO: does this need to be a pointer?
@@ -69,22 +69,14 @@ static std::vector<uint32_t> compress(PackParams* params, RefEdgeFactory* /*edge
     }
     printf("\n");
 
-    // TODO: return pack_buffer instead
-    throw std::runtime_error("yikes");
+    // Crunch the data
+    range_coder->reset();
+    packData(&data[0], data.size(), 0, params, range_coder, edge_factory, show_progress);
+    range_coder->finish();
+    printf("\n\n");
+    fflush(stdout);
 
-    // TODO: port stuff below (DataFile::compress)
-/*
-
-
-        // Crunch the data
-        range_coder->reset();
-        packData(&data[0], data.size(), 0, params, range_coder, edge_factory, show_progress);
-        range_coder->finish();
-        printf("\n\n");
-        fflush(stdout);
-
-        return pack_buffer;
-*/
+    return pack_buffer;
 }
 
 // TODO: do we need pointers all over the place here (already on the args)
