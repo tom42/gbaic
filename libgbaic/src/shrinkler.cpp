@@ -105,6 +105,7 @@ int verify(std::vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
     }
 
     if (error) {
+        // TODO: need to remove this: this mentions Blueberry, who maybe does not want bugreports from gbaic users.
         internal_error();
     }
 
@@ -158,10 +159,9 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
 
     // TODO: unhardcode the progress thing (do we have that as an option, anyway?)
     auto pack_params = create_pack_params(m_parameters);
-    crunch(data, &pack_params, &edge_factory, true);
+    auto packed_bytes = crunch(data, &pack_params, &edge_factory, true);
 
-    // TODO: actually return something
-    return std::vector<unsigned char>();
+    return packed_bytes;
 }
 
 }
