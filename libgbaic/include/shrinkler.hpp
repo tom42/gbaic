@@ -57,19 +57,19 @@ public:
 class shrinkler
 {
 public:
-    shrinkler(console& c) : console(c) {}
+    shrinkler(console& c) : m_console(c) {}
     shrinkler(const shrinkler&) = delete;
     void operator = (const shrinkler&) = delete;
 
-    const shrinkler_parameters& get_parameters() const { return parameters; }
+    const shrinkler_parameters& parameters() const { return m_parameters; }
 
-    void set_parameters(const shrinkler_parameters& p) { parameters = p; }
+    void parameters(const shrinkler_parameters& p) { m_parameters = p; }
 
     std::vector<unsigned char> compress(const std::vector<unsigned char>& input);
 
 private:
-    const console& console;
-    shrinkler_parameters parameters;
+    const console& m_console;
+    shrinkler_parameters m_parameters;
 };
 
 }

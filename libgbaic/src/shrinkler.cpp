@@ -52,7 +52,7 @@ namespace libgbaic
 
 std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& /*input*/)
 {
-	console.out << "Compressing..." << std::endl;
+	m_console.out << "Compressing..." << std::endl;
 
     // TODO: shrinkler compression
     return std::vector<unsigned char>();

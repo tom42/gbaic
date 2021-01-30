@@ -41,7 +41,7 @@ static void process(const libgbaic::options& options)
     libgbaic::log::initialize(options.verbose());
     libgbaic::input_file input_file(options.input_file());
     libgbaic::shrinkler shrinkler(console);
-    shrinkler.set_parameters(options.shrinkler_parameters());
+    shrinkler.parameters(options.shrinkler_parameters());
     shrinkler.compress(input_file.data());
 }
 
