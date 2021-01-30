@@ -25,7 +25,7 @@
 #define LIBGBAIC_OPTIONS_HPP_INCLUDED
 
 #include <filesystem>
-#include "libshrinkler.hpp"
+#include "shrinkler.hpp"
 
 namespace libgbaic
 {
@@ -60,18 +60,18 @@ public:
 
     void verbose(bool verbose) { m_verbose = verbose; }
 
-    const libshrinkler::shrinkler_parameters& shrinkler_parameters() const { return m_shrinkler_parameters; }
+    const libgbaic::shrinkler_parameters& shrinkler_parameters() const { return m_shrinkler_parameters; }
 
-    libshrinkler::shrinkler_parameters& shrinkler_parameters() { return m_shrinkler_parameters; }
+    libgbaic::shrinkler_parameters& shrinkler_parameters() { return m_shrinkler_parameters; }
 
-    void shrinkler_parameters(const libshrinkler::shrinkler_parameters& p) { m_shrinkler_parameters = p; }
+    void shrinkler_parameters(const libgbaic::shrinkler_parameters& p) { m_shrinkler_parameters = p; }
 
 private:
     std::filesystem::path m_input_file;
     std::filesystem::path m_output_file;
     bool m_output_file_set;
     bool m_verbose;
-    libshrinkler::shrinkler_parameters m_shrinkler_parameters;
+    libgbaic::shrinkler_parameters m_shrinkler_parameters;
 };
 
 enum class action

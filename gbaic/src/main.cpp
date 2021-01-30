@@ -25,7 +25,7 @@
 #include <iostream>
 #include <stdexcept>
 #include "input_file.hpp"
-#include "libshrinkler.hpp"
+#include "shrinkler.hpp"
 #include "log.hpp"
 #include "options.hpp"
 
@@ -37,7 +37,7 @@ static void process(const libgbaic::options& options)
     //       * Write output file (should automatically determine which one is the smallest)
     libgbaic::log::initialize(options.verbose());
     libgbaic::input_file input_file(options.input_file());
-    libshrinkler::shrinkler shrinkler;
+    libgbaic::shrinkler shrinkler;
     shrinkler.parameters(options.shrinkler_parameters());
     shrinkler.compress(input_file.data());
 }

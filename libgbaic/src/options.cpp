@@ -132,7 +132,7 @@ private:
 
         if (!parse_result)
         {
-            m_options.shrinkler_parameters(libshrinkler::shrinkler_parameters(preset));
+            m_options.shrinkler_parameters(shrinkler_parameters(preset));
         }
 
         return parse_result;

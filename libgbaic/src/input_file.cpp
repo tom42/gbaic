@@ -289,7 +289,7 @@ void input_file::load_elf(std::istream& stream)
 
     LOG << fmt::format("Entry: {:#x}", m_entry);
     LOG << fmt::format("Load address: {:#x}", m_load_address);
-    LOG << fmt::format("Size : {0:#x} ({0})", m_data.size());
+    LOG << fmt::format("Total size of loaded data: {0:#x} ({0})", m_data.size());
 }
 
 void input_file::read_entry(elfio& reader)

@@ -28,8 +28,10 @@ set(
   include/input_file.hpp
   include/options.hpp
   include/log.hpp
+  include/shrinkler.hpp
   src/input_file.cpp
-  src/options.cpp)
+  src/options.cpp
+  src/shrinkler.cpp)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
@@ -39,8 +41,8 @@ target_include_directories(
   libgbaic
   PRIVATE
   "${CMAKE_CURRENT_BINARY_DIR}"
+  "${PROJECT_SOURCE_DIR}/3rdparty/shrinkler/cruncher"
   PUBLIC
   include)
 
 target_link_libraries(libgbaic PRIVATE argp-standalone elfio fmt)
-target_link_libraries(libgbaic PUBLIC libshrinkler)

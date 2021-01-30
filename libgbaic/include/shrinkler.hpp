@@ -21,14 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSHRINKLER_LIBSHRINKLER_HPP_INCLUDED
-#define LIBSHRINKLER_LIBSHRINKLER_HPP_INCLUDED
+#ifndef LIBGBAIC_SHRINKLER_HPP_INCLUDED
+#define LIBGBAIC_SHRINKLER_HPP_INCLUDED
 
 #include <cstddef>
 #include <iosfwd>
 #include <vector>
 
-namespace libshrinkler
+namespace libgbaic
 {
 
 class shrinkler_parameters

@@ -21,5 +21,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#define BOOST_TEST_MODULE libshrinkler-unittest
-#include <boost/test/included/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
+#include "shrinkler.hpp"
+
+namespace libgbaic_unittest
+{
+
+BOOST_AUTO_TEST_SUITE(shrinkler_parameters_test)
+
+BOOST_AUTO_TEST_CASE(constructor_default_preset)
+{
+    libgbaic::shrinkler_parameters parameters;
+
+    BOOST_CHECK_EQUAL(2, parameters.iterations);
+    BOOST_CHECK_EQUAL(2, parameters.length_margin);
+    BOOST_CHECK_EQUAL(20, parameters.same_length);
+    BOOST_CHECK_EQUAL(200, parameters.effort);
+    BOOST_CHECK_EQUAL(2000, parameters.skip_length);
+    BOOST_CHECK_EQUAL(100000, parameters.references);
+}
+
+BOOST_AUTO_TEST_CASE(constructor_preset9)
+{
+    libgbaic::shrinkler_parameters parameters(9);
+
+    BOOST_CHECK_EQUAL(9, parameters.iterations);
+    BOOST_CHECK_EQUAL(9, parameters.length_margin);
+    BOOST_CHECK_EQUAL(90, parameters.same_length);
+    BOOST_CHECK_EQUAL(900, parameters.effort);
+    BOOST_CHECK_EQUAL(9000, parameters.skip_length);
+    BOOST_CHECK_EQUAL(100000, parameters.references);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+}

@@ -23,7 +23,7 @@
 
 #include <cstdio>
 #include <cstdlib>
-#include "libshrinkler.hpp"
+#include "shrinkler.hpp"
 
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic push
@@ -46,7 +46,7 @@
 #pragma warning(pop)
 #endif
 
-namespace libshrinkler
+namespace libgbaic
 {
 
 std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& /*input*/)
