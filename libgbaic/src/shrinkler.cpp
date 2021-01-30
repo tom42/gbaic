@@ -116,7 +116,6 @@ int verify(std::vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
     return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size();
 }
 
-// TODO: do we need pointers all over the place here (already on the args)
 // TODO: get rid of printf all over the place
 static std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
 {
