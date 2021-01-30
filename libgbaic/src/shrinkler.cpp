@@ -115,28 +115,28 @@ int verify(std::vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
 
 // TODO: do we need pointers all over the place here (already on the args)
 // TODO: get rid of printf all over the place
-static void crunch(const std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
+static std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, PackParams* params, RefEdgeFactory* edge_factory, bool show_progress)
 {
     // Shrinkler code uses non-const buffers all over the place. Let's create a copy then.
     std::vector<unsigned char> non_const_data = data;
 
+    // Compress and verify
     vector<uint32_t> pack_buffer = compress(non_const_data, params, edge_factory, show_progress);
     int margin = verify(data, pack_buffer);
     printf("Minimum safety margin for overlapped decrunching: %d\n\n", margin);
 
-    // TODO: port stuff below (DataFile::crunch)
-/*
+    // Convert to array of bytes
+    std::vector<unsigned char> packed_bytes;
+    packed_bytes.reserve(pack_buffer.size() * sizeof(pack_buffer[0]));
+    for (auto word : pack_buffer)
+    {
+        packed_bytes.push_back(word & 0xff);
+        packed_bytes.push_back((word >> 8) & 0xff);
+        packed_bytes.push_back((word >> 16) & 0xff);
+        packed_bytes.push_back((word >> 24) & 0xff);
+    }
 
-        DataFile *ef = new DataFile;
-        ef->data.resize(pack_buffer.size() * 4, 0);
-
-        Longword* dest = (Longword*) (void*) &ef->data[0];
-        for (int i = 0 ; i < pack_buffer.size() ; i++) {
-            dest[i] = pack_buffer[i];
-        }
-
-        return ef;
-*/
+    return packed_bytes;
 }
 
 static PackParams create_pack_params(const shrinkler_parameters& parameters)
