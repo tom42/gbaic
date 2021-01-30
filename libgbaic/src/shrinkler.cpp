@@ -76,9 +76,17 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     m_console.out << "Compressing..." << std::endl;
     RefEdgeFactory edge_factory(m_parameters.references);
 
-    // TODO: pass PackParameters (ugh...need to construct that baby now)
-    // TODO: pass edge factory
-    // TODO: unhardcode the progress thing (do we have that as an option, anyway?)
+    // TODO: this ought to be elsewhere and perhaps unit tested
+    PackParams p;
+    p.iterations = m_parameters.iterations;
+    p.length_margin = m_parameters.length_margin;
+    p.skip_length = m_parameters.skip_length;
+    p.match_patience = m_parameters.effort;
+    p.max_same_length = m_parameters.same_length;
+
+// TODO: pass PackParameters (ugh...need to construct that baby now)
+// TODO: pass edge factory
+// TODO: unhardcode the progress thing (do we have that as an option, anyway?)
     crunch(nullptr, nullptr, true);
 
     // TODO: shrinkler compression
