@@ -53,6 +53,7 @@ namespace libgbaic
 std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& /*input*/)
 {
 	m_console.out << "Compressing..." << std::endl;
+	RefEdgeFactory edge_factory(m_parameters.references);
 
     // TODO: shrinkler compression
     return std::vector<unsigned char>();
@@ -63,10 +64,7 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
 // TODO: port stuff below
 /*
 * From Shrinkler.cpp:
-* 
-
-		printf("Crunching...\n\n");
-		RefEdgeFactory edge_factory(references.value);
+*
 		DataFile *crunched = orig->crunch(&params, &edge_factory, !no_progress.seen);
 		delete orig;
 		printf("References considered:%8d\n",  edge_factory.max_edge_count);
