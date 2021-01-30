@@ -25,7 +25,6 @@
 #define LIBGBAIC_SHRINKLER_HPP_INCLUDED
 
 #include <cstddef>
-#include <iosfwd>
 #include <vector>
 
 namespace libgbaic
