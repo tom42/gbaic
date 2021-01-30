@@ -72,23 +72,26 @@ static void crunch(PackParams* /*params*/, RefEdgeFactory* /*edge_factory*/, boo
 */
 }
 
+static PackParams create_pack_params(const shrinkler_parameters& parameters)
+{
+    return
+    {
+        .iterations = parameters.iterations,
+        .length_margin = parameters.length_margin,
+        .skip_length = parameters.skip_length,
+        .match_patience = parameters.effort,
+        .max_same_length = parameters.same_length
+    };
+}
+
 std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& /*input*/)
 {
     m_console.out << "Compressing..." << std::endl;
     RefEdgeFactory edge_factory(m_parameters.references);
 
-    // TODO: this ought to be elsewhere and perhaps unit tested
-    PackParams p;
-    p.iterations = m_parameters.iterations;
-    p.length_margin = m_parameters.length_margin;
-    p.skip_length = m_parameters.skip_length;
-    p.match_patience = m_parameters.effort;
-    p.max_same_length = m_parameters.same_length;
-
-    // TODO: pass PackParameters (ugh...need to construct that baby now)
-    // TODO: pass edge factory
     // TODO: unhardcode the progress thing (do we have that as an option, anyway?)
-    crunch(nullptr, nullptr, true);
+    auto pack_params = create_pack_params(m_parameters);
+    crunch(&pack_params, &edge_factory, true);
 
     // TODO: shrinkler compression
     return std::vector<unsigned char>();

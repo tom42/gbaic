@@ -1,3 +1,4 @@
+* Get release build(s) to work
 * Get it to compile with MSVC x64
 * OK, back to shrinkler first:
   * We can successfully load ELF files (one particular anyway)
