@@ -30,6 +30,8 @@
 namespace libgbaic
 {
 
+class console;
+
 class shrinkler_parameters
 {
 public:
@@ -55,6 +57,10 @@ public:
 class shrinkler
 {
 public:
+    shrinkler(console& console) : m_console(console) {}
+    shrinkler(const shrinkler&) = delete;
+    void operator = (const shrinkler&) = delete;
+
     const shrinkler_parameters& parameters() const { return m_parameters; }
 
     void parameters(const shrinkler_parameters& parameters) { m_parameters = parameters; }
@@ -62,6 +68,7 @@ public:
     std::vector<unsigned char> compress(const std::vector<unsigned char>& input);
 
 private:
+    const console& m_console;
     shrinkler_parameters m_parameters;
 };
 

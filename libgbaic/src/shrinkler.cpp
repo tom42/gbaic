@@ -23,6 +23,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include "console.hpp"
 #include "shrinkler.hpp"
 
 #if defined(__GNUC__) || defined(__clang__)
@@ -51,6 +52,8 @@ namespace libgbaic
 
 std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& /*input*/)
 {
+	m_console.out << "Compressing..." << std::endl;
+
     // TODO: shrinkler compression
     return std::vector<unsigned char>();
 }
@@ -61,10 +64,6 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
 /*
 * From Shrinkler.cpp:
 * 
-		// Data file compression
-		printf("Loading file %s...\n\n", infile);
-		DataFile *orig = new DataFile;
-		orig->load(infile);
 
 		printf("Crunching...\n\n");
 		RefEdgeFactory edge_factory(references.value);
