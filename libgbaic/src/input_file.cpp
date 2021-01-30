@@ -272,13 +272,15 @@ input_file::input_file(const std::filesystem::path& path)
     }
 }
 
-input_file::input_file(std::istream& stream)
+void input_file::load(std::istream& stream)
 {
     load_elf(stream);
 }
 
 void input_file::load_elf(std::istream& stream)
 {
+    // TODO: reset fields here
+
     elfio reader;
 
     open_elf(reader, stream);
