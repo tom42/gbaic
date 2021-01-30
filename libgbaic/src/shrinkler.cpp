@@ -160,9 +160,12 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     m_console.out << "Compressing..." << std::endl;
     RefEdgeFactory edge_factory(m_parameters.references);
 
-    // TODO: unhardcode the progress thing (do we have that as an option, anyway?)
+    // TODO: Unhardcode the progress thing (do we have that as an option, anyway?)
+    //       Well problem is that windows does not really support this, except
+    //       on newer operating systems where it needs to be enabled:
+    //       https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences?redirectedfrom=MSDN
     auto pack_params = create_pack_params(m_parameters);
-    auto packed_bytes = crunch(data, &pack_params, &edge_factory, true);
+    auto packed_bytes = crunch(data, &pack_params, &edge_factory, false);
 
     // TODO: at best that's verbose output, no?
     m_console.out << format("References considered: {}", edge_factory.max_edge_count) << std::endl;
