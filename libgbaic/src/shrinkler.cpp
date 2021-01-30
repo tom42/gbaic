@@ -50,10 +50,36 @@
 namespace libgbaic
 {
 
+static void crunch(PackParams* /*params*/, RefEdgeFactory* /*edge_factory*/, bool /*show_progress*/)
+{
+    // TODO: port stuff below (DataFile::crunch)
+/*
+        vector<unsigned> pack_buffer = compress(params, edge_factory, show_progress);
+        int margin = verify(pack_buffer);
+
+        printf("Minimum safety margin for overlapped decrunching: %d\n\n", margin);
+
+        DataFile *ef = new DataFile;
+        ef->data.resize(pack_buffer.size() * 4, 0);
+
+        Longword* dest = (Longword*) (void*) &ef->data[0];
+        for (int i = 0 ; i < pack_buffer.size() ; i++) {
+            dest[i] = pack_buffer[i];
+        }
+
+        return ef;
+*/
+}
+
 std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& /*input*/)
 {
-	m_console.out << "Compressing..." << std::endl;
-	RefEdgeFactory edge_factory(m_parameters.references);
+    m_console.out << "Compressing..." << std::endl;
+    RefEdgeFactory edge_factory(m_parameters.references);
+
+    // TODO: pass PackParameters (ugh...need to construct that baby now)
+    // TODO: pass edge factory
+    // TODO: unhardcode the progress thing (do we have that as an option, anyway?)
+    crunch(nullptr, nullptr, true);
 
     // TODO: shrinkler compression
     return std::vector<unsigned char>();
@@ -65,18 +91,18 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
 /*
 * From Shrinkler.cpp:
 *
-		DataFile *crunched = orig->crunch(&params, &edge_factory, !no_progress.seen);
-		delete orig;
-		printf("References considered:%8d\n",  edge_factory.max_edge_count);
-		printf("References discarded:%9d\n\n", edge_factory.max_cleaned_edges);
+        DataFile *crunched = orig->crunch(&params, &edge_factory, !no_progress.seen);
+        delete orig;
+        printf("References considered:%8d\n",  edge_factory.max_edge_count);
+        printf("References discarded:%9d\n\n", edge_factory.max_cleaned_edges);
 
-		printf("Saving file %s...\n\n", outfile);
-		crunched->save(outfile);
+        printf("Saving file %s...\n\n", outfile);
+        crunched->save(outfile);
 
-		printf("Final file size: %d\n\n", crunched->size());
-		delete crunched;
+        printf("Final file size: %d\n\n", crunched->size());
+        delete crunched;
 
-		if (edge_factory.max_edge_count > references.value) {
-			printf("Note: compression may benefit from a larger reference buffer (-r option).\n\n");
-		}
+        if (edge_factory.max_edge_count > references.value) {
+            printf("Note: compression may benefit from a larger reference buffer (-r option).\n\n");
+        }
 */
