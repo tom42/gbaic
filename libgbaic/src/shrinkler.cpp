@@ -101,7 +101,8 @@ vector<unsigned char> shrinkler::crunch(const vector<unsigned char>& data, PackP
 
 // TODO: verify all of this!
 // TODO: are we sure we don't want to pass data by refernece?
-int shrinkler::verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
+int shrinkler::verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer)
+{
     printf("Verifying... ");
     fflush(stdout);
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
