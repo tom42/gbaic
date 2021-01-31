@@ -34,8 +34,9 @@ namespace libgbaic
 {
 
 using fmt::format;
+using std::vector;
 
-static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
+static vector<uint32_t> compress(vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
 {
     vector<uint32_t> pack_buffer;
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
@@ -62,7 +63,7 @@ static std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackPara
 
 // TODO: verify all of this!
 // TODO: are we sure we don't want to pass data by refernece?
-int verify(std::vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
+int verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
     printf("Verifying... ");
     fflush(stdout);
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
@@ -106,7 +107,7 @@ static PackParams create_pack_params(const shrinkler_parameters& parameters)
     };
 }
 
-std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& data)
+vector<unsigned char> shrinkler::compress(const vector<unsigned char>& data)
 {
     CONSOLE_OUT(m_console) << "Compressing..." << std::endl;
 
@@ -133,10 +134,10 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     return packed_bytes;
 }
 
-std::vector<unsigned char> shrinkler::crunch(const std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
+vector<unsigned char> shrinkler::crunch(const vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
 {
     // Shrinkler code uses non-const buffers all over the place. Let's create a copy then.
-    std::vector<unsigned char> non_const_data = data;
+    vector<unsigned char> non_const_data = data;
 
     // Compress and verify
     // TODO: we're going to make compress() also a class member, and then we can remove this.
@@ -145,7 +146,7 @@ std::vector<unsigned char> shrinkler::crunch(const std::vector<unsigned char>& d
     CONSOLE_OUT(m_console) << "Minimum safety margin for overlapped decrunching: " << margin << std::endl;
 
     // Convert to array of bytes
-    std::vector<unsigned char> packed_bytes;
+    vector<unsigned char> packed_bytes;
     packed_bytes.reserve(pack_buffer.size() * sizeof(pack_buffer[0]));
     for (auto word : pack_buffer)
     {
