@@ -29,8 +29,9 @@
 #include <sstream>
 #include <stdexcept>
 #include <vector>
-#include "libgbaic_unittest_config.hpp"
+#include "console.hpp"
 #include "input_file.hpp"
+#include "libgbaic_unittest_config.hpp"
 
 namespace libgbaic_unittest
 {
@@ -42,7 +43,8 @@ using std::vector;
 static libgbaic::input_file load_elf_file(const path& filename)
 {
     path full_path = LIBGBAIC_UNITTEST_TESTDATA_DIRECTORY / filename;
-    libgbaic::input_file input_file;
+    libgbaic::console console;
+    libgbaic::input_file input_file(console);
     input_file.load(full_path);
     return input_file;
 }
@@ -76,10 +78,11 @@ BOOST_AUTO_TEST_SUITE(input_file_test)
 
 BOOST_AUTO_TEST_CASE(load_elf_file_does_not_exist)
 {
-    libgbaic::input_file f;
+    libgbaic::console console;
+    libgbaic::input_file input_file(console);
 
     BOOST_CHECK_EXCEPTION(
-        f.load("non-existing-file.elf"),
+        input_file.load("non-existing-file.elf"),
         runtime_error,
         [](const auto& e) { return boost::iequals("non-existing-file.elf: no such file or directory", e.what()); });
 }
@@ -90,10 +93,11 @@ BOOST_AUTO_TEST_CASE(load_elf_file_is_invalid)
     std::stringstream s;
     s.write(&c, 1);
 
-    libgbaic::input_file f;
+    libgbaic::console console;
+    libgbaic::input_file input_file(console);
 
     BOOST_CHECK_EXCEPTION(
-        f.load(s),
+        input_file.load(s),
         runtime_error,
         [](const auto& e) { return boost::iequals("file is not a valid ELF file", e.what()); });
 }
