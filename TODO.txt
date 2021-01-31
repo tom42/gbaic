@@ -1,10 +1,7 @@
-* Try to get verbose logging into console.h
-  * First of all, give input file a console reference
-    * Well that stinks, so perhaps we change the different loading functions of input_file first. Sigh.
-      * Do not load in ctor. Make deciated load functions instead.
+* console.hpp
+  * Unit tests: do they now pollute the console? If so, fix them.
 * Final test with shrinkler: dump output data and compare with the stored file from shrinkler-arm repo
-* Replace log.hpp with console.hpp
-  * Add enable/disable functionality to console and port that macro, somehow.
+  * Well perhaps make that a unit test???
 * Get release build(s) to work
 * Get it to compile with MSVC x64
 * OK, back to shrinkler first:

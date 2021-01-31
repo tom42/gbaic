@@ -155,7 +155,7 @@ static PackParams create_pack_params(const shrinkler_parameters& parameters)
 
 std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& data)
 {
-    m_console.out() << "Compressing..." << std::endl;
+    CONSOLE_OUT(m_console) << "Compressing..." << std::endl;
     RefEdgeFactory edge_factory(m_parameters.references);
 
     // TODO: Unhardcode the progress thing (do we have that as an option, anyway?)
@@ -165,15 +165,14 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     auto pack_params = create_pack_params(m_parameters);
     auto packed_bytes = crunch(data, pack_params, edge_factory, false);
 
-    // TODO: at best that's verbose output, no?
-    m_console.out() << format("References considered: {}", edge_factory.max_edge_count) << std::endl;
-    m_console.out() << format("References discarded: {}", edge_factory.max_cleaned_edges) << std::endl;
-    m_console.out() << format("Uncompressed data size: {} bytes", data.size()) << std::endl;
-    m_console.out() << format("Final compressed data size: {} bytes", packed_bytes.size()) << std::endl;
+    CONSOLE_VERBOSE(m_console) << format("References considered: {}", edge_factory.max_edge_count) << std::endl;
+    CONSOLE_VERBOSE(m_console) << format("References discarded: {}", edge_factory.max_cleaned_edges) << std::endl;
+    CONSOLE_VERBOSE(m_console) << format("Uncompressed data size: {} bytes", data.size()) << std::endl;
+    CONSOLE_VERBOSE(m_console) << format("Final compressed data size: {} bytes", packed_bytes.size()) << std::endl;
 
     if (edge_factory.max_edge_count > m_parameters.references)
     {
-        m_console.out() << "Note: compression may benefit from a larger reference buffer (-r option)" << std::endl;
+        CONSOLE_OUT(m_console) << "Note: compression may benefit from a larger reference buffer (-r option)" << std::endl;
     }
 
     return packed_bytes;
