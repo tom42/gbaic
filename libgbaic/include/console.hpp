@@ -34,8 +34,9 @@ class console
 public:
     console() : console(&std::cout, &std::cout) {}
 
-    // TODO: make this return something configurable
-    bool verbose_enabled() const { return true; }
+    console(bool verbose_enabled) : console(&std::cout, verbose_enabled ? &std::cout : nullptr) {}
+
+    bool verbose_enabled() const { return m_verbose != nullptr; }
 
     std::ostream& out() { return *m_out; }
     std::ostream& verbose() { return *m_verbose; }
@@ -43,8 +44,8 @@ public:
 private:
     console(std::ostream* out, std::ostream* verbose) : m_out(out), m_verbose(verbose) {}
 
-    std::ostream* m_out;
-    std::ostream* m_verbose;
+    std::ostream* const m_out;
+    std::ostream* const m_verbose;
 };
 
 }

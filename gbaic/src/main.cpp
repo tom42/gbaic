@@ -31,13 +31,11 @@
 
 static void process(const libgbaic::options& options)
 {
-    // TODO: configure this somehow
-    libgbaic::console console;
-
     // TODO: process stuff
     //       * Load input file (bin or elf)
     //       * Compress it (shrinkler or LZSS+Huffman)
     //       * Write output file (should automatically determine which one is the smallest)
+    libgbaic::console console(options.verbose());
 
     libgbaic::input_file input_file(console);
     input_file.load(options.input_file());
