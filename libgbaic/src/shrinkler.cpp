@@ -133,16 +133,16 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     return packed_bytes;
 }
 
-// TODO: get rid of printf all over the place
 std::vector<unsigned char> shrinkler::crunch(const std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
 {
     // Shrinkler code uses non-const buffers all over the place. Let's create a copy then.
     std::vector<unsigned char> non_const_data = data;
 
     // Compress and verify
-    vector<uint32_t> pack_buffer = libgbaic::compress(non_const_data, params, edge_factory, show_progress); // TODO: put compress also into class?
+    // TODO: we're going to make compress() also a class member, and then we can remove this.
+    vector<uint32_t> pack_buffer = libgbaic::compress(non_const_data, params, edge_factory, show_progress);
     int margin = verify(data, pack_buffer);
-    printf("Minimum safety margin for overlapped decrunching: %d\n\n", margin);
+    CONSOLE_OUT(m_console) << "Minimum safety margin for overlapped decrunching: " << margin << std::endl;
 
     // Convert to array of bytes
     std::vector<unsigned char> packed_bytes;
