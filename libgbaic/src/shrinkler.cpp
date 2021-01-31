@@ -103,8 +103,8 @@ vector<unsigned char> shrinkler::crunch(const vector<unsigned char>& data, PackP
 // TODO: are we sure we don't want to pass data by refernece?
 int shrinkler::verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer)
 {
-    printf("Verifying... ");
-    fflush(stdout);
+    CONSOLE_VERBOSE(m_console) << "Verifying..." << std::endl;
+
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
     LZDecoder lzd(&decoder);
 
@@ -128,8 +128,6 @@ int shrinkler::verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer)
         // TODO: need to remove this: this mentions Blueberry, who maybe does not want bugreports from gbaic users.
         internal_error();
     }
-
-    printf("OK\n\n");
 
     return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size();
 }
