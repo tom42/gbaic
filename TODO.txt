@@ -1,3 +1,6 @@
+* shrinkler.cpp
+  * Get rid of printf
+  * Get rid of fflush
 * Final test with shrinkler: dump output data and compare with the stored file from shrinkler-arm repo
   * Well perhaps make that a unit test???
 * Get release build(s) to work
