@@ -32,11 +32,10 @@ namespace libgbaic
 class console
 {
 public:
-    console() : out(std::cout) {}
-    console(const console&) = delete;
-    void operator = (const console&) = delete;
+    console() : out(std::cout), verbose(std::cout) {}
 
     std::ostream& out;
+    std::ostream& verbose;
 };
 
 }
