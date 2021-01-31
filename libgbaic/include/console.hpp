@@ -34,10 +34,17 @@ class console
 public:
     console() : out(std::cout), verbose(std::cout) {}
 
+    // TODO: make this return something configurable
+    bool verbose_enabled() const { return true; }
+
     std::ostream& out;
     std::ostream& verbose;
 };
 
 }
+
+#define CONSOLE_VERBOSE(console)        \
+    if (!(console).verbose_enabled());  \
+        else (console).verbose
 
 #endif

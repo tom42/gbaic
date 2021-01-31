@@ -46,7 +46,6 @@
 #include <string>
 #include "elfio/elfio.hpp"
 #include "fmt/core.h"
-#include "log.hpp"
 #include "input_file.hpp"
 
 namespace libgbaic
@@ -255,7 +254,7 @@ void input_file::load(const std::filesystem::path& path)
 {
     try
     {
-        LOG << format("Loading: {}", path.string());
+        CONSOLE_VERBOSE(m_console) << format("Loading: {}", path.string()) << std::endl;
         std::ifstream stream(path, std::ios::binary);
         if (!stream)
         {
@@ -289,9 +288,9 @@ void input_file::load_elf(std::istream& stream)
     log_program_headers(reader);
     convert_to_binary(reader);
 
-    LOG << format("Entry: {:#x}", m_entry);
-    LOG << format("Load address: {:#x}", m_load_address);
-    LOG << format("Total size of loaded data: {0:#x} ({0})", m_data.size());
+    CONSOLE_VERBOSE(m_console) << format("Entry: {:#x}", m_entry) << std::endl;
+    CONSOLE_VERBOSE(m_console) << format("Load address: {:#x}", m_load_address) << std::endl;
+    CONSOLE_VERBOSE(m_console) << format("Total size of loaded data: {0:#x} ({0})", m_data.size()) << std::endl;
 }
 
 void input_file::read_entry(elfio& reader)
@@ -309,12 +308,12 @@ void input_file::log_program_headers(elfio& reader)
     Elf_Half nheaders = reader.segments.size();
     if (nheaders == 0)
     {
-        LOG << "File has no program headers";
+        CONSOLE_VERBOSE(m_console) << "File has no program headers" << std::endl;
         return;
     }
 
-    LOG << "Program headers";
-    LOG << format(" {:10} {:7} {:10} {:10} {:7} {:7} {:7} {:3}",
+    CONSOLE_VERBOSE(m_console) << "Program headers" << std::endl;
+    CONSOLE_VERBOSE(m_console) << format(" {:10} {:7} {:10} {:10} {:7} {:7} {:7} {:3}",
         "Type",
         "Offset",
         "VirtAddr",
@@ -322,12 +321,12 @@ void input_file::log_program_headers(elfio& reader)
         "FileSiz",
         "MemSiz",
         "Align",
-        "Flg");
+        "Flg") << std::endl;
 
     for (Elf_Half i = 0; i < nheaders; ++i)
     {
         const auto& s = *reader.segments[i];
-        LOG << format(" {:10} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:#07x} {}",
+        CONSOLE_VERBOSE(m_console) << format(" {:10} {:#07x} {:#010x} {:#010x} {:#07x} {:#07x} {:#07x} {}",
             segment_type_to_string(s.get_type()),
             s.get_offset(),
             s.get_virtual_address(),
@@ -335,7 +334,7 @@ void input_file::log_program_headers(elfio& reader)
             s.get_file_size(),
             s.get_memory_size(),
             s.get_align(),
-            segment_flags_to_string(s.get_flags()));
+            segment_flags_to_string(s.get_flags())) << std::endl;
     }
 }
 
