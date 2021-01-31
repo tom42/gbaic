@@ -61,40 +61,6 @@ static vector<uint32_t> compress(vector<unsigned char>& data, PackParams& params
     return pack_buffer;
 }
 
-// TODO: verify all of this!
-// TODO: are we sure we don't want to pass data by refernece?
-int verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
-    printf("Verifying... ");
-    fflush(stdout);
-    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
-    LZDecoder lzd(&decoder);
-
-    // Verify data
-    bool error = false;
-    LZVerifier verifier(0, &data[0], data.size(), data.size());
-    decoder.reset();
-    decoder.setListener(&verifier);
-    if (!lzd.decode(verifier)) {
-        error = true;
-    }
-
-    // Check length
-    // TODO: cast to size_t silences about != signed/unsigned mismatch. Is this REALLY a problem?
-    if (!error && (size_t)verifier.size() != data.size()) {
-        printf("Verify error: data has incorrect length (%d, should have been %d)!\n", verifier.size(), (int)data.size());
-        error = true;
-    }
-
-    if (error) {
-        // TODO: need to remove this: this mentions Blueberry, who maybe does not want bugreports from gbaic users.
-        internal_error();
-    }
-
-    printf("OK\n\n");
-
-    return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size();
-}
-
 static PackParams create_pack_params(const shrinkler_parameters& parameters)
 {
     return
@@ -157,6 +123,40 @@ vector<unsigned char> shrinkler::crunch(const vector<unsigned char>& data, PackP
     }
 
     return packed_bytes;
+}
+
+// TODO: verify all of this!
+// TODO: are we sure we don't want to pass data by refernece?
+int shrinkler::verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
+    printf("Verifying... ");
+    fflush(stdout);
+    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+    LZDecoder lzd(&decoder);
+
+    // Verify data
+    bool error = false;
+    LZVerifier verifier(0, &data[0], data.size(), data.size());
+    decoder.reset();
+    decoder.setListener(&verifier);
+    if (!lzd.decode(verifier)) {
+        error = true;
+    }
+
+    // Check length
+    // TODO: cast to size_t silences about != signed/unsigned mismatch. Is this REALLY a problem?
+    if (!error && (size_t)verifier.size() != data.size()) {
+        printf("Verify error: data has incorrect length (%d, should have been %d)!\n", verifier.size(), (int)data.size());
+        error = true;
+    }
+
+    if (error) {
+        // TODO: need to remove this: this mentions Blueberry, who maybe does not want bugreports from gbaic users.
+        internal_error();
+    }
+
+    printf("OK\n\n");
+
+    return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size();
 }
 
 }
