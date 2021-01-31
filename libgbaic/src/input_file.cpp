@@ -300,7 +300,7 @@ void input_file::read_entry(elfio& reader)
 
 void input_file::log_program_headers(elfio& reader)
 {
-    if (!log::is_enabled())
+    if (!m_console.verbose_enabled())
     {
         return;
     }
