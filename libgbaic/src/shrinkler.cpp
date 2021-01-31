@@ -134,13 +134,15 @@ static PackParams create_pack_params(const shrinkler_parameters& parameters)
 std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>& data)
 {
     CONSOLE_OUT(m_console) << "Compressing..." << std::endl;
-    RefEdgeFactory edge_factory(m_parameters.references);
 
-    // TODO: Unhardcode the progress thing (do we have that as an option, anyway?)
-    //       Well problem is that windows does not really support this, except
-    //       on newer operating systems where it needs to be enabled:
-    //       https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences?redirectedfrom=MSDN
+    RefEdgeFactory edge_factory(m_parameters.references);
     auto pack_params = create_pack_params(m_parameters);
+
+    // For the time being we do not allow progress updates using ANSI escape sequences.
+    // Problem is that in the past the Windows console did not support ANSI escape sequences at all.
+    // On more recent versions of Windows it does, but this needs to be probed for and enabled:
+    // https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences.
+    // Not worth the trouble for the time being.
     auto packed_bytes = crunch(data, pack_params, edge_factory, false);
 
     CONSOLE_VERBOSE(m_console) << format("References considered: {}", edge_factory.max_edge_count) << std::endl;
