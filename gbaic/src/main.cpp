@@ -37,6 +37,8 @@ static void process(const libgbaic::options& options)
     //       * Write output file (should automatically determine which one is the smallest)
     libgbaic::console console(options.verbose());
 
+    // TODO: catch all exceptions and rethrow one containing the input file name at the beginning of the message?
+    //       That requires changing input_file not to do this, though.
     libgbaic::input_file input_file(console);
     input_file.load(options.input_file());
 

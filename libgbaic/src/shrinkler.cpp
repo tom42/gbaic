@@ -26,6 +26,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include <stdexcept>
 #include "fmt/core.h"
 #include "console.hpp"
 #include "shrinkler.hpp"
@@ -34,6 +35,7 @@ namespace libgbaic
 {
 
 using fmt::format;
+using std::runtime_error;
 using std::vector;
 
 static PackParams create_pack_params(const shrinkler_parameters& parameters)
@@ -113,18 +115,21 @@ int shrinkler::verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer)
     LZVerifier verifier(0, &data[0], data.size(), data.size());
     decoder.reset();
     decoder.setListener(&verifier);
-    if (!lzd.decode(verifier)) {
-        error = true;
+    if (!lzd.decode(verifier))
+    {
+        throw runtime_error("INTERNAL ERROR: could not verify compressed data");
     }
 
     // Check length
     // TODO: cast to size_t silences about != signed/unsigned mismatch. Is this REALLY a problem?
-    if (!error && (size_t)verifier.size() != data.size()) {
+    if (!error && (size_t)verifier.size() != data.size())
+    {
         printf("Verify error: data has incorrect length (%d, should have been %d)!\n", verifier.size(), (int)data.size());
         error = true;
     }
 
-    if (error) {
+    if (error)
+    {
         // TODO: need to remove this: this mentions Blueberry, who maybe does not want bugreports from gbaic users.
         internal_error();
     }
