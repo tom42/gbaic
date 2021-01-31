@@ -36,31 +36,6 @@ namespace libgbaic
 using fmt::format;
 using std::vector;
 
-static vector<uint32_t> compress(vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
-{
-    vector<uint32_t> pack_buffer;
-    RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
-
-    // Print compression status header
-    // TODO: do we want this? Like that, with printfs?
-    static const char* const ordinals[] = { "st", "nd", "rd", "th" };
-    printf("Original");
-    for (int p = 1; p <= params.iterations; p++) {
-        printf("  After %d%s pass", p, ordinals[min(p, 4) - 1]);
-    }
-    printf("\n");
-
-    // Crunch the data
-    // TODO: remove printfs?
-    range_coder.reset();
-    packData(&data[0], data.size(), 0, &params, &range_coder, &edge_factory, show_progress);
-    range_coder.finish();
-    printf("\n\n");
-    fflush(stdout);
-
-    return pack_buffer;
-}
-
 static PackParams create_pack_params(const shrinkler_parameters& parameters)
 {
     return
@@ -106,8 +81,7 @@ vector<unsigned char> shrinkler::crunch(const vector<unsigned char>& data, PackP
     vector<unsigned char> non_const_data = data;
 
     // Compress and verify
-    // TODO: we're going to make compress() also a class member, and then we can remove this.
-    vector<uint32_t> pack_buffer = libgbaic::compress(non_const_data, params, edge_factory, show_progress);
+    vector<uint32_t> pack_buffer = compress(non_const_data, params, edge_factory, show_progress);
     int margin = verify(data, pack_buffer);
     CONSOLE_VERBOSE(m_console) << "Minimum safety margin for overlapped decrunching: " << margin << std::endl;
 
@@ -157,6 +131,31 @@ int shrinkler::verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer)
     printf("OK\n\n");
 
     return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size();
+}
+
+vector<uint32_t> shrinkler::compress(vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
+{
+    vector<uint32_t> pack_buffer;
+    RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+
+    // Print compression status header
+    // TODO: do we want this? Like that, with printfs?
+    static const char* const ordinals[] = { "st", "nd", "rd", "th" };
+    printf("Original");
+    for (int p = 1; p <= params.iterations; p++) {
+        printf("  After %d%s pass", p, ordinals[min(p, 4) - 1]);
+    }
+    printf("\n");
+
+    // Crunch the data
+    // TODO: remove printfs?
+    range_coder.reset();
+    packData(&data[0], data.size(), 0, &params, &range_coder, &edge_factory, show_progress);
+    range_coder.finish();
+    printf("\n\n");
+    fflush(stdout);
+
+    return pack_buffer;
 }
 
 }

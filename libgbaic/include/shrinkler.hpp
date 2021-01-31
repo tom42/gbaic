@@ -72,6 +72,7 @@ public:
 private:
     std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress);
     int verify(std::vector<unsigned char> data, std::vector<uint32_t>& pack_buffer);
+    std::vector<uint32_t> compress(std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress);
 
     console m_console;
     shrinkler_parameters m_parameters;
