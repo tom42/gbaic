@@ -36,6 +36,7 @@ public:
 
     console(bool verbose_enabled) : console(&std::cout, verbose_enabled ? &std::cout : nullptr) {}
 
+    bool out_enabled() const { return m_out != nullptr; }
     bool verbose_enabled() const { return m_verbose != nullptr; }
 
     std::ostream& out() { return *m_out; }
@@ -49,6 +50,10 @@ private:
 };
 
 }
+
+#define CONSOLE_OUT(console)            \
+    if (!(console).out_enabled());      \
+        else (console).out()
 
 #define CONSOLE_VERBOSE(console)        \
     if (!(console).verbose_enabled());  \
