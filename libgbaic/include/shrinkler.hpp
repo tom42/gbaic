@@ -28,6 +28,9 @@
 #include <vector>
 #include "console.hpp"
 
+struct PackParams;
+class RefEdgeFactory;
+
 namespace libgbaic
 {
 
@@ -67,6 +70,8 @@ public:
     std::vector<unsigned char> compress(const std::vector<unsigned char>& data);
 
 private:
+    std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress);
+
     console m_console;
     shrinkler_parameters m_parameters;
 };

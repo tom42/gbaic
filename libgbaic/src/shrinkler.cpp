@@ -94,31 +94,6 @@ int verify(std::vector<unsigned char> data, vector<uint32_t>& pack_buffer) {
     return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size();
 }
 
-// TODO: get rid of printf all over the place
-static std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
-{
-    // Shrinkler code uses non-const buffers all over the place. Let's create a copy then.
-    std::vector<unsigned char> non_const_data = data;
-
-    // Compress and verify
-    vector<uint32_t> pack_buffer = compress(non_const_data, params, edge_factory, show_progress);
-    int margin = verify(data, pack_buffer);
-    printf("Minimum safety margin for overlapped decrunching: %d\n\n", margin);
-
-    // Convert to array of bytes
-    std::vector<unsigned char> packed_bytes;
-    packed_bytes.reserve(pack_buffer.size() * sizeof(pack_buffer[0]));
-    for (auto word : pack_buffer)
-    {
-        packed_bytes.push_back(word & 0xff);
-        packed_bytes.push_back((word >> 8) & 0xff);
-        packed_bytes.push_back((word >> 16) & 0xff);
-        packed_bytes.push_back((word >> 24) & 0xff);
-    }
-
-    return packed_bytes;
-}
-
 static PackParams create_pack_params(const shrinkler_parameters& parameters)
 {
     return
@@ -153,6 +128,31 @@ std::vector<unsigned char> shrinkler::compress(const std::vector<unsigned char>&
     if (edge_factory.max_edge_count > m_parameters.references)
     {
         CONSOLE_OUT(m_console) << "Note: compression may benefit from a larger reference buffer (-r option)" << std::endl;
+    }
+
+    return packed_bytes;
+}
+
+// TODO: get rid of printf all over the place
+std::vector<unsigned char> shrinkler::crunch(const std::vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
+{
+    // Shrinkler code uses non-const buffers all over the place. Let's create a copy then.
+    std::vector<unsigned char> non_const_data = data;
+
+    // Compress and verify
+    vector<uint32_t> pack_buffer = libgbaic::compress(non_const_data, params, edge_factory, show_progress); // TODO: put compress also into class?
+    int margin = verify(data, pack_buffer);
+    printf("Minimum safety margin for overlapped decrunching: %d\n\n", margin);
+
+    // Convert to array of bytes
+    std::vector<unsigned char> packed_bytes;
+    packed_bytes.reserve(pack_buffer.size() * sizeof(pack_buffer[0]));
+    for (auto word : pack_buffer)
+    {
+        packed_bytes.push_back(word & 0xff);
+        packed_bytes.push_back((word >> 8) & 0xff);
+        packed_bytes.push_back((word >> 16) & 0xff);
+        packed_bytes.push_back((word >> 24) & 0xff);
     }
 
     return packed_bytes;
