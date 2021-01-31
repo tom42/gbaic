@@ -26,11 +26,10 @@
 
 #include <cstddef>
 #include <vector>
+#include "console.hpp"
 
 namespace libgbaic
 {
-
-class console;
 
 class shrinkler_parameters
 {
@@ -57,7 +56,7 @@ public:
 class shrinkler
 {
 public:
-    shrinkler(console& c) : m_console(c) {}
+    shrinkler(const console& c) : m_console(c) {}
     shrinkler(const shrinkler&) = delete;
     void operator = (const shrinkler&) = delete;
 
@@ -68,7 +67,7 @@ public:
     std::vector<unsigned char> compress(const std::vector<unsigned char>& data);
 
 private:
-    const console& m_console;
+    console m_console;
     shrinkler_parameters m_parameters;
 };
 
