@@ -31,7 +31,8 @@ set(
   include/shrinkler.hpp
   src/input_file.cpp
   src/options.cpp
-  src/shrinkler.cpp)
+  src/shrinkler.cpp
+  src/shrinkler.ipp)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 

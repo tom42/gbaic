@@ -21,29 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#if defined(__GNUC__) || defined(__clang__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wsign-compare"
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#endif
-
-#if defined(_MSC_VER)
-#pragma warning(push)
-#pragma warning(disable:4018 4100 4244 4389 4456 4458)
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
-#include "HunkFile.h"
-#include "Pack.h"
-
-#if defined(__GNUC__) || defined(__clang__)
-#pragma GCC diagnostic pop
-#endif
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#undef _CRT_SECURE_NO_WARNINGS
-#endif
+#include "shrinkler.ipp"
 
 #include <cstdint>
 #include <cstdio>
