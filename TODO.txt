@@ -1,5 +1,3 @@
-* console.hpp
-  * Unit tests: do they now pollute the console? If so, fix them.
 * Final test with shrinkler: dump output data and compare with the stored file from shrinkler-arm repo
   * Well perhaps make that a unit test???
 * Get release build(s) to work
