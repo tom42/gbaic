@@ -1,4 +1,6 @@
 * shrinkler.cpp
+  * Devilish idea: we simply redefine printf and fflush. Muhaha.
+    * Yeah but maybe we put all the shrinkler inclusion business into a separate include file. I do not wish to see this all the time.
   * Get rid of printf
   * Get rid of fflush
 * Final test with shrinkler: dump output data and compare with the stored file from shrinkler-arm repo
