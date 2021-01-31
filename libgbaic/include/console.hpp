@@ -32,7 +32,7 @@ namespace libgbaic
 class console
 {
 public:
-    console() : m_out(&std::cout), m_verbose(&std::cout) {}
+    console() : console(&std::cout, &std::cout) {}
 
     // TODO: make this return something configurable
     bool verbose_enabled() const { return true; }
@@ -41,6 +41,8 @@ public:
     std::ostream& verbose() { return *m_verbose; }
 
 private:
+    console(std::ostream* out, std::ostream* verbose) : m_out(out), m_verbose(verbose) {}
+
     std::ostream* m_out;
     std::ostream* m_verbose;
 };
