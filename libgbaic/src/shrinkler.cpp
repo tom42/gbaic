@@ -84,7 +84,7 @@ vector<unsigned char> shrinkler::crunch(const vector<unsigned char>& data, PackP
 
     // Compress and verify
     vector<uint32_t> pack_buffer = compress(non_const_data, params, edge_factory, show_progress);
-    int margin = verify(data, pack_buffer);
+    int margin = verify(non_const_data, pack_buffer);
     CONSOLE_VERBOSE(m_console) << "Minimum safety margin for overlapped decrunching: " << margin << std::endl;
 
     // Convert to array of bytes
@@ -102,8 +102,7 @@ vector<unsigned char> shrinkler::crunch(const vector<unsigned char>& data, PackP
 }
 
 // TODO: verify all of this!
-// TODO: are we sure we don't want to pass data by refernece?
-int shrinkler::verify(vector<unsigned char> data, vector<uint32_t>& pack_buffer)
+int shrinkler::verify(vector<unsigned char>& data, vector<uint32_t>& pack_buffer)
 {
     CONSOLE_VERBOSE(m_console) << "Verifying..." << std::endl;
 
