@@ -109,7 +109,7 @@ vector<unsigned char> shrinkler::crunch(const vector<unsigned char>& data, PackP
     // TODO: we're going to make compress() also a class member, and then we can remove this.
     vector<uint32_t> pack_buffer = libgbaic::compress(non_const_data, params, edge_factory, show_progress);
     int margin = verify(data, pack_buffer);
-    CONSOLE_OUT(m_console) << "Minimum safety margin for overlapped decrunching: " << margin << std::endl;
+    CONSOLE_VERBOSE(m_console) << "Minimum safety margin for overlapped decrunching: " << margin << std::endl;
 
     // Convert to array of bytes
     vector<unsigned char> packed_bytes;
