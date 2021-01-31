@@ -28,7 +28,6 @@ set(
   include/console.hpp
   include/input_file.hpp
   include/options.hpp
-  include/log.hpp
   include/shrinkler.hpp
   src/input_file.cpp
   src/options.cpp
