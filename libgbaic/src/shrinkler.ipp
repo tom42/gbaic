@@ -34,6 +34,9 @@
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4018 4100 4244 4389 4456 4458)
+#if defined(_WIN64)
+#pragma warning(disable:4267)
+#endif
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
