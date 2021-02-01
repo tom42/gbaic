@@ -111,7 +111,6 @@ int shrinkler::verify(vector<unsigned char>& data, vector<uint32_t>& pack_buffer
     LZDecoder lzd(&decoder);
 
     // Verify data
-    bool error = false; // TODO: remove
     LZVerifier verifier(0, &data[0], data.size(), data.size());
     decoder.reset();
     decoder.setListener(&verifier);
@@ -122,15 +121,9 @@ int shrinkler::verify(vector<unsigned char>& data, vector<uint32_t>& pack_buffer
 
     // Check length
     auto decompressed_data_size = verifier.size();
-    if (!error && static_cast<std::make_unsigned<decltype(decompressed_data_size)>::type>(decompressed_data_size) != data.size())
+    if (static_cast<std::make_unsigned<decltype(decompressed_data_size)>::type>(decompressed_data_size) != data.size())
     {
         throw runtime_error(format("INTERNAL ERROR: decompressed data has incorrect length ({}, should have been {})", verifier.size(), data.size()));
-    }
-
-    if (error)
-    {
-        // TODO: need to remove this: this mentions Blueberry, who maybe does not want bugreports from gbaic users.
-        internal_error();
     }
 
     return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size();
