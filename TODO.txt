@@ -1,13 +1,13 @@
-* shrinkler.cpp
-  * Devilish idea: we simply redefine printf and fflush. Muhaha.
-  * Get rid of printf
 * Final test with shrinkler: dump output data and compare with the stored file from shrinkler-arm repo
   * Well perhaps make that a unit test???
-* Get release build(s) to work
+* Get release build to work (x86)
 * Get it to compile with MSVC x64
-* OK, back to shrinkler first:
-  * We can successfully load ELF files (one particular anyway)
-    * Now we must compress that using shrinkler data compression
+  * Debug
+  * Release
+* Test debug/release build with
+  * gcc 64
+  * gcc 32
+  * clang?
 * Need a break from shrinkler:
   * Wrap up input file loading:
     * Optional flat binary loading (with the option to specify load address and entry point!)
