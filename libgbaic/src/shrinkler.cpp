@@ -142,12 +142,9 @@ vector<uint32_t> shrinkler::compress(vector<unsigned char>& data, PackParams& pa
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
 
     // Crunch the data
-    // TODO: remove printfs?
     range_coder.reset();
     packData(&data[0], data.size(), 0, &params, &range_coder, &edge_factory, show_progress);
     range_coder.finish();
-    printf("\n\n");
-    fflush(stdout);
 
     return pack_buffer;
 }
