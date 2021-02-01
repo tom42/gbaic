@@ -21,6 +21,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#if defined(_MSC_VER)
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
+#include <cstdio>
+#include <iostream>
+
+#define printf shrinkler_printf
+static int shrinkler_printf(const char* format, ...)
+{
+    // TODO: real implementation: filter/transform unwanted statements, others let through (e.g. verification messages)
+    // TODO: move this printf replacement into a separate printf_replacement.ipp, and document here what order stuff needs to be included in
+    std::cout << format << std::endl;
+    return 0;
+}
+
+#if defined(_MSC_VER)
+#undef _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "shrinkler.ipp"
 
 #include <cstdint>
