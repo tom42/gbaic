@@ -27,6 +27,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <stdexcept>
+#include <type_traits>
 #include "fmt/core.h"
 #include "console.hpp"
 #include "shrinkler.hpp"
@@ -120,8 +121,8 @@ int shrinkler::verify(vector<unsigned char>& data, vector<uint32_t>& pack_buffer
     }
 
     // Check length
-    // TODO: cast to size_t silences about != signed/unsigned mismatch. Is this REALLY a problem?
-    if (!error && (size_t)verifier.size() != data.size())
+    auto decompressed_data_size = verifier.size();
+    if (!error && static_cast<std::make_unsigned<decltype(decompressed_data_size)>::type>(decompressed_data_size) != data.size())
     {
         printf("Verify error: data has incorrect length (%d, should have been %d)!\n", verifier.size(), (int)data.size());
         error = true;
