@@ -22,7 +22,7 @@
 // SOFTWARE.
 
 // shrinkler.ipp: include all of Shrinkler's code we need.
-// Before doing so, disable warnings. Afterwards, enable them again.
+// Before doing so, disable selected warnings. Afterwards, enable them again.
 
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic push
