@@ -39,7 +39,7 @@ using fmt::format;
 using std::runtime_error;
 using std::vector;
 
-static void packData2(unsigned char* data, int data_length, int zero_padding, PackParams* params, Coder* result_coder, RefEdgeFactory* edge_factory, bool show_progress) {
+static void packData2(console& console, unsigned char* data, int data_length, int zero_padding, PackParams* params, Coder* result_coder, RefEdgeFactory* edge_factory, bool show_progress) {
     MatchFinder finder(data, data_length, 2, params->match_patience, params->max_same_length);
     LZParser parser(data, data_length, zero_padding, finder, params->length_margin, params->skip_length, edge_factory);
     result_size_t real_size = 0;
@@ -54,10 +54,8 @@ static void packData2(unsigned char* data, int data_length, int zero_padding, Pa
     else {
         progress = new NoProgress();
     }
-    printf("%8d", data_length);
+    CONSOLE_OUT(console) << "Original: " << data_length << std::endl;
     for (int i = 0; i < params->iterations; i++) {
-        printf("  ");
-
         // Parse data into LZ symbols
         LZParseResult& result = results[1 - best_result];
         Coder* measurer = new SizeMeasuringCoder(counting_coder);
@@ -79,7 +77,7 @@ static void packData2(unsigned char* data, int data_length, int zero_padding, Pa
         }
 
         // Print size
-        printf("%14.3f", real_size / (double)(8 << Coder::BIT_PRECISION));
+        CONSOLE_OUT(console) << format("Pass {}: {:.3f}", i + 1, real_size / (double)(8 << Coder::BIT_PRECISION)) << std::endl;
 
         // Count symbol frequencies
         CountingCoder* new_counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
@@ -193,7 +191,7 @@ vector<uint32_t> shrinkler::compress(vector<unsigned char>& data, PackParams& pa
 
     // Crunch the data
     range_coder.reset();
-    packData2(&data[0], data.size(), 0, &params, &range_coder, &edge_factory, show_progress);
+    packData2(m_console, &data[0], data.size(), 0, &params, &range_coder, &edge_factory, show_progress);
     range_coder.finish();
 
     return pack_buffer;
