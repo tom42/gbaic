@@ -111,21 +111,20 @@ int shrinkler::verify(vector<unsigned char>& data, vector<uint32_t>& pack_buffer
     LZDecoder lzd(&decoder);
 
     // Verify data
-    bool error = false;
+    bool error = false; // TODO: remove
     LZVerifier verifier(0, &data[0], data.size(), data.size());
     decoder.reset();
     decoder.setListener(&verifier);
     if (!lzd.decode(verifier))
     {
-        throw runtime_error("INTERNAL ERROR: could not verify compressed data");
+        throw runtime_error("INTERNAL ERROR: could not verify decompressed data");
     }
 
     // Check length
     auto decompressed_data_size = verifier.size();
     if (!error && static_cast<std::make_unsigned<decltype(decompressed_data_size)>::type>(decompressed_data_size) != data.size())
     {
-        printf("Verify error: data has incorrect length (%d, should have been %d)!\n", verifier.size(), (int)data.size());
-        error = true;
+        throw runtime_error(format("INTERNAL ERROR: decompressed data has incorrect length ({}, should have been {})", verifier.size(), data.size()));
     }
 
     if (error)
