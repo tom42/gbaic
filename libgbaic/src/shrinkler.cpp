@@ -141,15 +141,6 @@ vector<uint32_t> shrinkler::compress(vector<unsigned char>& data, PackParams& pa
     vector<uint32_t> pack_buffer;
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
 
-    // Print compression status header
-    // TODO: do we want this? Like that, with printfs?
-    static const char* const ordinals[] = { "st", "nd", "rd", "th" };
-    printf("Original");
-    for (int p = 1; p <= params.iterations; p++) {
-        printf("  After %d%s pass", p, ordinals[min(p, 4) - 1]);
-    }
-    printf("\n");
-
     // Crunch the data
     // TODO: remove printfs?
     range_coder.reset();
