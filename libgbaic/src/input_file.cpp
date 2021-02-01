@@ -183,7 +183,6 @@ static void check_header(elfio& reader)
 
     // TODO: store this, we're going to need it.
     //       Do we limit the entry points we are going to accept? Well perhaps, but not in this class.
-    //       How do we find the load address, anyway?
 }
 
 static void throw_if_invalid_load_segment(segment* seg)
