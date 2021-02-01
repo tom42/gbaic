@@ -102,7 +102,6 @@ vector<unsigned char> shrinkler::crunch(const vector<unsigned char>& data, PackP
     return packed_bytes;
 }
 
-// TODO: verify all of this!
 int shrinkler::verify(vector<unsigned char>& data, vector<uint32_t>& pack_buffer)
 {
     CONSOLE_VERBOSE(m_console) << "Verifying..." << std::endl;
