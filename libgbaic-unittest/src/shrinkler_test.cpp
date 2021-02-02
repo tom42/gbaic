@@ -24,6 +24,7 @@
 #include <boost/test/unit_test.hpp>
 #include "console.hpp"
 #include "shrinkler.hpp"
+#include "test_utilities.hpp"
 
 namespace libgbaic_unittest
 {
@@ -33,9 +34,11 @@ BOOST_AUTO_TEST_SUITE(shrinkler_test)
 BOOST_AUTO_TEST_CASE(shrinkler_test)
 {
     libgbaic::shrinkler shrinkler(libgbaic::console(false));
-    // TODO: load gbatracer.arm.ram.bin
-    // TODO: compress it
-    // TODO: compare it against some reference file
+    shrinkler.parameters(libgbaic::shrinkler_parameters(9));
+
+    shrinkler.compress(load_binary_file("lostmarbles.bin"));
+    // TODO: compare compressed against reference data
+    // TODO: put this test into separate test suite because it leaks
     BOOST_CHECK(false);
 }
 
