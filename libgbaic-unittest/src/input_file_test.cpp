@@ -22,23 +22,20 @@
 // SOFTWARE.
 
 #include <boost/algorithm/string.hpp>
-#include <boost/numeric/conversion/cast.hpp>
 #include <boost/test/unit_test.hpp>
 #include <filesystem>
-#include <fstream>
 #include <sstream>
 #include <stdexcept>
-#include <vector>
 #include "console.hpp"
 #include "input_file.hpp"
 #include "libgbaic_unittest_config.hpp"
+#include "test_utilities.hpp"
 
 namespace libgbaic_unittest
 {
 
 using std::filesystem::path;
 using std::runtime_error;
-using std::vector;
 
 static libgbaic::input_file load_elf_file(const path& filename)
 {
@@ -47,31 +44,6 @@ static libgbaic::input_file load_elf_file(const path& filename)
     libgbaic::input_file input_file(console);
     input_file.load(full_path);
     return input_file;
-}
-
-static vector<unsigned char> load_binary_file(const path& filename)
-{
-    path full_path = LIBGBAIC_UNITTEST_TESTDATA_DIRECTORY / filename;
-
-    // Open file, stop it from eating whitespace.
-    std::ifstream file(full_path, std::ios::binary);
-    BOOST_REQUIRE_MESSAGE(file, "Could not open " + full_path.string());
-    file.unsetf(std::ios::skipws);
-
-    // Create vector with sufficient capacity to hold entire file.
-    auto filesize = std::filesystem::file_size(full_path);
-    vector<unsigned char> data;
-    data.reserve(boost::numeric_cast<size_t>(filesize));
-
-    // Read entire file
-    data.insert(
-        data.begin(),
-        std::istream_iterator<unsigned char>(file),
-        std::istream_iterator<unsigned char>());
-    BOOST_REQUIRE_MESSAGE(file || file.eof(), "Error reading " + full_path.string());
-    file.close();
-
-    return data;
 }
 
 BOOST_AUTO_TEST_SUITE(input_file_test)
