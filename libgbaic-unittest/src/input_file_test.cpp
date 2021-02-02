@@ -40,7 +40,7 @@ using std::runtime_error;
 static libgbaic::input_file load_elf_file(const path& filename)
 {
     path full_path = LIBGBAIC_UNITTEST_TESTDATA_DIRECTORY / filename;
-    libgbaic::console console(false);
+    libgbaic::console console(false, false);
     libgbaic::input_file input_file(console);
     input_file.load(full_path);
     return input_file;
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_SUITE(input_file_test)
 
 BOOST_AUTO_TEST_CASE(load_elf_file_does_not_exist)
 {
-    libgbaic::console console(false);
+    libgbaic::console console(false, false);
     libgbaic::input_file input_file(console);
 
     BOOST_CHECK_EXCEPTION(
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(load_elf_file_is_invalid)
     std::stringstream s;
     s.write(&c, 1);
 
-    libgbaic::console console(false);
+    libgbaic::console console(false, false);
     libgbaic::input_file input_file(console);
 
     BOOST_CHECK_EXCEPTION(

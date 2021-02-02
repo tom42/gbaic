@@ -34,7 +34,7 @@ class console
 public:
     console() : console(&std::cout, &std::cout) {}
 
-    console(bool verbose_enabled) : console(&std::cout, verbose_enabled ? &std::cout : nullptr) {}
+    console(bool out_enabled, bool verbose_enabled) : console(out_enabled ? &std::cout : nullptr, verbose_enabled ? &std::cout : nullptr) {}
 
     bool out_enabled() const { return m_out != nullptr; }
     bool verbose_enabled() const { return m_verbose != nullptr; }

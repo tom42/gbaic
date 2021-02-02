@@ -35,7 +35,7 @@ static void process(const libgbaic::options& options)
     //       * Load input file (bin or elf)
     //       * Compress it (shrinkler or LZSS+Huffman)
     //       * Write output file (should automatically determine which one is the smallest)
-    libgbaic::console console(options.verbose());
+    libgbaic::console console(true, options.verbose());
 
     // TODO: catch all exceptions and rethrow one containing the input file name at the beginning of the message?
     //       That requires changing input_file not to do this, though.

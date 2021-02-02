@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_SUITE(shrinkler_test)
 
 BOOST_AUTO_TEST_CASE(shrinkler_test)
 {
-    libgbaic::shrinkler shrinkler(libgbaic::console(false));
+    libgbaic::shrinkler shrinkler(libgbaic::console(false, false));
     shrinkler.parameters(libgbaic::shrinkler_parameters(9));
 
     const auto actual_data = shrinkler.compress(load_binary_file("lostmarbles.bin"));

@@ -1,6 +1,3 @@
-* Final test with shrinkler: dump output data and compare with the stored file from shrinkler-arm repo
-  * Well perhaps make that a unit test???
-    * Unit test is basically finished, but prints rubbish to stdout. Change that.
 * Get it to compile with MSVC x64
   * Debug
   * Release
