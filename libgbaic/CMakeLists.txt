@@ -42,7 +42,12 @@ target_include_directories(
   libgbaic
   PRIVATE
   "${CMAKE_CURRENT_BINARY_DIR}"
-  "${PROJECT_SOURCE_DIR}/3rdparty/shrinkler/cruncher"
+  # Add Shrinkler's decruncher directory to the list of include directories,
+  # but do not add 3rdparty/shrinkler/cruncher which contains Shrinkler's
+  # C++ sources. This is because Shrinkler relies on being able to include
+  # its own assert.h along with the cassert and assert.h system headers.
+  # If the directory containing Shrinkler's assert.h is in the search path,
+  # then that will not work. Not with MSVC anyway.
   "${PROJECT_SOURCE_DIR}/3rdparty/shrinkler/decrunchers_bin"
   PUBLIC
   include)

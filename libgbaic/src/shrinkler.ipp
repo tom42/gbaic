@@ -40,8 +40,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "HunkFile.h"
-#include "Pack.h"
+#include "../../3rdparty/shrinkler/cruncher/HunkFile.h"
+#include "../../3rdparty/shrinkler/cruncher/Pack.h"
 
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
