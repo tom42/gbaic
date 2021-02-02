@@ -36,10 +36,9 @@ BOOST_AUTO_TEST_CASE(shrinkler_test)
     libgbaic::shrinkler shrinkler(libgbaic::console(false));
     shrinkler.parameters(libgbaic::shrinkler_parameters(9));
 
-    shrinkler.compress(load_binary_file("lostmarbles.bin"));
-    // TODO: compare compressed against reference data
-    // TODO: put this test into separate test suite because it leaks
-    BOOST_CHECK(false);
+    const auto actual_data = shrinkler.compress(load_binary_file("lostmarbles.bin"));
+    const auto expected_data = load_binary_file("lostmarbles.shrinkler.little-endian.bin");
+    BOOST_CHECK_EQUAL_COLLECTIONS(expected_data.begin(), expected_data.end(), actual_data.begin(), actual_data.end());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
