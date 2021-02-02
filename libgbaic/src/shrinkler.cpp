@@ -62,6 +62,7 @@ static void packData2(console& console, unsigned char* data, int data_length, in
         measurer->setNumberContexts(LZEncoder::NUMBER_CONTEXT_OFFSET, LZEncoder::NUM_NUMBER_CONTEXTS, data_length);
         finder.reset();
         result = parser.parse(LZEncoder(measurer), progress);
+        delete measurer;
 
         // Encode result using adaptive range coding
         vector<unsigned> dummy_result;
