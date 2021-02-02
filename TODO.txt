@@ -1,6 +1,11 @@
 * Final test with shrinkler: dump output data and compare with the stored file from shrinkler-arm repo
   * Well perhaps make that a unit test???
 * Get release build to work (x86)
+  * Problem is that we're messing around with the include path
+  * Try excluding shrinkler from the include path
+    * Not a bad idea anyway, since that way we cannot accidentally include it in other code.
+    * Yeah but this needs be documented, both in the CMskeLists
+      * And possibly also in shrinkler.ipp / shrinkler.hpp
 * Get it to compile with MSVC x64
   * Debug
   * Release
