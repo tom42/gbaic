@@ -1,3 +1,22 @@
+* Let's tackle those conversion problems in our own code
+  * I would not like to use boost for this, since so far I've managed to keep it out of production code
+  * Let's see what we need
+    * input_file.cpp: unsigned long long to size_t. Damit: that's uint64_t to uint32_t
+    * shrinkler.cpp:  casts from size_t to int.
+    * So that's only two, fairly manageable
+      * Be careful with that
+      * Quote from http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1879.htm
+        "properly determining whether a source value is in range for a given destination type is tricky
+        because [that] involves comparing a value of a type with the boundary values of a different type,
+        [a] task that itself requires a numeric conversion. This is in fact so difficult that
+        boost::numeric_cast<> had it wrong for certain cases for years, even after a number of revisions"
+      * Oh yeah.
+        * So perhaps we do this simply for the 2 required conversions
+          * unsigned long long => unsigned int
+          * unsigned int => int
+        * Problem is, if we implement some sort of e.g.:    int to_int(size_t s);
+          Then we lose the ability to search for _cast and fix things later.
+          Well, but then, nothing stops is from naming it e.g. to_int_cast. Muhahaha?
 * Get it to compile with MSVC x64
   * Debug
   * Release
