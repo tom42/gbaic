@@ -41,6 +41,7 @@
 // Values 0 and 1 mean no alignment is required. Otherwise, p_align should be a positive,
 // integral power of 2, and p_vaddr should equal p_offset, modulo p_align."
 
+#include <boost/numeric/conversion/cast.hpp>
 #include <fstream>
 #include <stdexcept>
 #include <string>
@@ -358,9 +359,7 @@ void input_file::convert_to_binary(elfio& reader)
                 {
                     // Move to start of segment in output. Fill up with padding bytes.
                     const auto nbytes = current->get_virtual_address() - output_address;
-                    // TODO: cast needed for x86. For the sake of paranoia, don't blindly cast. Check if nbytes fits into size_t first.
-                    //       If it doesn't, throw.
-                    m_data.insert(m_data.end(), static_cast<size_t>(nbytes), 0);
+                    m_data.insert(m_data.end(), boost::numeric_cast<size_t>(nbytes), 0);
                     output_address += nbytes;
                 }
                 else
