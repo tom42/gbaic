@@ -6,6 +6,11 @@
     * Delete the cxxopts submodule
     * Add shrinkler as subtree
     * Add argp-standalone as subtree
+* Next up, coding wise
+  * Either LZSS+H4 alternative compression scheme
+  * Or final binary output, using shrinkler for starters
+    * That would require us to write that assembler library.
+      * Well we could do this. We've come pretty far there.
 * Test debug/release build with
   * gcc 64
   * gcc 32
