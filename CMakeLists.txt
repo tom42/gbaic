@@ -40,7 +40,7 @@ endif()
 # Find software packages
 ################################################################################
 
-find_package(Boost 1.74 COMPONENTS unit_test_framework)
+find_package(Boost 1.74)
 if(Boost_FOUND)
   message(STATUS "Boost include directories: ${Boost_INCLUDE_DIRS}")
   message(STATUS "Boost library directories: ${Boost_LIBRARY_DIRS}")
@@ -73,9 +73,4 @@ endif()
 
 add_subdirectory(libgbaic)
 add_subdirectory(gbaic)
-
-if(Boost_FOUND)
-  add_subdirectory(libgbaic-unittest)
-else()
-  message(STATUS "Boost Unit Test Framework not found. Unit tests will not be built.")
-endif()
+add_subdirectory(libgbaic-unittest)
