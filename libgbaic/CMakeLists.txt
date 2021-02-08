@@ -41,6 +41,7 @@ add_library(libgbaic ${SOURCES})
 target_include_directories(
   libgbaic
   PRIVATE
+  "${Boost_INCLUDE_DIRS}"
   "${CMAKE_CURRENT_BINARY_DIR}"
   # Add Shrinkler's decruncher directory to the list of include directories,
   # but do not add 3rdparty/shrinkler/cruncher which contains Shrinkler's

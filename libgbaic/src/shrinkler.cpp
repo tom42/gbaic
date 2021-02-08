@@ -23,6 +23,7 @@
 
 #include "shrinkler.ipp"
 
+#include <boost/numeric/conversion/cast.hpp>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -167,7 +168,7 @@ int shrinkler::verify(vector<unsigned char>& data, vector<uint32_t>& pack_buffer
     LZDecoder lzd(&decoder);
 
     // Verify data
-    LZVerifier verifier(0, &data[0], data.size(), data.size());
+    LZVerifier verifier(0, &data[0], boost::numeric_cast<int>(data.size()), boost::numeric_cast<int>(data.size()));
     decoder.reset();
     decoder.setListener(&verifier);
     if (!lzd.decode(verifier))
