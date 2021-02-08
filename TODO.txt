@@ -1,6 +1,11 @@
 * Let's tackle those conversion problems in our own code
   * Let's see what we need
     * input_file.cpp: unsigned long long to size_t. Damit: that's uint64_t to uint32_t
+* Stop using submodules?
+  * Use subtree everywhere:
+    * Delete the cxxopts submodule
+    * Add shrinkler as subtree
+    * Add argp-standalone as subtree
 * Test debug/release build with
   * gcc 64
   * gcc 32
@@ -26,12 +31,6 @@
   * Only include the packer sources
   * Include shrinkler's LICENSE.txt!
   * Include a README.md stating CLEARLY that this is NOT the original shrinkler
-* Stop using submodules?
-  * Just for real 3rd party modules. Keep it for our own, e.g. argp-standalone
-  * Or use subtree everywhere:
-    * Delete the cxxopts submodule
-    * Add shrinkler as subtree
-    * Add argp-standalone as subtree
 * Design input file loading
   * Binary files, with an assumed load address of IWRAM (do we allow overriding this?)
   * Elf files, which we convert to raw binary and whose load address we determine from the entry point
