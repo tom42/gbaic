@@ -183,7 +183,7 @@ int shrinkler::verify(vector<unsigned char>& data, vector<uint32_t>& pack_buffer
         throw runtime_error(format("INTERNAL ERROR: decompressed data has incorrect length ({}, should have been {})", verifier.size(), data.size()));
     }
 
-    return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size();
+    return boost::numeric_cast<int>(verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size());
 }
 
 vector<uint32_t> shrinkler::compress(vector<unsigned char>& data, PackParams& params, RefEdgeFactory& edge_factory, bool show_progress)
