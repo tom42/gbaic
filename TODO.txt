@@ -1,11 +1,5 @@
 * DECISION:
   * Make boost non-optional, so that we can use numeric_cast
-  * Make the unit test work optional
-    * This requires probing for the unit test framework as OPTIONAL_COMPONENT in top level CMakeLists.txt
-    * And we must change the condition from Boost_FOUND to Boost_XXX_FOUND for entering the unit test directory
-      * XXX is the unit test framework, read op docs for exact name and spelling
-    * Problem (?): Cygwin ist only at boost 1.66. Is this a problem at all?
-      * Yes it is, boost 1.66 does not compile with C++20. We need a newever version.
 * Let's tackle those conversion problems in our own code
   * I would not like to use boost for this, since so far I've managed to keep it out of production code
   * Let's see what we need

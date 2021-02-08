@@ -25,5 +25,9 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
 
+#if defined(__CYGWIN__)
+#define _POSIX_C_SOURCE 200112L
+#endif
+
 #define BOOST_TEST_MODULE libgbaic-unittest
 #include <boost/test/included/unit_test.hpp>
