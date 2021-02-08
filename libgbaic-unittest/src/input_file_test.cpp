@@ -79,8 +79,8 @@ BOOST_AUTO_TEST_CASE(load_elf_lostmarbles)
     auto input_file = load_elf_file("lostmarbles.elf");
     auto expected_data = load_binary_file("lostmarbles.bin");
 
-    BOOST_REQUIRE_EQUAL(0x03000000, input_file.entry());
-    BOOST_REQUIRE_EQUAL(0x03000000, input_file.load_address());
+    BOOST_REQUIRE_EQUAL(0x03000000u, input_file.entry());
+    BOOST_REQUIRE_EQUAL(0x03000000u, input_file.load_address());
     BOOST_CHECK_EQUAL_COLLECTIONS(expected_data.begin(), expected_data.end(), input_file.data().begin(), input_file.data().end());
 }
 
