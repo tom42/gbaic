@@ -1,6 +1,3 @@
-* Let's tackle those conversion problems in our own code
-  * Let's see what we need
-    * input_file.cpp: unsigned long long to size_t. Damit: that's uint64_t to uint32_t
 * Stop using submodules?
   * Use subtree everywhere:
     * Delete the cxxopts submodule
@@ -23,6 +20,8 @@
         * Load file
         * If options override entry, set it on the input file
         * If options override load address, set it on the input file
+        * Well be careful with that. Probably it is better to force the user to set
+          entry point and load address if the input is flat binary. Or do not support this at all (processing raw binaries, that is)
     * Remaining sanity checks. Either:
       * Implement them
       * Defer them
