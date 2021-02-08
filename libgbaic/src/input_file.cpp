@@ -375,7 +375,7 @@ void input_file::convert_to_binary(elfio& reader)
                 output_address += current->get_file_size();
             }
 
-            // TODO: make padding byte value configurable?
+            // TODO: make padding byte value configurable? Compressed size? Otoh, 0xff might be more healthy for flash devices?
             // TODO: final size checks(?)
             //       * Should we check whether there are any bytes at all?
             //       * Should we check for a maximum size?
