@@ -178,6 +178,7 @@ int shrinkler::verify(vector<unsigned char>& data, vector<uint32_t>& pack_buffer
 
     // Check length
     auto decompressed_data_size = verifier.size();
+    // TODO: use numeric cast instead
     if (static_cast<std::make_unsigned<decltype(decompressed_data_size)>::type>(decompressed_data_size) != data.size())
     {
         throw runtime_error(format("INTERNAL ERROR: decompressed data has incorrect length ({}, should have been {})", verifier.size(), data.size()));
