@@ -193,7 +193,7 @@ vector<uint32_t> shrinkler::compress(vector<unsigned char>& data, PackParams& pa
 
     // Crunch the data
     range_coder.reset();
-    packData2(m_console, &data[0], data.size(), 0, &params, &range_coder, &edge_factory, show_progress);
+    packData2(m_console, &data[0], boost::numeric_cast<int>(data.size()), 0, &params, &range_coder, &edge_factory, show_progress);
     range_coder.finish();
 
     return pack_buffer;
