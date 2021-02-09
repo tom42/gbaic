@@ -24,8 +24,3 @@
 add_subdirectory(argp-standalone)
 add_subdirectory(elfio)
 add_subdirectory(fmt)
-
-set(CXXOPTS_BUILD_EXAMPLES OFF CACHE BOOL "Set to ON to build examples" FORCE)
-set(CXXOPTS_BUILD_TESTS OFF CACHE BOOL "Set to ON to build tests" FORCE)
-set(CXXOPTS_ENABLE_INSTALL OFF CACHE BOOL "Generate the install target" FORCE)
-add_subdirectory(cxxopts)
