@@ -1,6 +1,5 @@
 * Stop using submodules?
   * Use subtree everywhere:
-    * Delete the cxxopts submodule
     * Add shrinkler as subtree
     * Add argp-standalone as subtree
 * Next up, coding wise
