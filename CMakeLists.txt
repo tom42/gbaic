@@ -40,7 +40,7 @@ endif()
 # Find software packages
 ################################################################################
 
-find_package(Boost 1.74)
+find_package(Boost 1.74 REQUIRED)
 if(Boost_FOUND)
   message(STATUS "Boost include directories: ${Boost_INCLUDE_DIRS}")
   message(STATUS "Boost library directories: ${Boost_LIBRARY_DIRS}")
