@@ -1,3 +1,5 @@
+* Do not forget to have a look at README.md from shrinkler-arm
+  * For instance, the depacker is not yet preserving registers!
 * Next up, coding wise
   * Either LZSS+H4 alternative compression scheme
   * Or final binary output, using shrinkler for starters
