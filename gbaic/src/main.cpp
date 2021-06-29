@@ -35,6 +35,7 @@ static void process(const libgbaic::options& options)
     //       * Load input file (bin or elf)
     //       * Compress it (shrinkler or LZSS+Huffman)
     //       * Write output file (should automatically determine which one is the smallest)
+    //         * Somewhere we need to fix up the checksum in the GBA cartridge header!
     libgbaic::console console(true, options.verbose());
 
     // TODO: catch all exceptions and rethrow one containing the input file name at the beginning of the message?
